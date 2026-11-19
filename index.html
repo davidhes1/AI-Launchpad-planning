@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>AI Career Launchpad Staff Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Overpass:wght@600;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Layout idea: one calm transit-map style throughout; phases are stops on a line */
+  --bg: #f6f5f1;
+  --surface: #ffffff;
+  --ink: #1d1c1a;
+  --muted: #5f5c55;
+  --line: #c8102e;
+  --rule: #dcd9d1;
+  --u2: #a35200; --u2-soft: #fdf0e1;
+  --u15: #3b5bdb; --u15-soft: #e9eefd;
+  --appr: #237a34;
+  --on-solid: #ffffff;
+  --display: "Overpass", "Arial Narrow", Arial, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #161514; --surface: #201f1d; --ink: #f1efe9; --muted: #b3afa6; --line: #ff4d5e; --rule: #3a3833;
+    --u2: #ffa94d; --u2-soft: #3a2a17; --u15: #8ea6ff; --u15-soft: #1f2640; --appr: #69db7c; --on-solid: #161514; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #161514; --surface: #201f1d; --ink: #f1efe9; --muted: #b3afa6; --line: #ff4d5e; --rule: #3a3833;
+  --u2: #ffa94d; --u2-soft: #3a2a17; --u15: #8ea6ff; --u15-soft: #1f2640; --appr: #69db7c; --on-solid: #161514; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.5; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--line); outline-offset: 2px; }
+h1, h2, h3, h4 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.15; }
+p { margin: 0; }
+
+/* shell */
+.skip { position: absolute; left: -9999px; top: 8px; }
+.skip:focus { left: 12px; z-index: 20; padding: 8px 12px; background: var(--surface); color: var(--ink); border: 2px solid var(--line); border-radius: 8px; font: inherit; font-weight: 700; }
+.topbar { background: var(--surface); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 10; }
+.topbar-inner { max-width: 1120px; margin: 0 auto; padding: 10px 20px 0; }
+.brand { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.brand strong { font-family: var(--display); font-weight: 800; font-size: 1.05rem; }
+.brand span { font-size: 0.85rem; color: var(--muted); }
+.topnav { display: flex; flex-wrap: wrap; gap: 2px; margin-top: 6px; }
+@media (max-width: 760px) { .topnav { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: thin; } }
+.topnav a { text-decoration: none; padding: 8px 10px; font-weight: 700; font-size: 0.92rem; white-space: nowrap; border-bottom: 4px solid transparent; color: var(--muted); }
+.topnav a:hover { color: var(--ink); }
+.topnav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--line); }
+.topnav a .num { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; border: 3px solid var(--line); font-size: 0.7rem; margin-right: 6px; color: var(--ink); line-height: 1; }
+.topnav .sep { width: 1px; background: var(--rule); margin: 8px 6px; flex: none; }
+main { min-height: 70vh; }
+main:focus { outline: none; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 28px 20px 56px; display: grid; gap: 32px; }
+.wrap > *, .grid > *, .stack > *, .duty-grid > * { min-width: 0; }
+footer { border-top: 1px solid var(--rule); color: var(--muted); font-size: 0.85rem; }
+footer .wrap { padding-top: 18px; padding-bottom: 28px; gap: 4px; }
+
+/* common pieces */
+.eyebrow { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.lede { color: var(--muted); max-width: 70ch; font-size: 1.08rem; margin-top: 8px; }
+h1 { font-size: 2.2rem; font-weight: 800; }
+h2 { font-size: 1.4rem; font-weight: 800; margin-bottom: 12px; }
+h3 { font-size: 1.12rem; font-weight: 800; }
+.panel { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 16px 18px; }
+.grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.stack { display: grid; gap: 10px; align-content: start; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-flex; align-items: baseline; gap: 6px; border-radius: 6px; padding: 3px 9px; font-size: 0.93rem; line-height: 1.3; }
+.chip b { font-family: var(--display); font-weight: 800; font-size: 0.82rem; white-space: nowrap; }
+.chip.u2 { background: var(--u2-soft); color: var(--ink); border: 2px solid var(--u2); }
+.chip.u2 b { color: var(--u2); }
+.chip.u15 { background: var(--u15-soft); color: var(--ink); border: 2px solid var(--u15); }
+.chip.u15 b { color: var(--u15); }
+.chip.opt { background: transparent; border-style: dashed; }
+.p-u2 { color: var(--u2); font-weight: 700; }
+.p-u15 { color: var(--u15); font-weight: 700; }
+.p-appr { color: var(--appr); font-weight: 700; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 12px; background: var(--surface); }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--rule); vertical-align: top; font-size: 0.97rem; }
+th { font-family: var(--display); font-weight: 800; font-size: 0.9rem; background: var(--bg); }
+tr:last-child td { border-bottom: 0; }
+.note { border-left: 5px solid var(--line); background: var(--surface); padding: 12px 16px; border-radius: 0 10px 10px 0; }
+.small-note { font-size: 0.9rem; color: var(--muted); }
+.tile { text-decoration: none; }
+.tile:hover { border-color: var(--ink); }
+
+/* hours bars */
+.barblock { display: grid; gap: 4px; }
+.bar { display: flex; height: 30px; border-radius: 6px; overflow: hidden; gap: 2px; }
+.seg { display: flex; align-items: center; padding: 0 8px; font-size: 0.8rem; font-weight: 700; white-space: nowrap; overflow: hidden; min-width: 0; }
+.seg.proj.c-u15 { background: var(--u15); color: var(--on-solid); }
+.seg.proj.c-u2 { background: var(--u2); color: var(--on-solid); }
+.seg.proj.c-n { background: var(--muted); color: var(--surface); }
+.seg.hnc.c-u15 { background: var(--u15-soft); color: var(--u15); box-shadow: inset 0 0 0 2px var(--u15); }
+.seg.hnc.c-u2 { background: var(--u2-soft); color: var(--u2); box-shadow: inset 0 0 0 2px var(--u2); }
+.seg.hnc.c-n { background: var(--surface); color: var(--ink); box-shadow: inset 0 0 0 2px var(--muted); }
+.seg.appr { background: var(--appr); color: var(--on-solid); }
+.barrow { display: grid; grid-template-columns: 100px 1fr; gap: 10px; align-items: center; }
+.barrow .lbl { font-size: 0.85rem; font-weight: 700; color: var(--muted); }
+.barnote { font-size: 0.88rem; color: var(--muted); margin-left: 110px; }
+.seg .short { display: none; }
+
+.hourskey { display: grid; gap: 6px; font-size: 0.95rem; }
+.hourskey .sw { display: inline-block; width: 14px; height: 14px; border-radius: 3px; margin-right: 8px; vertical-align: -2px; }
+.sw-proj { background: var(--muted); }
+.sw-hnc { background: var(--surface); box-shadow: inset 0 0 0 2px var(--muted); }
+.sw-appr { background: var(--appr); }
+.cov td { vertical-align: top; }
+.cov .gap { color: var(--u2); font-weight: 700; }
+details.matrixbox > summary { cursor: pointer; font-weight: 700; font-family: var(--display); padding: 12px 16px; background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; }
+details.matrixbox[open] > summary { margin-bottom: 12px; }
+
+
+/* ---------- visual components ---------- */
+.ico { width: 22px; height: 22px; flex: none; }
+.ico-lg { width: 30px; height: 30px; }
+.icohead { display: flex; align-items: center; gap: 10px; }
+.icohead .ico { color: var(--line); }
+
+/* rising levels */
+.levels { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; align-items: stretch; }
+.lvl { display: grid; grid-template-rows: 160px 1fr; }
+.lvl .barcol { align-self: end; }
+.lvl .barcol { border-radius: 10px 10px 0 0; background: var(--line); color: var(--on-solid); display: flex; align-items: flex-start; justify-content: space-between; padding: 10px 12px; }
+.lvl .barcol b { font-family: var(--display); font-weight: 800; font-size: 1.6rem; line-height: 1; }
+.lvl .barcol .ico { color: var(--on-solid); }
+.lvl:nth-child(1) .barcol { height: 64px; opacity: .55; }
+.lvl:nth-child(2) .barcol { height: 96px; opacity: .7; }
+.lvl:nth-child(3) .barcol { height: 128px; opacity: .85; }
+.lvl:nth-child(4) .barcol { height: 160px; }
+.lvl .panel { border-top-left-radius: 0; border-top-right-radius: 0; margin-top: -10px; display: grid; gap: 6px; }
+.lvl .q { font-weight: 700; }
+.lvl .who { font-size: 0.85rem; font-weight: 700; color: var(--muted); }
+.arrowline { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 0.9rem; font-weight: 700; margin-top: 10px; }
+.arrowline::after { content: ""; flex: 1; height: 3px; background: linear-gradient(90deg, var(--rule), var(--line)); border-radius: 2px; }
+@media (max-width: 760px) { .levels { grid-template-columns: 1fr 1fr; } .lvl { grid-template-rows: 110px 1fr; } .lvl:nth-child(1) .barcol { height: 44px; } .lvl:nth-child(2) .barcol { height: 66px; } .lvl:nth-child(3) .barcol { height: 88px; } .lvl:nth-child(4) .barcol { height: 110px; } }
+
+/* evaluation board */
+.board { display: grid; grid-template-columns: 130px repeat(7, minmax(110px, 1fr)); gap: 6px; min-width: 980px; padding: 12px; }
+.board .bh { font-family: var(--display); font-weight: 800; font-size: 0.8rem; padding: 8px 8px 6px; border-radius: 8px; text-align: center; line-height: 1.2; }
+.board .bh span { display: block; font-weight: 600; font-size: 0.74rem; opacity: .85; }
+.bh.out { background: var(--bg); color: var(--muted); border: 1px dashed var(--rule); }
+.bh.blk { background: var(--line); color: var(--on-solid); }
+.bh.fb { background: transparent; color: var(--line); border: 2px dashed var(--line); }
+.board .lv { display: flex; align-items: center; gap: 8px; font-family: var(--display); font-weight: 800; font-size: 0.9rem; padding: 8px; background: var(--bg); border-radius: 8px; }
+.board .lv .ico { color: var(--line); width: 20px; height: 20px; }
+.board .cell { display: grid; gap: 5px; align-content: start; padding: 6px; border-radius: 8px; background: var(--bg); min-height: 44px; }
+.ev { display: grid; grid-template-columns: auto 1fr; gap: 6px; align-items: start; background: var(--surface); border: 1px solid var(--rule); border-radius: 7px; padding: 5px 7px; font-size: 0.8rem; line-height: 1.25; }
+.ev .wk { font-family: var(--display); font-weight: 800; font-size: 0.7rem; background: var(--line); color: var(--on-solid); border-radius: 999px; padding: 2px 6px; white-space: nowrap; }
+.ev.rep .wk { background: var(--u15); }
+.ev.loop { border-style: dashed; background: transparent; }
+.ev.loop .wk { background: transparent; color: var(--line); border: 1.5px solid var(--line); }
+.boardkey { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.85rem; color: var(--muted); margin-top: 10px; }
+.boardkey span { display: inline-flex; align-items: center; gap: 6px; }
+.boardkey i { display: inline-block; width: 22px; height: 14px; border-radius: 999px; }
+
+/* proposed vs lighter */
+.swaps { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.swap { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 14px 16px; display: grid; gap: 10px; align-content: start; }
+.swap .pair { display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; align-items: stretch; }
+.swap .was, .swap .now { border-radius: 8px; padding: 8px 10px; font-size: 0.9rem; }
+.swap .was { background: var(--bg); color: var(--muted); }
+.swap .now { background: var(--surface); border: 2px solid var(--appr); }
+.swap .lab { display: block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
+.swap .now .lab { color: var(--appr); }
+.swap .arr { align-self: center; color: var(--muted); font-weight: 800; }
+.swap .why { font-size: 0.88rem; color: var(--muted); }
+@media (max-width: 560px) { .swap .pair { grid-template-columns: 1fr; } .swap .arr { transform: rotate(90deg); justify-self: center; } }
+
+/* status columns */
+.cols3 { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); align-items: start; }
+.col { border-radius: 12px; border: 1px solid var(--rule); background: var(--surface); overflow: hidden; }
+.col > h3 { padding: 10px 14px; display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--rule); }
+.col > h3 .n { font-family: var(--display); font-size: 1.3rem; }
+.col.ok > h3 { border-top: 5px solid var(--appr); }
+.col.sug > h3 { border-top: 5px solid var(--u15); }
+.col.op > h3 { border-top: 5px solid var(--u2); }
+.col .it { padding: 10px 14px; border-bottom: 1px solid var(--rule); display: grid; gap: 3px; }
+.col .it:last-child { border-bottom: 0; }
+.col .it b { font-size: 0.95rem; }
+.col .it span { font-size: 0.88rem; color: var(--muted); }
+
+/* aims */
+.aims { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.aim { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 14px 16px; }
+.aim .circ { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--line); color: var(--on-solid); }
+.aim .circ .ico { color: var(--on-solid); }
+
+/* links between course and evaluation */
+.links { display: grid; gap: 10px; }
+.link { display: grid; grid-template-columns: minmax(0,1fr) 34px minmax(0,1fr); gap: 8px; align-items: center; }
+.link .a, .link .b { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 10px 12px; font-size: 0.93rem; height: 100%; }
+.link .a { border-left: 5px solid var(--u15); }
+.link .b { border-left: 5px solid var(--line); }
+.link .a .lab, .link .b .lab { display: block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.link .mid { text-align: center; color: var(--line); font-weight: 800; font-size: 1.2rem; }
+.links-head { display: grid; grid-template-columns: minmax(0,1fr) 34px minmax(0,1fr); gap: 8px; font-family: var(--display); font-weight: 800; font-size: 0.85rem; color: var(--muted); }
+@media (max-width: 560px) { .link, .links-head { grid-template-columns: 1fr; } .link .mid { transform: rotate(90deg); } .links-head span:nth-child(2) { display: none; } }
+
+/* week ruler */
+.ruler { min-width: 900px; padding: 14px 14px 8px; display: grid; gap: 6px; }
+.ruler .row { display: grid; grid-template-columns: repeat(24, 1fr); gap: 2px; }
+.ruler .band { font-family: var(--display); font-weight: 800; font-size: 0.78rem; text-align: center; padding: 6px 2px; border-radius: 6px; background: var(--line); color: var(--on-solid); white-space: nowrap; overflow: hidden; }
+.ruler .band.fb { background: transparent; color: var(--line); border: 2px dashed var(--line); padding: 4px 2px; }
+.ruler .wk { font-size: 0.7rem; color: var(--muted); text-align: center; border-top: 1px solid var(--rule); padding-top: 3px; }
+.ruler .dspan { position: relative; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0 6px; padding: 6px 22px 6px 8px; border: 2px solid var(--line); border-radius: 8px; background: var(--surface); font-size: 0.78rem; white-space: nowrap; overflow: visible; }
+.ruler .dspan .dl { font-family: var(--display); font-weight: 800; }
+.ruler .dspan .due { color: var(--muted); font-weight: 700; font-size: 0.72rem; }
+.ruler .dspan i { position: absolute; right: -8px; top: 50%; width: 14px; height: 14px; margin-top: -7px; background: var(--line); transform: rotate(45deg); border-radius: 2px; }
+
+/* grading ladder and resubmission flow */
+.ladder { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; align-items: end; }
+.step { border-radius: 12px; padding: 14px; display: grid; gap: 6px; align-content: start; background: var(--surface); border: 1px solid var(--rule); }
+.step .gr { font-family: var(--display); font-weight: 800; font-size: 1.5rem; }
+.step .need { display: flex; gap: 4px; flex-wrap: wrap; }
+.step .need span { font-family: var(--display); font-weight: 800; font-size: 0.75rem; padding: 2px 8px; border-radius: 999px; border: 2px solid var(--ink); }
+.step.s1 { min-height: 150px; }
+.step.s2 { min-height: 190px; border-top: 5px solid var(--u15); }
+.step.s3 { min-height: 230px; border-top: 5px solid var(--line); }
+@media (max-width: 560px) { .ladder { grid-template-columns: 1fr; } .step { min-height: 0 !important; } }
+.flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; }
+.flow .node { flex: 1 1 150px; background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 10px 12px; display: grid; gap: 3px; align-content: start; font-size: 0.92rem; }
+.flow .node b { font-family: var(--display); }
+.flow .node.end { border: 2px solid var(--line); }
+.flow .to { align-self: center; color: var(--line); font-weight: 800; font-size: 1.3rem; }
+@media (max-width: 560px) { .flow .to { width: 100%; text-align: center; transform: rotate(90deg); } }
+
+/* brief anatomy */
+.brief { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+.doc { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; box-shadow: 6px 6px 0 var(--rule); padding: 16px; display: grid; gap: 10px; position: relative; }
+.doc .part { border-radius: 8px; padding: 10px 12px; display: grid; gap: 3px; font-size: 0.92rem; }
+.doc .part b { font-family: var(--display); }
+.doc .hdr { background: var(--bg); }
+.doc .core { border: 2px solid var(--ink); }
+.doc .opt { border: 2px dashed var(--muted); }
+.doc .stamp { position: absolute; top: -12px; right: 14px; transform: rotate(4deg); background: var(--surface); border: 2px solid var(--appr); color: var(--appr); font-family: var(--display); font-weight: 800; font-size: 0.75rem; padding: 3px 8px; border-radius: 6px; }
+@media (max-width: 760px) { .brief { grid-template-columns: 1fr; } }
+
+/* decisions */
+section[id] { scroll-margin-top: 130px; }
+.dgrid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); align-items: start; }
+.dcard { background: var(--surface); border: 1px solid var(--rule); border-left: 6px solid var(--u2); border-radius: 10px; padding: 12px 14px; display: grid; gap: 6px; }
+.dcard.agreed { border-left-color: var(--appr); }
+.dcard h3 { font-size: 1.02rem; display: flex; gap: 8px; align-items: flex-start; }
+.dcard h3 .ico { width: 20px; height: 20px; color: var(--u2); margin-top: 1px; }
+.dcard.agreed h3 .ico { color: var(--appr); }
+.dcard p { font-size: 0.93rem; }
+.dhead { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.dhead h2 { margin: 0; }
+.dhead .n { font-family: var(--display); font-weight: 800; font-size: 0.85rem; padding: 2px 10px; border-radius: 999px; background: var(--surface); border: 1px solid var(--rule); }
+.dsum { display: flex; flex-wrap: wrap; gap: 10px; }
+.dsum button { flex: 1 1 170px; font: inherit; color: inherit; text-align: left; cursor: pointer; background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 12px 14px; display: grid; gap: 2px; }
+.dsum button:hover { border-color: var(--ink); }
+.dsum b { font-family: var(--display); font-size: 1.8rem; line-height: 1; }
+.dsum .ag b { color: var(--appr); }
+.dsum .op b { color: var(--u2); }
+
+/* checklist */
+.checks { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.check { display: grid; grid-template-columns: auto 1fr; gap: 12px; background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 14px; align-items: start; }
+.check .num { width: 32px; height: 32px; border-radius: 50%; border: 3px solid var(--line); display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: 0.9rem; }
+.check h3 { font-size: 1rem; margin-bottom: 4px; }
+.check p { font-size: 0.93rem; }
+
+/* status pills */
+.pill { display: inline-block; font-size: 0.78rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; }
+.pill.open { color: var(--u2); }
+.pill.agreed { color: var(--appr); }
+.pill.potential { color: var(--u15); border-style: dashed; margin-top: 4px; }
+.pill.core { color: var(--line); }
+.pill.folded { color: var(--muted); }
+
+/* home transit line */
+.line-h { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; padding-top: 30px; }
+.line-h::before { content: ""; position: absolute; top: 42px; left: 6%; right: 6%; height: 8px; background: var(--line); border-radius: 4px; }
+.station { position: relative; display: grid; grid-template-rows: auto 1fr; gap: 8px; text-decoration: none; color: inherit; }
+.station .dot { width: 32px; height: 32px; border-radius: 50%; background: var(--surface); border: 7px solid var(--line); position: relative; z-index: 1; }
+.station .card { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 14px 16px; display: grid; gap: 6px; height: 100%; align-content: start; }
+.station:hover .card { border-color: var(--ink); }
+.station .wks { font-family: var(--display); font-weight: 800; color: var(--line); font-size: 0.9rem; }
+.station h3 { font-size: 1.35rem; }
+.station .duties { font-size: 0.92rem; color: var(--muted); }
+.station .cp { font-size: 0.92rem; border-top: 1px solid var(--rule); padding-top: 6px; }
+@media (max-width: 760px) {
+  .line-h { grid-template-columns: 1fr; padding-top: 0; padding-left: 40px; }
+  .line-h::before { top: 10px; bottom: 10px; left: 13px; right: auto; width: 7px; height: auto; }
+  .station .dot { position: absolute; left: -40px; top: 12px; width: 28px; height: 28px; border-width: 6px; }
+}
+
+/* mapping matrix */
+.matrix td, .matrix th { text-align: center; padding: 6px 4px; font-size: 0.85rem; }
+.matrix td:first-child, .matrix th:first-child, .matrix td:nth-child(2), .matrix th:nth-child(2) { text-align: left; padding-left: 12px; }
+.matrix td:first-child, .matrix th:first-child { position: sticky; left: 0; z-index: 1; background: var(--surface); white-space: nowrap; }
+.matrix th:first-child { background: var(--bg); }
+.matrix .s { color: var(--appr); font-size: 1.1rem; }
+.matrix .p { color: var(--u2); font-size: 1.1rem; }
+.matrix tr.cut td { color: var(--muted); }
+.matrix tr.kept td:first-child { font-weight: 700; }
+.matrix th.u2h { color: var(--u2); }
+.matrix th.u15h { color: var(--u15); }
+
+/* phase pages */
+.phase-hero { display: grid; gap: 10px; border-bottom: 1px solid var(--rule); padding-bottom: 20px; }
+.phase-step { display: flex; gap: 6px; align-items: center; }
+.phase-step i { width: 26px; height: 8px; border-radius: 4px; background: var(--rule); }
+.phase-step i.on { background: var(--line); }
+.phase-hero .meta { display: flex; flex-wrap: wrap; gap: 8px; }
+.phase-hero .meta span { font-size: 0.85rem; font-weight: 700; padding: 3px 10px; border: 1px solid var(--rule); border-radius: 999px; background: var(--surface); }
+.duty-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+.duty { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 18px; display: grid; gap: 12px; align-content: start; }
+.duty .tag { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--line); }
+.duty .wording { font-size: 0.95rem; color: var(--muted); border-left: 3px solid var(--rule); padding-left: 10px; display: grid; gap: 2px; }
+.crit { display: grid; gap: 4px; padding: 10px 12px; border-radius: 8px; background: var(--bg); border: 1px solid var(--rule); }
+.crit .q { font-size: 0.93rem; color: var(--muted); }
+.crit .ev { font-size: 0.95rem; }
+.ksb, .apprline { font-size: 0.9rem; color: var(--muted); }
+.weeks-list { display: grid; gap: 8px; }
+.wkrow { display: grid; grid-template-columns: 74px 1fr auto; gap: 12px; align-items: baseline; background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 10px 14px; }
+.wkrow .w { font-family: var(--display); font-weight: 700; color: var(--line); }
+.wkrow.cp { border: 2px solid var(--line); }
+.wkrow.after { border-style: dashed; background: transparent; }
+.checkpoint { display: grid; gap: 6px; border: 2px solid var(--line); border-radius: 12px; padding: 16px 18px; background: var(--surface); }
+.checkpoint .eyebrow { color: var(--line); }
+.azure { display: grid; gap: 8px; border: 2px solid var(--u15); border-radius: 12px; padding: 18px; background: var(--u15-soft); }
+.azure .panel { background: var(--surface); }
+.finish { display: grid; gap: 6px; border: 2px dashed var(--line); border-radius: 12px; padding: 16px 18px; background: var(--surface); }
+.extra { display: grid; gap: 4px; padding: 12px 14px; border: 2px dashed var(--rule); border-radius: 10px; background: var(--surface); align-content: start; }
+.extra .q { font-size: 0.92rem; color: var(--muted); }
+.pager { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.pager a { font-weight: 700; text-decoration: none; border: 2px solid var(--rule); border-radius: 10px; padding: 10px 14px; background: var(--surface); }
+.pager a:hover { border-color: var(--ink); }
+
+/* readiness */
+.counts { display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 0.95rem; }
+.counts b { font-family: var(--display); font-size: 1.4rem; margin-right: 4px; }
+.progress { height: 10px; background: var(--rule); border-radius: 6px; overflow: hidden; }
+.progress span { display: block; height: 100%; background: var(--appr); }
+.tasks { display: grid; gap: 8px; }
+.task { display: grid; grid-template-columns: 1fr auto; gap: 6px 16px; padding: 12px 14px; background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; }
+.task.done { border-left: 5px solid var(--appr); }
+.task.doing { border-left: 5px solid var(--u2); }
+.task-main { display: grid; gap: 3px; }
+.task-what { font-weight: 700; }
+.task-note { font-size: 0.93rem; color: var(--muted); }
+.task-meta { display: flex; flex-wrap: wrap; gap: 2px 18px; font-size: 0.9rem; }
+.task-tags { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.st { font-size: 0.78rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; }
+.st.done { color: var(--appr); }
+.st.doing { color: var(--u2); }
+.st.todo { color: var(--muted); }
+.req { font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: var(--u15-soft); color: var(--u15); white-space: nowrap; }
+
+@media (max-width: 560px) {
+  h1 { font-size: 1.8rem; }
+  .wrap { padding: 20px 16px 44px; }
+  .wkrow { grid-template-columns: 56px 1fr; }
+  .wkrow .chips { grid-column: 2; }
+  .barrow { grid-template-columns: 1fr; gap: 4px; }
+  .barnote { margin-left: 0; }
+  .seg { padding: 0 4px; justify-content: center; }
+  .seg .full { display: none; }
+  .seg .short { display: inline; }
+  .task { grid-template-columns: 1fr; }
+  .task-tags { flex-direction: row; align-items: center; flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+@media print {
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { background: #fff; font-size: 11pt; }
+  .topbar { position: static; border: 0; }
+  .topnav, .skip, .pager { display: none; }
+  .wrap { padding: 0; gap: 18px; max-width: none; }
+  .panel, .duty, .crit, .extra, .wkrow, .checkpoint, .azure, .finish, .task, .station, tr { break-inside: avoid; }
+  footer { border: 0; }
+}
+</style>
+</head>
+<body>
+<button class="skip" type="button" id="skip">Skip to content</button>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><strong>AI Career Launchpad Level 4</strong><span>Barnsley College · staff planning portal · draft for discussion</span></div>
+    <nav id="nav" class="topnav" aria-label="Portal sections"></nav>
+  </div>
+</header>
+<main id="main" tabindex="-1"></main>
+<footer><div class="wrap">
+  <p>Draft proposal for the delivery team. Version 1.2, updated 19 November 2026. Nothing here is agreed until it appears under Decisions as agreed.</p>
+  <p>Sources: Skills England ST1512 AI and Automation Practitioner (duties and KSBs as published in version 2.0; version 2.1 changed only the assessment plan); Pearson BTEC Higher Nationals in Digital Technologies specification, Issue 4; Barnsley College 24-week duty planner; the apprenticeship lecturer's planner and materials (shared 19 November 2026); Microsoft Learn (Azure AI Fundamentals).</p>
+</div></footer>
+
+<script>
+/* ---------- DATA ---------- */
+const BASE_TITLE = "AI Career Launchpad Staff Portal";
+const UPDATED = "19 November 2026";
+
+const CRIT = {
+  "U2 P1": {u:"u2", s:"Innovation vs invention", t:"Explain digital innovation and determine its importance to organisations in comparison with digital inventions."},
+  "U2 P2": {u:"u2", s:"Leadership and culture", t:"Explain how organisational vision, leadership, culture and teamwork can exploit disruptive digital innovations."},
+  "U2 P3": {u:"u2", s:"Types of transformation", t:"Explain the different types of digital transformation, with examples."},
+  "U2 P4": {u:"u2", s:"What makes transformation succeed", t:"Explain the requirements for a successful digital transformation process for an organisation."},
+  "U2 P5": {u:"u2", s:"Business case and funding", t:"Build a transformation business case for an organisation, including ways to access funding."},
+  "U2 P6": {u:"u2", s:"Protecting knowledge and IP", t:"Explain the different tools that organisations can use to develop, retain and protect knowledge and intellectual property."},
+  "U2 M1": {u:"u2", s:"Innovation culture", t:"Analyse different sources of digital innovation, and how organisations can foster and develop an environment and culture of disruptive innovation."},
+  "U2 M2": {u:"u2", s:"Strategy behind each type", t:"Appraise the role of business strategy to apply each type of digital transformation in an organisational context."},
+  "U2 M3": {u:"u2", s:"Success measures for the case", t:"Build a detailed digital transformation business case that includes how to measure its overall effectiveness using appropriate techniques available to test, iterate and improve."},
+  "U2 M4": {u:"u2", s:"Evaluate the IP tools", t:"Present supported evidence-based evaluation of these different tools in the context of the wider business environment."},
+  "U2 D1": {u:"u2", s:"How a disruptive innovation was embedded", t:"Evaluate how disruptive digital innovation is developed, embedded and measured in an organisational context."},
+  "U2 D2": {u:"u2", s:"How organisations overcome challenges", t:"Evaluate the nature of digital transformation and the context in which it is developed, providing evidence-based judgements on how organisations can overcome challenges to develop successful digital transformation frameworks."},
+  "U15 P1": {u:"u15", s:"AI fundamentals", t:"Describe the fundamental aspects of Artificial Intelligence."},
+  "U15 P2": {u:"u15", s:"AI applications", t:"Describe the types and areas of application to solve current real-world problems."},
+  "U15 P3": {u:"u15", s:"Deployment options", t:"Investigate options around the approaches, techniques and tools for the deployment of modern Intelligent Systems."},
+  "U15 P4": {u:"u15", s:"Compare tools and techniques", t:"Compare the advantages and challenges of several tools and techniques for the development of Intelligent Systems."},
+  "U15 P5": {u:"u15", s:"How the AI system is built", t:"Investigate the technical implementation of an AI-based system."},
+  "U15 P6": {u:"u15", s:"Improvement options", t:"Explore the technical options to enhance the performance on an AI-based system."},
+  "U15 P7": {u:"u15", s:"Modify the system", t:"Modify an AI-based system to enhance performance."},
+  "U15 P8": {u:"u15", s:"Security and ethics", t:"Investigate the security and ethical issues with Intelligent Systems."},
+  "U15 P9": {u:"u15", s:"Maintenance challenges", t:"Discuss the technical challenges involved in managing and maintaining Intelligent Systems."},
+  "U15 M1": {u:"u15", s:"Pros and cons in one sector", t:"Analyse the advantages and disadvantages of using Artificial Intelligence to an area of application."},
+  "U15 M2": {u:"u15", s:"How the tools work together", t:"Demonstrate how different approaches and tools work together for the deployment of Intelligent System."},
+  "U15 M3": {u:"u15", s:"Before and after benchmarking", t:"Demonstrate a technical modification, to an existing deployment of an AI based system, using benchmarking to enhance its performance."},
+  "U15 M4": {u:"u15", s:"Legal and security risks", t:"Review the legal implications and security risks to both users and organisations of using Intelligent Systems."},
+  "U15 D1": {u:"u15", s:"Impact on users and the organisation", t:"Evaluate the potential impact of deploying several types, approaches and tools of AI and Intelligent Systems on both users and organisations."},
+  "U15 D2": {u:"u15", s:"Reflect on own role", t:"Evaluate your own role to improve the performance of an AI-based system."},
+  "U15 D3": {u:"u15", s:"Challenges vs opportunities", t:"Analyse the technical and ethical challenges while appreciating the opportunities of Intelligent Systems."}
+};
+const WHO = {
+  u15: {cls:"p-u15", name:"Unit 15 lecturer"},
+  u2: {cls:"p-u2", name:"Unit 2 lecturer"},
+  appr: {cls:"p-appr", name:"Apprenticeship lecturer"}
+};
+
+/* six duty steps, roughly one a month (the apprenticeship lecturer's proposal), grouped into four blocks below */
+const STEPS = [
+ { id:"month1", n:1, name:"Opportunity", weeks:"1-4",
+   summary:"Learners find out what AI can do, then choose a real process to automate and make the case for it.",
+   checkpoint:{week:4, title:"Duty 1 report: an automation opportunity and its business case", detail:"One report that counts for Duty 1 and four Pass criteria: a short AI context section (Unit 15 P1 and P2, Unit 2 P1) and a business case for one automation opportunity (Unit 2 P5). Built on the apprenticeship lecturer's Duty 1 assignment."},
+   heavy:"The busiest report for HNC evidence, with four Pass criteria. The apprenticeship lecturer's Duty 1 reading and assignment already cover most of it.",
+   duties:[
+    { num:1, title:"Find an automation opportunity", weeks:"1-4", lead:"u2", support:"u15",
+      wording:"Identify opportunities for automation to drive operational improvement and cost savings. Advocate for responsible implementation, balancing efficiency with fairness, transparency and workforce wellbeing.",
+      ksb:"K1 K2 K4 K5 K19 K23 K24 K25 K26 K29 · S2 S3 S4 S6 S11 S12 S21 S24 S25 S27 · B2 B5 B6",
+      does:"Learn what AI is and where it is used, then pick a real process and build a responsible business case: costs, savings, risks, staff impact and funding.",
+      pass:{"U15 P1":"Context section: what AI is, the main types (narrow and general) and how machine learning learns from data", "U15 P2":"Context section: real AI applications in sectors such as finance, health, retail and logistics", "U2 P1":"Context section: an AI invention compared with an AI innovation that changed a business", "U2 P5":"Business case for one automation opportunity: costs, savings, risks, workforce impact and funding options"} }
+   ],
+   weekly:[
+    [1,"What AI is: narrow and general AI, machine learning and why data matters","U15 P1"],
+    [2,"AI in the real world: applications across sectors, trends and risks","U15 P2"],
+    [3,"Innovation vs invention; spotting automation opportunities; choose a process and check it is viable and responsible","U2 P1"],
+    [4,"Building the business case: costs, savings, ROI and funding options; finish the report","U2 P5"]
+   ],
+   extras:["U15 M1","U2 M1","U2 M3"],
+   extraTasks:{"U15 M1":"Pros and cons of AI in one chosen sector, such as healthcare or retail","U2 M1":"Where AI innovation comes from, and how one named organisation builds an innovation culture","U2 M3":"Add success measures to the business case: KPIs and how a pilot would be tested and improved"},
+   bars:[["Weeks 1-2","u15",[["u15",5]]],["Weeks 3-4","u2",[["u2",5]]]],
+   appr:{ plan:"Background to Machine Learning and AI, Parts 1 and 2 (Presentation 1)",
+     ready:["Presentation for Duty 1 (51 slides)","Background to Machine Learning and AI: a reading that ends with the Duty 1 assignment, a 1,500 to 2,000 word report","An example Duty 1 report and an example learner submission","Introduction to AI and Automation, and the course infosheet","Cisco Networking Academy's free Introduction to Modern AI course: optional self-study for Unit 15 P1 and P2"],
+     note:"His Duty 1 assignment asks for the context, a current process flowchart, a baseline, options, a business case, risks and a pilot plan. That is already close to Unit 2 P5." },
+   folded:[["Duty 15","AI trends, opportunities and risks","Weeks 1 to 3: what AI is, where it is used, trends and innovation"],["Duty 13","Measure and report value","Savings and ROI go into the business case"]]
+ },
+ { id:"month2", n:2, name:"Process", weeks:"5-7",
+   summary:"Learners map how their chosen process works now, then design the improved workflow.",
+   checkpoint:{week:7, title:"Duty 5 report: process maps and the improved workflow", detail:"As-is and to-be process maps from the discovery workshop, explained as process transformation and compared with the other types of digital transformation (Unit 2 P3)."},
+   duties:[
+    { num:5, title:"Map the process and design the workflow", weeks:"5-7", lead:"u2", support:null,
+      wording:"Simplify processes and design workflows that exploit AI and automation.",
+      ksb:"K1 K18 K22 K23 K27 K28 K29 · S11 S12 S26 S27 S28 · B3",
+      does:"Run a short discovery workshop, map the current process, then design the improved version.",
+      pass:{"U2 P3":"As-is and to-be process maps, explained as process transformation and compared with the other types"} }
+   ],
+   weekly:[
+    [5,"Types of digital transformation; plan a short discovery workshop","U2 P3"],
+    [6,"Run the workshop and map the as-is process: bottlenecks, hand-offs, failure points",""],
+    [7,"Design the to-be workflow, with human checks and what happens when things go wrong; explain it as process transformation and finish the report",""]
+   ],
+   extras:["U2 M2","U2 D1"],
+   extraTasks:{"U2 M2":"For each type of transformation, explain the business strategy behind it in one real organisation","U2 D1":"Evaluate how one disruptive AI innovation was developed, embedded and measured in a real organisation"},
+   bars:[["Weeks 5-7","u2",[["u2",5]]]],
+   appr:{ plan:"Presentation 5 (Parts 1 and 2), with case studies of AI and automation processes", ready:[], note:"Presentation 5 is in his planner but not in the shared pack." },
+   folded:[["Duty 4","Workshops and solution design","The discovery workshop in week 6"]]
+ },
+ { id:"month3", n:3, name:"Tools", weeks:"8-10",
+   summary:"Learners research the ways AI can be deployed and pick the tools to build their automation.",
+   checkpoint:{week:10, title:"Duty 3 report: tool comparison and recommendation", detail:"Research into the options for deploying AI (Unit 15 P3) and a comparison of tools ending in a recommendation for the build (Unit 15 P4)."},
+   duties:[
+    { num:3, title:"Choose the tools", weeks:"8-10", lead:"u15", support:null,
+      wording:"Evaluate available AI, automation tools and platforms.",
+      ksb:"K5 K9 K15 K24 K25 K29 · S6 S9 S10 S13 S14 S21 S24 S25 S27 · B1 B4 B6",
+      does:"Research no-code, low-code, cloud AI and code-based options for the process, and compare them.",
+      pass:{"U15 P3":"Research into no-code, low-code, cloud AI and code-based options for the process designed in weeks 5 to 7", "U15 P4":"Tool comparison table: cost, ease of use, integration and governance"} }
+   ],
+   weekly:[
+    [8,"Ways to deploy AI: no-code, low-code, cloud AI services, APIs and AI code generation","U15 P3"],
+    [9,"Research the tools against the requirements and compare them: cost, integration, governance, human oversight","U15 P4"],
+    [10,"Recommend one for the build; finish the report",""]
+   ],
+   extras:["U15 M2","U15 D1"],
+   extraTasks:{"U15 M2":"Diagram and explanation of how the chosen tools fit together: the flow, the cloud AI service and the data","U15 D1":"Evaluate the impact of the compared tools on users and on the organisation"},
+   bars:[["Weeks 8-10","u15",[["u15",5]]]],
+   appr:{ plan:"Presentation 3 (Parts 1 and 2), demonstrating a range of AI systems",
+     ready:["An example Duty 3 report with its evidence: an AI-generated presentation, Python code and a sample data set","Report on AI systems: a comparison of ChatGPT, Copilot, Claude, Gemini and DeepSeek","For the folded Duty 2: an example Duty 2 report and the password generator case study, which shows building with AI code generation"],
+     note:"Presentation 3 is in his planner but not in the shared pack." },
+   folded:[["Duty 2","Implementation beyond low/no-code","APIs and AI code generation compared in weeks 8 and 9, using the apprenticeship lecturer's Duty 2 materials"]]
+ },
+ { id:"month4", n:4, name:"Build", weeks:"11-14",
+   summary:"Learners build a working automation, test it with users, then improve it.",
+   checkpoint:{week:14, title:"Duty 7 report: the working automation, tested and improved", detail:"The automation itself, a technical write-up (Unit 15 P5), test and feedback results with improvement options (P6), and the improved version with before and after evidence (P7)."},
+   duties:[
+    { num:7, title:"Build the automation", weeks:"11-14", lead:"u15", support:null,
+      wording:"Apply AI automation solutions to add value, including chatbots, summarisation and cloud SaaS/PaaS automation platforms.",
+      ksb:"K5 K6 K29 · S11 S12 S13 S14 · B6",
+      does:"Build a chatbot or summarisation flow with the chosen tools and a cloud AI service, test it with users, then improve it.",
+      pass:{"U15 P5":"Working automation plus a technical write-up of how it is built: triggers, connectors, AI service and data", "U15 P6":"Test and user feedback results, with a list of improvement options", "U15 P7":"Improved version of the automation, re-tested, with before and after evidence"} }
+   ],
+   weekly:[
+    [11,"Build basics: triggers, actions, conditions and connectors; add the AI step using a cloud AI service",""],
+    [12,"Test end to end: test cases, expected and actual results; technical write-up","U15 P5"],
+    [13,"Measure performance and gather user feedback; list improvement options","U15 P6"],
+    [14,"Make the improvements and re-test; before and after evidence; finish the report","U15 P7"]
+   ],
+   extras:["U15 M3","U15 D2"],
+   extraTasks:{"U15 M3":"Benchmark the automation before and after the change: accuracy, time and cost","U15 D2":"Reflective evaluation of their own part in improving the automation"},
+   bars:[["Weeks 11-14","u15",[["u15",5]]]],
+   azure:true,
+   appr:{ plan:"Presentation 7 (Parts 1 and 2), with examples of AI-assisted editing, summarising and code documentation",
+     ready:["The password generator case study and model solution: a worked example of building with AI"],
+     note:"The case study is written in Python. This plan assumes a low/no-code tool with a cloud AI service, so the build approach needs agreeing (see Decisions)." },
+   folded:[["Duty 6","Configure low/no-code tools","The hands-on core of weeks 11 and 12"],["Duty 8","Develop, document and test workflows","Testing and the technical write-up in week 12"],["Duty 12","Monitor and refine automations","Feedback and improvements in weeks 13 and 14"],["Duty 13","Measure and report value","Before and after results in week 14"]]
+ },
+ { id:"month5", n:5, name:"Safe and fair", weeks:"15-18",
+   summary:"Learners check their automation is safe, fair and legal, and plan how it will be looked after.",
+   checkpoint:{week:18, title:"Duty 14 report: risk and impact assessment, IP guide and upkeep plan", detail:"A risk and impact assessment of their own automation (Unit 15 P8), a short guide to protecting knowledge and IP (Unit 2 P6) and a maintenance plan (Unit 15 P9)."},
+   duties:[
+    { num:14, title:"Make it safe and fair", weeks:"15-18", lead:"u15", support:"u2",
+      wording:"Ensure personal compliance and support stakeholders with digital ethics, security and privacy, including governance, auditing, explainability and decision documentation.",
+      ksb:"K8 K12 K18 K19 K28 K29 · S8 S12 S15 S22 S29 · B2 B5",
+      does:"Assess the ethics, privacy, security and intellectual property issues around their automation, and plan its upkeep.",
+      pass:{"U15 P8":"Risk and impact assessment of their own automation: GDPR, bias, security and human oversight", "U2 P6":"Short IP guide (copyright, patents, trademarks, open source) applied to AI tools. Needs 2 or 3 extra Unit 2 sessions", "U15 P9":"Maintenance plan: monitoring, failures, changing data, updates and support"} }
+   ],
+   weekly:[
+    [15,"Responsible AI: GDPR, bias, transparency and human oversight; start the risk and impact assessment","U15 P8"],
+    [16,"Security risks and governance; finish the risk and impact assessment",""],
+    [17,"Plan the upkeep: monitoring, failures, updates and support","U15 P9"],
+    [18,"Protecting knowledge and IP when using AI (extra Unit 2 sessions); finish the report","U2 P6"]
+   ],
+   extras:["U15 M4","U15 D3","U2 M4"],
+   extraTasks:{"U15 M4":"Review the legal side (GDPR, IP, liability) and security risks for users and the organisation","U15 D3":"Weigh the technical and ethical challenges of their solution against its opportunities","U2 M4":"Evaluate the IP tools with evidence, such as whether open source or patents suit an AI start-up"},
+   bars:[["Weeks 15-17","u15",[["u15",5]]],["Week 18","u2",[["u2",5]]]],
+   appr:{ plan:"Presentation 14 (Parts 1 and 2), on AI for cyber security", ready:[], note:"Presentation 14 is in his planner but not in the shared pack. His Presentation 12 (monitoring and refining automations) would also suit the upkeep plan." },
+   folded:[["Duty 12","Monitor and refine automations","Monitoring and the upkeep plan in week 17"]]
+ },
+ { id:"month6", n:6, name:"Roll out", weeks:"19-24",
+   summary:"Learners plan how to roll their automation out to real users. Four teaching weeks, then two for feedback and resubmissions.",
+   checkpoint:{week:22, title:"Duty 11 report: rollout plan, user guide and stakeholder update", detail:"An adoption plan with leadership buy-in and staff engagement (Unit 2 P2), success factors and a roadmap (Unit 2 P4), plus a user guide and a stakeholder update. Handed in at week 22, so weeks 23 and 24 are free for feedback, resubmissions and catch-up."},
+   finish:true,
+   duties:[
+    { num:11, title:"Roll it out", weeks:"19-22", lead:"u2", support:null,
+      wording:"Support teams with change management and adoption activities.",
+      ksb:"K3 K11 K13 K14 K16 K22 K23 K24 K28 · S2 S4 S5 S10 S19 S20 S22 S23 S24 S26 S29 · B3 B4 B6",
+      does:"Plan the rollout: leadership buy-in, staff engagement, a user guide and a stakeholder update.",
+      pass:{"U2 P2":"Adoption plan for rolling out their automation: leadership buy-in, culture and staff engagement", "U2 P4":"Success factors and roadmap for the rollout, with a user guide and stakeholder update"} }
+   ],
+   weekly:[
+    [19,"Change and adoption: leadership, culture and staff engagement","U2 P2"],
+    [20,"Draft the rollout plan and a stakeholder update",""],
+    [21,"What makes transformation succeed; build the roadmap","U2 P4"],
+    [22,"Write the user guide; finish the report",""],
+    [23,"Feedback week: marking feedback, resubmissions and catch-up; Azure exam window",""],
+    [24,"Resubmissions close; course review and next steps",""]
+   ],
+   extras:["U2 D2"],
+   extraTasks:{"U2 D2":"Judge, with evidence, how organisations overcome transformation challenges, using their own rollout as the example"},
+   bars:[["Weeks 19-22","u2",[["u2",5]]],["Weeks 23-24","finish"]],
+   appr:{ plan:"Presentation 11 (Parts 1 and 2), on AI in change management", ready:[], note:"Presentation 11 is in his planner but not in the shared pack. His sessions in weeks 23 and 24 could go on portfolio completion and catch-up." },
+   folded:[["Duty 9","Keep stakeholders informed","Stakeholder update in week 20; otherwise work placement evidence"],["Duty 10","Training and user guides","User guide in week 22; training delivery through work placement"]]
+ }
+];
+
+const BLOCKS = [
+ { id:"discover", n:1, name:"Discover", weeks:"1-4", steps:["month1"],
+   summary:"Learners find out what AI can do, then choose a real process to automate and make the case for it." },
+ { id:"design", n:2, name:"Design", weeks:"5-10", steps:["month2","month3"],
+   summary:"Learners map how their chosen process works now, design the improved workflow and pick the tools to build it." },
+ { id:"build", n:3, name:"Build", weeks:"11-14", steps:["month4"],
+   summary:"Learners build a working automation, test it with users, then improve it." },
+ { id:"launch", n:4, name:"Launch", weeks:"15-24", steps:["month5","month6"],
+   summary:"Learners check their automation is safe, fair and legal, plan its upkeep and plan how to roll it out. Weeks 23 and 24 are for feedback and resubmissions." }
+];
+BLOCKS.forEach(b => { b.parts = b.steps.map(id => STEPS.find(s => s.id === id)); b.parts.forEach(s => s.block = b); });
+
+const MATRIX_COLS = ["U2 P1","U2 P2","U2 P3","U2 P4","U2 P5","U2 P6","U15 P1","U15 P2","U15 P3","U15 P4","U15 P5","U15 P6","U15 P7","U15 P8","U15 P9"];
+const MATRIX = [
+ [1,"Automation opportunities and responsible implementation","Discover","PP.PS..P.....P."],
+ [2,"Implementation beyond low/no-code",null,"........SPS...."],
+ [3,"Evaluate AI and automation tools","Design","...P....SS....."],
+ [4,"Workshops and solution design",null,".P............."],
+ [5,"Simplify processes and design workflows","Design","..SP..........."],
+ [6,"Configure low/no-code tools",null,"..........P.P.."],
+ [7,"Apply AI automation solutions","Build",".......P..SSS.."],
+ [8,"Develop, document and test workflows",null,"..........P.P.."],
+ [9,"Keep stakeholders informed",null,"....P.........."],
+ [10,"Training and user guides",null,".....P........."],
+ [11,"Change management and adoption","Launch",".SPS..........."],
+ [12,"Monitor and refine automations",null,"...........SS.S"],
+ [13,"Measure and report value",null,"...PS.........."],
+ [14,"Ethics, security, privacy and governance","Launch",".....P.......SP"],
+ [15,"AI trends, opportunities and risks",null,"S....PSS.....P."]
+];
+
+/* folded duties whose work already happens in the course; could be counted as covered */
+const POTENTIAL = {
+  15: "Taught in weeks 1 to 3 of Discover: what AI is, where it is used, trends and innovation. The standard lists no KSBs against this duty, so counting it adds none. It was a core duty in the earlier 8-duty plan.",
+  12: "Feedback and improvements in weeks 13 and 14, and the upkeep plan in week 17. Would add K7 (capabilities, benefits and risks of AI, including the impact on the workforce), which Discover and Launch already touch on. It was a core duty in the earlier 8-duty plan.",
+  6: "The hands-on core of Build. Would add S7 (configure automation tools such as Power Automate), which Build already does, and K10 (error, bias and fairness metrics), mostly covered in Launch.",
+  8: "Testing and the technical write-up in week 12. Would add S18 (deliver training), which needs a work placement or a training activity.",
+  13: "Savings in the Discover business case and before and after results in Build. Would add S16 (already happening), and K17 and S17 (sustainable solutions), which need one short session."
+};
+
+const DECISIONS = {
+ agreed:[
+  ["Four blocks: Discover, Design, Build and Launch","Blocks of different lengths (4, 6, 4 and 8 weeks) with one project running through all four. Inside them, learners take one duty roughly a month, following the apprenticeship lecturer's proposal, and hand in a report at the end of each duty."],
+  ["Merit and Distinction are optional extras","Learners focus on the duties and the Pass criteria; M and D are offered as clearly marked extra tasks."],
+  ["24 teaching weeks","The full 24 weeks will be delivered, possibly including holiday periods."],
+  ["Final hand-in at week 22","Duty 11, the last duty in Launch, is taught in weeks 19 to 22. Weeks 23 and 24 are for feedback, resubmissions and catch-up."],
+  ["The apprenticeship session stays as planned","The apprenticeship lecturer keeps his 3 hours a week and his own materials. The duties inside each block follow his one-duty-a-month rhythm."]
+ ],
+ open:[
+  ["Which six duties","This plan uses Duties 1, 5, 3, 7, 14 and 11. The apprenticeship lecturer's materials run Duties 1, 2 and 3 in order, so confirm the six with him. Duty 5 is chosen over Duty 2 because it is the only strong match for Unit 2 P3; Duty 2's work is folded into Design using his Duty 2 materials.","appr"],
+  ["Counting the folded duties","Duties 15, 12, 6, 8 and 13 are potential inclusions: their work already happens, so they could be counted as covered, taking the course to 11 duties with no change to the timetable. The six core duties cover 54 of the standard's 64 KSBs; counting all five takes it to 61. Staff would record the KSBs against existing evidence, so learners do no extra paperwork. Worth it only if the Launchpad records duty coverage somewhere it will be used.","team"],
+  ["One report per duty for both duty and HNC","Each duty report also evidences that duty's HNC Pass criteria, so learners write one document, not two. Check with the internal verifier that one piece of work can be assessed for both.","assess"],
+  ["Duty report length","The apprenticeship lecturer's Duty 1 assignment asks for 1,500 to 2,000 words. His example duty reports run to 3,000 to 4,700 words, which would be a lot for beginners roughly every month. Suggest 1,500 to 2,000 words as the target for each report.","appr"],
+  ["Who takes which HNC unit","Lilly and Reece each take one unit. The hours come out roughly even, but Unit 15 is the more technical of the two.","team"],
+  ["How the briefs are structured","One brief per block, written jointly: the duty sections from the apprenticeship lecturer and the Pass criteria tasks from the HNC lecturers. Discover and Build have one part each; Design and Launch have two parts with separate hand-in dates, which Pearson allows. That is four briefs to write and verify for six reports.","assess"],
+  ["Learning outcomes split across blocks","Two Unit 2 learning outcomes are assessed in two different blocks: LO1 (P1 in Discover, P2 in Launch) and LO3 (P5 in Discover, P4 in Launch). Check this with the internal verifier. Every Unit 15 learning outcome sits within a single duty report.","assess"],
+  ["Unit 2 P6 (intellectual property)","No duty covers IP well. Plan 2 or 3 extra Unit 2 sessions in week 18.","assess"],
+  ["How the build is done","The plan assumes a low/no-code tool with a cloud AI service. The apprenticeship lecturer's example project uses Python with AI code generation. Both fit the Unit 15 criteria: agree one, or offer Python as a stretch route.","appr"],
+  ["Azure AI Fundamentals as an optional extra","The exam is now AI-901, which includes building in Microsoft Foundry and some Python. Agree whether to offer it, how to fund exam vouchers, and whether the build uses Foundry (see Build).","team"],
+  ["The evaluation framework","Lilly's Kirkpatrick framework covers all four levels. Agree who leads it, who observes, and whether to take the lighter options on the Evaluation page.","team"],
+  ["Placement projects","If every learner has a paid placement, the process they automate should come from it, so the Level 4 KPIs and the duty reports measure the same work. The project bank becomes a fallback.","team"],
+  ["Work placement evidence","Agree how evidence for the folded duties (training delivery, stakeholder updates) is collected on placement.","team"]
+ ]
+};
+
+/* [task, owner, when, status (done | doing | todo), note, Pearson requirement] */
+const READINESS = [
+ { group:"Course plan", items:[
+  ["Draft the course plan","Course leader","Done","done","This portal.",false],
+  ["Confirm the six duties and how they sit in the blocks with the apprenticeship lecturer","Course leader","As soon as possible","todo","See Which six duties on the Decisions page.",false],
+  ["Share the plan with the team and agree it","Course leader","As soon as possible","todo","Record what is agreed on the Decisions page.",false]
+ ]},
+ { group:"Pearson and the qualification", items:[
+  ["Confirm Barnsley College's Pearson approval covers the Higher Nationals in Digital Technologies","Course leader, with the exams office","Before enrolment","todo","Approval for HN Computing may not cover it.",true],
+  ["Agree how learners are registered with Pearson, and what they receive for two units","Course leader, with the exams office","Before enrolment","todo","Learners can only be assessed on a qualification they are registered on.",true],
+  ["Register learners with Pearson","Exams office","Before the week 4 hand-in","todo","",true],
+  ["Write the programme specification, and the staff and student handbooks","Course leader","Before enrolment","todo","This portal can serve as the staff handbook.",true],
+  ["Book an assessment board for after week 24","Course leader","Before week 1","todo","A formal Pearson requirement for every Higher National programme.",true]
+ ]},
+ { group:"Assessment", items:[
+  ["Write the assessment plan spreadsheet","Course leader","Before week 1","todo","Completion dates, the internal verifier and verification date for each assignment, sampling and resubmission scheduling.",true],
+  ["Write the Discover brief","Apprenticeship lecturer, with the Unit 2 and Unit 15 lecturers","Before week 1","todo","Start from his Duty 1 assignment and add the four Pass criteria. Each brief needs a hand-out date, a completion date and clear evidence requirements.",false],
+  ["Write the Design, Build and Launch briefs","Apprenticeship lecturer, with both HNC lecturers","By weeks 3, 9 and 13","todo","Two weeks before each block starts, leaving time for verification. Check whether Pearson's Authorised Assignment Briefs cover either unit, as they can be adapted.",false],
+  ["Internally verify each brief before it is issued","Internal verifier","Before each hand-out date","todo","Pearson expects a record of each brief being checked.",true],
+  ["Agree the rules on AI use in assessed work","Course leader, with both HNC lecturers","Before week 1","todo","Learners also sign a declaration that each assessment is their own work, as Pearson requires.",false],
+  ["Standardise assessment and internal verification across the team","Course leader","Before week 4","todo","Pearson expects time for this in the assessment plan.",true]
+ ]},
+ { group:"Apprenticeship materials", items:[
+  ["Adapt the Duty 1 assignment for Launchpad learners","Apprenticeship lecturer","Before week 1","todo","Point it at a process from the project bank rather than the learner's own job role (see Materials).",false],
+  ["Prepare session materials for Duties 5, 3, 7, 14 and 11","Apprenticeship lecturer","Two weeks before each duty starts","todo","His planner already lists a presentation for each duty.",false]
+ ]},
+ { group:"People and timetable", items:[
+  ["Confirm who teaches Unit 2 and who teaches Unit 15","Course leader","Before briefs are written","todo","",false],
+  ["Timetable the three days, including the apprenticeship slot","Course leader, with timetabling","Before enrolment","todo","",false],
+  ["Train staff on the build tools","Unit 15 lecturer","Before week 8","todo","Including Microsoft Foundry if the Azure option goes ahead.",false]
+ ]},
+ { group:"Technology and data", items:[
+  ["Choose the low/no-code tool and cloud AI service for the build","Unit 15 lecturer","Before Christmas","todo","College IT needs this before it can set up accounts.",false],
+  ["Set up learner accounts and licences","College IT","Requested before Christmas; working by week 8","todo","",false],
+  ["Decide on the Azure AI Fundamentals offer","Course leader, with management","Before week 8","todo","Covers exam vouchers and Azure accounts.",false],
+  ["Set data rules for learner projects","Unit 15 lecturer","Before week 3","todo","No real personal data in learners' automations; prepare sample data sets.",false]
+ ]},
+ { group:"Learners", items:[
+  ["Agree entry requirements and an initial skills check","Course leader","Before recruitment closes","todo","Pearson sets no formal entry requirements, but the college must make sure learners have a reasonable chance of success.",true],
+  ["Plan the week 1 induction","Course leader","Before week 1","todo","Accounts, the course map, the project and the AI use rules.",false],
+  ["Build a project bank of real processes to automate","Course leader","Before week 3","todo","A fallback for any learner whose placement cannot supply a suitable process.",false],
+  ["Confirm the work placement arrangements","Course leader, with the placements team","Before week 1","todo","Needed for the folded duties, such as training delivery and stakeholder updates.",false],
+  ["Hold the week 0 expectations meeting with BIST and employers","Course leader","Before week 1","todo","Agree what success looks like for the pilot, the targets for each indicator and what counts as a positive outcome.",false],
+  ["Agree each placement project and its KPIs with the employer, and get their commitment to the ratings","Course leader, with the placements team","Before week 1","todo","Part of the placement agreement. Employers also get the support checklist.",false],
+  ["Collect follow-up consent at enrolment","Course leader","At enrolment","todo","Needed for the career survey after the course.",false],
+  ["Build the quiz question bank, the forms and the shared spreadsheet","Evaluation lead","Before week 1","todo","Map the quiz questions to the Pass criteria and the behaviour items to the duty KSBs. Assign quiz nicknames linked to learner IDs.",false]
+ ]}
+];
+
+/* ---------- HELPERS ---------- */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const chip = (code, opt=false, label=true) => { const c = CRIT[code]; return `<span class="chip ${c.u}${opt?" opt":""}"><b>${code}</b>${label?" "+esc(c.s):""}</span>`; };
+const who = k => `<span class="${WHO[k].cls}">${WHO[k].name}</span>`;
+const L = {u15:"c-u15", u2:"c-u2"};
+const seg = (cls, text, n) => `<span class="seg ${cls}" style="flex:${n}"><span class="full">${text}</span><span class="short">${n}h</span></span>`;
+const passOf = s => s.duties.flatMap(d => Object.keys(d.pass));
+const dutyOf = s => s.duties[0];
+const blockPass = b => b.parts.flatMap(passOf);
+const blockDuties = b => b.parts.map(dutyOf);
+const listAnd = a => a.length < 2 ? a.join("") : a.slice(0,-1).join(", ") + " and " + a[a.length-1];
+const reportWeeks = b => (b.parts.length > 1 ? "weeks " : "week ") + listAnd(b.parts.map(s => s.checkpoint.week));
+
+function bar(label, proj, hnc){
+  let segs, note;
+  if (proj === "finish") {
+    segs = seg("proj c-u2","Catch-up 5h",5) + seg("proj c-u15","Catch-up 5h",5) + seg("hnc c-u2","Feedback 5h",5) + seg("appr","Apprenticeship 3h",3);
+    note = `${who("u2")}: 5h catch-up, 5h feedback · ${who("u15")}: 5h catch-up · ${who("appr")}: 3h, portfolio completion`;
+  } else {
+    const per = {};
+    const add = (k,t) => (per[k] = per[k] || []).push(t);
+    segs = seg(`proj ${L[proj]}`,"Project work 10h",10);
+    add(proj,"10h project work");
+    hnc.forEach(([w,n]) => { segs += seg(`hnc ${L[w]}`,`HNC lessons ${n}h`,n); add(w,`${n}h HNC lessons`); });
+    segs += seg("appr","Apprenticeship 3h",3);
+    note = Object.entries(per).map(([k,v]) => `${who(k)}: ${v.join(", ")}`).join(" · ") + ` · ${who("appr")}: 3h on the current duty`;
+  }
+  return `<div class="barblock"><div class="barrow"><span class="lbl">${label}</span><div class="bar" aria-hidden="true">${segs}</div></div><p class="barnote">${note}</p></div>`;
+}
+const HOURS_KEY = `<div class="hourskey">
+  <p><span class="sw sw-proj" aria-hidden="true"></span><b>Project work, 10 hours:</b> learners in class working on their own project and duty report, with the lead lecturer there to guide and check progress. Workshop time, not lectures.</p>
+  <p><span class="sw sw-hnc" aria-hidden="true"></span><b>HNC lessons, 5 hours:</b> taught lessons on the theory the Pass criteria ask for, such as types of digital transformation or how machine learning works.</p>
+  <p><span class="sw sw-appr" aria-hidden="true"></span><b>Apprenticeship, 3 hours:</b> the apprenticeship lecturer's session on the current duty.</p>
+  <p class="small-note">Together that is the 18 hours learners are in each week. Colours show which lecturer leads: blue for Unit 15, orange for Unit 2, green for the apprenticeship lecturer.</p>
+</div>`;
+const SVG = d => `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const ICON = {
+  reaction: SVG('<circle cx="12" cy="12" r="9"/><path d="M8.5 14.5c.9 1.2 2.1 1.8 3.5 1.8s2.6-.6 3.5-1.8"/><path d="M9 9.5h.01M15 9.5h.01"/>'),
+  learning: SVG('<path d="M3 5.5c3-1 6-.8 9 1 3-1.8 6-2 9-1v13c-3-1-6-.8-9 1-3-1.8-6-2-9-1z"/><path d="M12 6.5v13"/>'),
+  behaviour: SVG('<rect x="3" y="7.5" width="18" height="12" rx="2"/><path d="M9 7.5V5.5h6v2M3 12.5h18"/>'),
+  results: SVG('<path d="M4 20v-5M10 20v-9M16 20V7M3 20h18M15 4.5l3-1.5 1 3.2"/>'),
+  extra: SVG('<circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/>'),
+  check: SVG('<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.8"/>'),
+  open: SVG('<circle cx="12" cy="12" r="9"/><path d="M12 7.5v5l3 2"/>'),
+  improve: SVG('<path d="M4 12a8 8 0 0 1 13.7-5.6L20 8.5M20 4v4.5h-4.5M20 12a8 8 0 0 1-13.7 5.6L4 15.5M4 20v-4.5h4.5"/>'),
+  scale: SVG('<rect x="3" y="9" width="9" height="11" rx="1.5"/><rect x="12" y="4" width="9" height="11" rx="1.5"/>')
+};
+function ruler(marks){
+  const bands = BLOCKS.map(b => { const [a,z] = b.weeks.split("-").map(Number); const end = b.id === "launch" ? 22 : z; return `<span class="band" style="grid-column:${a}/${end+1}">${b.name}</span>`; }).join("") + `<span class="band fb" style="grid-column:23/25">Feedback</span>`;
+  const wks = Array.from({length:24}, (_,i) => `<span class="wk">${i+1}</span>`).join("");
+  const spans = marks.map(([a,z,t]) => `<span class="dspan" style="grid-column:${a}/${z+1}"><span class="dl">${t}</span><span class="due">due wk ${z}</span><i aria-hidden="true"></i></span>`).join("");
+  return `<div class="tablewrap"><div class="ruler"><div class="row">${bands}</div><div class="row">${wks}</div><div class="row">${spans}</div></div></div>`;
+}
+const readinessCounts = () => {
+  const all = READINESS.flatMap(g => g.items);
+  const n = s => all.filter(i => i[3] === s).length;
+  return { all, total: all.length, done: n("done"), doing: n("doing"), todo: n("todo"), req: all.filter(i => i[5]).length };
+};
+
+/* ---------- VIEWS ---------- */
+const NAV = [
+ ["home","Start here"],
+ ["sep"],
+ ...BLOCKS.map(b => [b.id, b.name, b.n]),
+ ["sep"],
+ ["team","Team and hours"],["assessment","Assessment"],["mapping","Mapping"],["materials","Materials"],["evaluation","Evaluation"],["readiness","Readiness"],["decisions","Decisions"]
+];
+
+function viewHome(){
+  const r = readinessCounts();
+  const stations = BLOCKS.map(b => `
+    <a class="station" href="#${b.id}">
+      <span class="dot" aria-hidden="true"></span>
+      <span class="card">
+        <span class="wks">Block ${b.n} · weeks ${b.weeks}</span>
+        <h3>${b.name}</h3>
+        <span>${esc(b.summary)}</span>
+        <span class="duties">${blockDuties(b).map(d => `Duty ${d.num}: ${esc(d.title)}`).join("<br>")}</span>
+        <span class="chips">${blockPass(b).map(c=>chip(c,false,false)).join("")}</span>
+        <span class="cp"><b>Report${b.parts.length>1?"s":""} due:</b> ${reportWeeks(b)}</span>
+      </span>
+    </a>`).join("");
+  return `<div class="wrap">
+    <section>
+      <span class="eyebrow">Start here</span>
+      <h1>How the AI Career Launchpad fits together</h1>
+      <p class="lede">The course blends the AI and Automation Practitioner apprenticeship (ST1512) with HNC Unit 2 and Unit 15, so that one piece of work counts towards both. This portal is the team's working proposal: read it, question it, and we record what we agree under Decisions.</p>
+    </section>
+    <p class="note"><strong>New in version 0.8:</strong> the four blocks are back, with the apprenticeship lecturer's one duty a month running inside them. The blocks are different lengths, so Launch has room for two duties. The six duties are still to be confirmed with him (see Decisions).</p>
+    <section aria-label="The four blocks">
+      <h2>24 weeks, 4 blocks, 6 core duties</h2>
+      <div class="line-h">${stations}</div>
+      <p style="margin-top:12px;color:var(--muted)">The final hand-in is in week 22. Weeks 23 and 24 are kept for feedback, resubmissions and catch-up. Duties 15, 12, 6, 8 and 13 are potential inclusions: their work already happens inside these blocks (see Mapping).</p>
+    </section>
+    <p class="note"><strong>One project, one report per duty.</strong> In Discover each learner picks a real process to automate. They design it, build it and launch it. Each duty ends with one report that counts for the duty and its HNC Pass criteria, so learners hand something in every three or four weeks.</p>
+    <section>
+      <h2>How to read it</h2>
+      <div class="grid">
+        <div class="panel stack"><span class="eyebrow">Everyone</span><h3 style="color:var(--line)">Apprenticeship duty</h3><p>The main line: what learners actually do, one duty roughly a month.</p></div>
+        <div class="panel stack"><span class="eyebrow">Everyone</span><h3>HNC Pass criteria</h3><div class="chips"><span class="chip u2"><b>Unit 2</b> Innovation and Digital Transformation</span><span class="chip u15"><b>Unit 15</b> Fundamentals of AI and Intelligent Systems</span></div><p>Met by the evidence in each duty report.</p></div>
+        <div class="panel stack"><span class="eyebrow">Optional</span><h3>Merit and Distinction</h3><div class="chips"><span class="chip u2 opt"><b>M / D</b> dashed outline</span></div><p>Extra tasks for learners who want a higher HNC grade.</p></div>
+      </div>
+    </section>
+    <section>
+      <h2>A typical week</h2>
+      <p style="margin-bottom:12px">Learners are in 3 days a week, 9am to 4.30pm: about 18 hours once breaks come out.</p>
+      <div class="bar" style="height:44px" aria-hidden="true">${seg("proj c-n","Project work 10h",10)}${seg("hnc c-n","HNC lessons 5h",5)}${seg("appr","Apprenticeship 3h",3)}</div>
+      <div class="grid" style="margin-top:12px">
+        <div class="panel stack"><h3>Project work, about 10 hours</h3><p>Workshop time: learners work on their own project and duty report in class, with the lead lecturer there to guide them and check progress.</p></div>
+        <div class="panel stack"><h3>HNC lessons, about 5 hours</h3><p>Taught lessons on the theory the Pass criteria ask for. Over 24 weeks that is 120 hours: the 60 guided learning hours Pearson sets for each unit.</p></div>
+        <div class="panel stack"><h3>Apprenticeship session, 3 hours</h3><p>The apprenticeship lecturer's own sessions, teaching the current duty with his own materials.</p></div>
+      </div>
+    </section>
+    <section>
+      <h2>Where to go next</h2>
+      <div class="grid">
+        <a class="panel stack tile" href="#team"><h3>Team and hours</h3><p>Who leads what in each block, and roughly how many hours that means.</p></a>
+        <a class="panel stack tile" href="#assessment"><h3>Assessment</h3><p>Four briefs, six duty reports, which criteria each covers, and the rules on grading and resubmission.</p></a>
+        <a class="panel stack tile" href="#materials"><h3>Materials</h3><p>What the apprenticeship lecturer's pack contains, and how it lines up with the blocks.</p></a>
+        <a class="panel stack tile" href="#readiness"><h3>Readiness</h3><p>${r.done} of ${r.total} tasks done before January. ${r.req} are Pearson requirements.</p></a>
+        <a class="panel stack tile" href="#decisions"><h3>Decisions</h3><p>${DECISIONS.agreed.length} agreed so far, ${DECISIONS.open.length} still open.</p></a>
+      </div>
+    </section>
+  </div>`;
+}
+
+function viewBlock(b){
+  const idx = BLOCKS.indexOf(b), prev = BLOCKS[idx-1], next = BLOCKS[idx+1];
+  const two = b.parts.length > 1;
+  const lastReport = Math.max(...b.parts.map(s => s.checkpoint.week));
+  const duties = b.parts.map(s => { const d = dutyOf(s); return `
+    <article class="duty">
+      <span class="tag">Weeks ${d.weeks} · Duty ${d.num}</span>
+      <h3>${esc(d.title)}</h3>
+      <p>${esc(d.does)}</p>
+      <div class="wording"><span class="eyebrow">The duty in ST1512 (summarised)</span><span>${esc(d.wording)}</span></div>
+      <div class="stack">
+        <span class="eyebrow">HNC Pass evidence in the Duty ${d.num} report</span>
+        ${Object.entries(d.pass).map(([c,ev]) => `<div class="crit">${chip(c)}<p class="q">${esc(CRIT[c].t)}</p><p class="ev"><b>Evidence:</b> ${esc(ev)}</p></div>`).join("")}
+      </div>
+      <p><b>Project work led by:</b> ${who(d.lead)}${d.support?`, with ${who(d.support)}`:""}</p>
+      <p class="ksb">Knowledge, skills and behaviours (KSBs): ${esc(d.ksb)}</p>
+      ${s.heavy ? `<p class="small-note">${esc(s.heavy)}</p>` : ""}
+    </article>`; }).join("");
+  const weeks = b.parts.map(s => {
+    const d = dutyOf(s);
+    const rows = s.weekly.map(([w,f,c]) => {
+      const cls = w === s.checkpoint.week ? " cp" : w > lastReport ? " after" : "";
+      return `<div class="wkrow${cls}"><span class="w">Week ${w}</span><span>${esc(f)}${w===s.checkpoint.week?` <b>· Duty ${d.num} report hand-in</b>`:""}</span><span class="chips">${[].concat(c||[]).map(x=>chip(x,false,false)).join("")}</span></div>`;
+    }).join("");
+    return two ? `<span class="eyebrow" style="margin-top:6px">Duty ${d.num}: ${esc(d.title)}</span>${rows}` : rows;
+  }).join("");
+  const reports = b.parts.map(s => `<section class="checkpoint"><span class="eyebrow">Duty report · hand-in week ${s.checkpoint.week}</span><h3>${esc(s.checkpoint.title)}</h3><p>${esc(s.checkpoint.detail)}</p></section>`).join("");
+  const extrasAll = b.parts.flatMap(s => s.extras.map(c => [c, s.extraTasks[c]]));
+  const extras = extrasAll.map(([c,t]) => `<div class="extra">${chip(c,true)}<p class="q">${esc(CRIT[c].t)}</p><p><b>Extra task:</b> ${esc(t)}</p></div>`).join("");
+  const folded = b.parts.flatMap(s => s.folded).map(([d,t,h]) => `<tr><td><b>${d}</b>${POTENTIAL[parseInt(d.replace("Duty ",""))] ? '<br><span class="pill potential">Potential inclusion</span>' : ""}</td><td>${esc(t)}</td><td>${esc(h)}</td></tr>`).join("");
+  const assessors = [...new Set(blockPass(b).map(c=>CRIT[c].u))];
+  const appr = b.parts.map(s => { const d = dutyOf(s), a = s.appr; return `<div class="panel stack">
+      <h3>Duty ${d.num}, weeks ${d.weeks}</h3>
+      <p><span class="p-appr">Apprenticeship lecturer:</span> 3 hours a week. In his planner: ${esc(a.plan)}.</p>
+      ${a.ready.length ? `<div class="stack"><span class="eyebrow">Already in his pack</span><ul style="margin:0;padding-left:20px">${a.ready.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>` : ""}
+      <p class="small-note">${esc(a.note)}</p>
+    </div>`; }).join("");
+  const azure = b.parts.some(s => s.azure), finish = b.parts.some(s => s.finish);
+  return `<div class="wrap">
+    <section class="phase-hero">
+      <span class="phase-step" aria-hidden="true">${BLOCKS.map(q=>`<i class="${q.n<=b.n?"on":""}"></i>`).join("")}</span>
+      <span class="eyebrow">Block ${b.n} of 4 · weeks ${b.weeks}</span>
+      <h1>${b.name}</h1>
+      <p class="lede">${esc(b.summary)}</p>
+      <div class="meta"><span>Duty ${listAnd(blockDuties(b).map(d=>d.num))}</span><span>${blockPass(b).length} Pass criteria</span><span>${extrasAll.length} optional extra${extrasAll.length===1?"":"s"}</span><span>Report${two?"s":""} due ${reportWeeks(b)}</span></div>
+    </section>
+    <section><h2>${two ? "The two duties" : "The duty"}</h2><div class="duty-grid">${duties}</div></section>
+    <section><h2>Week by week</h2><div class="weeks-list">${weeks}</div></section>
+    <section><h2>${two ? "The two duty reports" : "The duty report"}</h2><div class="stack">${reports}</div>
+      ${two ? `<p class="small-note" style="margin-top:10px">One brief for the block, in two parts with separate hand-in dates.</p>` : ""}</section>
+    <section><h2>Apprenticeship sessions and materials</h2><div class="${two ? "grid" : "stack"}">${appr}</div></section>
+    ${azure ? `<section class="azure"><span class="eyebrow">Optional · industry certification</span><h2>Microsoft Azure AI Fundamentals</h2>
+      <p>Pearson aligns Unit 15 with this certification. Learners do not get it automatically: they sit Microsoft's exam, and Unit 15 has to be taught using Azure for them to be ready.</p>
+      <div class="grid" style="margin-top:12px">
+        <div class="panel stack"><h3>The exam has changed</h3><p>AI-900 retired on 30 June 2026. The same certification now comes from exam AI-901, which has two parts: AI concepts and capabilities (40 to 45%) and building AI solutions in Microsoft Foundry (55 to 60%). It expects some Python.</p></div>
+        <div class="panel stack"><h3>How it fits the course</h3><p>Discover covers the concepts half. If the Duty 7 build uses Microsoft Foundry, the same work counts towards the duty, Unit 15 P5 to P7 and exam practice.</p></div>
+        <div class="panel stack"><h3>Proposal</h3><p>Offer it as an optional extra, like Merit and Distinction. Learners who want it book the exam from week 14, with weeks 23 and 24 kept free as an exam window. Some short Python support sessions would be needed.</p></div>
+      </div>
+      <p class="small-note">To check: exam vouchers for Barnsley College learners, Azure accounts for the build, and whether Pearson's HN Global mapping still refers to AI-900.</p>
+    </section>` : ""}
+    ${finish ? `<section class="finish"><span class="eyebrow">Weeks 23-24</span><h3>Feedback, resubmission and catch-up</h3><p>With the final hand-in at week 22, the last two weeks give time for marking, internal verification and the one resubmission Pearson allows. A resubmitted assignment is capped at Pass. Learners who are up to date can sit the Azure exam and plan their next steps.</p></section>` : ""}
+    <section><h2>Optional Merit and Distinction extras</h2><p style="margin-bottom:12px">Only for learners aiming higher. A Merit needs every Merit criterion in that unit, across all four blocks. Learners must attempt these in their first submission, as work already at Pass cannot be resubmitted for a higher grade.</p><div class="grid">${extras}</div></section>
+    <section><h2>Typical week</h2><div class="panel stack">
+      ${HOURS_KEY}
+      ${b.parts.flatMap(s=>s.bars).map(x=>bar(...x)).join("")}
+      <p><b>Assesses the HNC criteria:</b> ${assessors.map(u=>who(u)).join(" and ")}</p>
+    </div></section>
+    <section><h2>Duties folded into this block</h2><div class="tablewrap"><table><thead><tr><th>Duty</th><th>Topic</th><th>Where it goes</th></tr></thead><tbody>${folded}</tbody></table></div></section>
+    <nav class="pager" aria-label="Block pages">${prev ? `<a href="#${prev.id}">← Block ${prev.n}: ${prev.name}</a>` : `<a href="#home">← Start here</a>`}${next ? `<a href="#${next.id}">Block ${next.n}: ${next.name} →</a>` : `<a href="#team">Team and hours →</a>`}</nav>
+  </div>`;
+}
+
+function viewTeam(){
+  const rows = BLOCKS.map(b => `<div class="panel stack"><h3>Block ${b.n}: ${b.name} <span class="eyebrow">weeks ${b.weeks}</span></h3>${b.parts.flatMap(s=>s.bars).map(x=>bar(...x)).join("")}</div>`).join("");
+  return `<div class="wrap">
+    <section><span class="eyebrow">Team and hours</span><h1>Who does what</h1><p class="lede">Each duty has a lead lecturer for the project work. HNC teaching and assessment sit with the lecturer for that unit. The apprenticeship sessions teach the same duty the learners are working on.</p></section>
+    <section><div class="grid">
+      <div class="panel stack" style="border-top:6px solid var(--u15)"><h3 class="p-u15">Unit 15 lecturer</h3><ul style="margin:0;padding-left:20px"><li>Leads weeks 1-2 and 8-17: the start of Discover, the second half of Design, all of Build and most of Duty 14 in Launch</li><li>Teaches and assesses all 9 Unit 15 Pass criteria (60 hours of HNC teaching)</li><li>About 190 hours over 24 weeks</li></ul></div>
+      <div class="panel stack" style="border-top:6px solid var(--u2)"><h3 class="p-u2">Unit 2 lecturer</h3><ul style="margin:0;padding-left:20px"><li>Leads weeks 3-7 and 18-22: the rest of Discover, the first half of Design and the end of Launch</li><li>Teaches and assesses all 6 Unit 2 Pass criteria, including the IP sessions (60 hours of HNC teaching)</li><li>About 170 hours over 24 weeks</li></ul></div>
+      <div class="panel stack" style="border-top:6px solid var(--appr)"><h3 class="p-appr">Apprenticeship lecturer</h3><ul style="margin:0;padding-left:20px"><li>3 hours a week: his sessions teach the current duty, with his own materials</li><li>Proposed: writes the duty sections of each brief and records KSBs in his portfolio tracker</li><li>No HNC teaching or assessment; about 72 hours over 24 weeks</li></ul></div>
+    </div>
+    <p class="small-note" style="margin-top:10px">Weeks 23 and 24: both HNC lecturers support feedback, resubmissions and catch-up.</p></section>
+    <section><h2>Hours by block</h2><div class="panel stack" style="margin-bottom:14px">${HOURS_KEY}</div><div class="stack">${rows}</div><p class="small-note" style="margin-top:10px">Draft hours: the exact split depends on breaks and the final timetable.</p></section>
+    <section><h2>The duty rhythm</h2>
+      <div class="tablewrap"><table><thead><tr><th>Block</th><th>Weeks</th><th>Duty</th><th>Apprenticeship sessions (his planner)</th><th>Project work led by</th></tr></thead><tbody>
+      ${STEPS.map(s=>{ const d = dutyOf(s); return `<tr><td><b>${s.block.name}</b></td><td>${d.weeks}</td><td>Duty ${d.num}: ${esc(d.title)}</td><td>${esc(s.appr.plan)}</td><td>${[...new Set(s.bars.filter(x=>x[1]!=="finish").map(x=>x[1]))].map(who).join(", then ")}</td></tr>`; }).join("")}
+      </tbody></table></div>
+      <p class="small-note" style="margin-top:10px">One duty roughly a month, so his sessions and the project work are always on the same duty. Duties 5 and 3 get three weeks each, the others four.</p>
+    </section>
+  </div>`;
+}
+
+function viewAssessment(){
+  const rows = BLOCKS.map(b => b.parts.map((s,i) => {
+    const all = passOf(s);
+    const u2 = all.filter(c=>CRIT[c].u==="u2"), u15 = all.filter(c=>CRIT[c].u==="u15");
+    const x2 = s.extras.filter(c=>CRIT[c].u==="u2"), x15 = s.extras.filter(c=>CRIT[c].u==="u15");
+    const cell = (pass, ex) => pass.length||ex.length ? `<div class="chips">${pass.map(c=>chip(c)).join("")}${ex.map(c=>chip(c,true)).join("")}</div>` : `<span style="color:var(--muted)">None</span>`;
+    const briefCell = i === 0 ? `<td rowspan="${b.parts.length}"><b>${b.name}</b><br>${b.parts.length>1?"Brief in two parts":"Brief in one part"}</td>` : "";
+    return `<tr>${briefCell}<td><b>${s.checkpoint.week}</b></td><td>${esc(s.checkpoint.title)}</td><td>${cell(u2,x2)}</td><td>${cell(u15,x15)}</td></tr>`;
+  }).join("")).join("") + `<tr><td><b>Weeks 23-24</b></td><td>-</td><td><b>Feedback and resubmission</b><br>No new assessment</td><td colspan="2">Resubmissions only, capped at Pass</td></tr>`;
+  return `<div class="wrap">
+    <section><span class="eyebrow">Assessment</span><h1>Four briefs, six duty reports</h1><p class="lede">Each block has one brief. Each duty in it ends with one report, which counts for the apprenticeship duty and for the HNC Pass criteria listed below, so learners write one document per duty, not two. Merit and Distinction sit at the end of each brief as a clearly marked optional section.</p></section>
+    <section><h2>When reports are due</h2>
+      ${ruler(STEPS.map(st => { const [a] = dutyOf(st).weeks.split("-").map(Number); return [a, st.checkpoint.week, `Duty ${dutyOf(st).num}`]; }))}
+      <p class="small-note" style="margin-top:6px">Each bar is the weeks learners spend on that duty. The diamond at the end is when its report is handed in. Weeks 23 and 24 are kept for feedback and resubmissions.</p>
+    </section>
+    <section><h2>What each report is assessed against</h2>
+      <div class="tablewrap"><table><thead><tr><th>Block and brief</th><th>Hand-in week</th><th>Report</th><th>Unit 2</th><th>Unit 15</th></tr></thead><tbody>${rows}</tbody></table></div>
+      <p class="small-note" style="margin-top:10px">Solid outline: Pass, every learner. Dashed outline: optional Merit or Distinction. Two Unit 2 learning outcomes are split across blocks; see Decisions.</p>
+    </section>
+    <section><h2>How grading works</h2>
+      <div class="ladder">
+        <div class="step s1"><span class="gr">Pass</span><div class="need"><span>All P</span></div><p>The target for every learner. The duty reports are designed to produce it.</p></div>
+        <div class="step s2"><span class="gr">Merit</span><div class="need"><span>All P</span><span>All M</span></div><p>Every Merit criterion in the unit. One Merit task on its own does not change the grade.</p></div>
+        <div class="step s3"><span class="gr">Distinction</span><div class="need"><span>All P</span><span>All M</span><span>All D</span></div><p>Every Pass, Merit and Distinction criterion in the unit.</p></div>
+      </div>
+    </section>
+    <section><h2>Resubmission rules</h2>
+      <div class="flow">
+        <div class="node"><b>Report handed in</b><span>Marked against the brief.</span></div><span class="to" aria-hidden="true">→</span>
+        <div class="node"><b>Not yet at Pass?</b><span>The learner gets one resubmission.</span></div><span class="to" aria-hidden="true">→</span>
+        <div class="node"><b>Resubmitted</b><span>Within the next few weeks, or in weeks 23 and 24.</span></div><span class="to" aria-hidden="true">→</span>
+        <div class="node end"><b>Capped at Pass</b><span>A resubmission cannot be graded higher.</span></div>
+      </div>
+      <p class="note" style="margin-top:12px"><strong>Already at Pass or above?</strong> It cannot be resubmitted for a higher grade, so learners aiming for Merit or Distinction must attempt it first time.</p>
+    </section>
+    <section><h2>What a brief looks like</h2>
+      <div class="brief">
+        <div class="doc"><span class="stamp">Internally verified</span>
+          <div class="part hdr"><b>Front page</b><span>Hand-out date, a completion date for each part, a suggested length and the evidence required.</span></div>
+          <div class="part core"><b>Core section: every learner</b><span>Scaffolded tasks for the Pass criteria, with tables to fill in and a worked example from a different scenario.</span></div>
+          <div class="part opt"><b>Optional section: Merit and Distinction</b><span>Clearly labelled extra tasks. Every learner must still have the chance to attempt them.</span></div>
+          <div class="part hdr"><b>Declaration</b><span>The learner signs to say the work is their own.</span></div>
+        </div>
+        <div class="stack">
+          <p class="note"><strong>One brief per block.</strong> The duty sections come from the apprenticeship lecturer's materials and the Pass criteria tasks from the HNC lecturers.</p>
+          <p class="note"><strong>Design and Launch have two parts,</strong> one per duty, each with its own hand-in date.</p>
+          <p class="note"><strong>Before issue,</strong> each brief is internally verified and the check is recorded. Check the joint approach with the internal verifier.</p>
+        </div>
+      </div>
+    </section>
+  </div>`;
+}
+
+function viewMapping(){
+  const taughtIn = c => { for (const st of STEPS) for (const [w,,x] of st.weekly) if ([].concat(x||[]).includes(c)) return w; return null; };
+  const strongFrom = c => MATRIX.filter(r => r[3][MATRIX_COLS.indexOf(c)] === "S").map(r => r[0]);
+  const covRows = unit => MATRIX_COLS.filter(c => CRIT[c].u === unit).map(c => {
+    const st = STEPS.find(s => passOf(s).includes(c)), d = dutyOf(st);
+    const strong = strongFrom(c);
+    const src = strong.includes(d.num) ? `Duty ${d.num} itself`
+      : strong.length ? `Duty ${listAnd(strong.map(String))} (folded in)`
+      : `<span class="gap">No duty matches well: covered by extra Unit 2 sessions</span>`;
+    return `<tr><td>${chip(c)}</td><td>${esc(d.pass[c])}</td><td style="min-width:150px"><b>Duty ${d.num} report</b><br>Taught in ${st.block.name}, week ${taughtIn(c)}</td><td>${src}</td></tr>`;
+  }).join("");
+  const covTable = unit => `<div class="tablewrap"><table class="cov"><thead><tr><th>Pass criterion</th><th>What learners produce</th><th>Where it is assessed</th><th>Where the content comes from in the standard</th></tr></thead><tbody>${covRows(unit)}</tbody></table></div>`;
+  const where = {};
+  STEPS.forEach(st => st.folded.forEach(([d,,h]) => { const n = parseInt(d.replace("Duty ","")); (where[n] = where[n] || []).push(`${st.block.name}: ${h}`); }));
+  const dutyRows = MATRIX.map(([n,t]) => {
+    const core = STEPS.find(st => dutyOf(st).num === n);
+    const status = core ? `<span class="pill core">Core duty</span>` : POTENTIAL[n] ? `<span class="pill potential">Potential inclusion</span>` : `<span class="pill folded">Folded in</span>`;
+    const w = core ? `${core.block.name}, weeks ${dutyOf(core).weeks}, with its own report` : (where[n] || []).map(esc).join("<br>");
+    return `<tr><td><b>Duty ${n}</b></td><td>${esc(t)}</td><td>${status}</td><td>${w}</td></tr>`;
+  }).join("");
+  const head = `<tr><th>Duty</th><th>Topic</th>${MATRIX_COLS.map(c=>`<th class="${CRIT[c].u}h" title="${esc(CRIT[c].t)}">${c.replace(" ","<br>")}</th>`).join("")}</tr>`;
+  const body = MATRIX.map(([n,t,ph,cells]) => `<tr class="${ph?"kept":"cut"}"><td>Duty ${n}</td><td>${esc(t)}</td>${[...cells].map(ch=>`<td>${ch==="S"?'<span class="s" title="Strong match">●</span>':ch==="P"?'<span class="p" title="Partial match">○</span>':""}</td>`).join("")}</tr>`).join("");
+  return `<div class="wrap">
+    <section><span class="eyebrow">Mapping</span><h1>How the HNC and the apprenticeship fit together</h1><p class="lede">Two questions answered on one page: where is each HNC Pass criterion met, and what happens to each of the 15 apprenticeship duties?</p></section>
+    <section class="grid">
+      <div class="panel stack"><span class="eyebrow">Pass criteria</span><h3>15 of 15 assessed</h3><p>Each one has a home in a duty report.</p></div>
+      <div class="panel stack"><span class="eyebrow">Good fit with a duty</span><h3>14 of 15</h3><p>Only Unit 2 P6 (intellectual property) needs extra sessions.</p></div>
+      <div class="panel stack"><span class="eyebrow">Duties</span><h3>6 core, 5 potential</h3><p>The other 4 are folded in, so their work still happens.</p></div>
+    </section>
+    <section><h2>Where each Unit 2 Pass criterion is met</h2>${covTable("u2")}</section>
+    <section><h2>Where each Unit 15 Pass criterion is met</h2>${covTable("u15")}
+      <p class="small-note" style="margin-top:10px">"Folded in" means the content belongs to another duty in the standard, but it is taught inside this duty's weeks and written up in this report.</p></section>
+    <section><h2>All 15 duties at a glance</h2>
+      <div class="grid" style="margin-bottom:12px">
+        <div class="panel stack"><span class="pill core" style="justify-self:start">Core duty</span><p>Taught as a duty in its own right, with its own report.</p></div>
+        <div class="panel stack"><span class="pill potential" style="justify-self:start">Potential inclusion</span><p>Its work already happens inside a core duty, so it could be counted as covered. Still to decide.</p></div>
+        <div class="panel stack"><span class="pill folded" style="justify-self:start">Folded in</span><p>Parts of it are taught inside a core duty, but not enough to count it.</p></div>
+      </div>
+      <div class="tablewrap"><table><thead><tr><th>Duty</th><th>Topic</th><th>Status</th><th>Where it happens</th></tr></thead><tbody>${dutyRows}</tbody></table></div>
+    </section>
+    <section><h2>Why these six are the core duties</h2><div class="stack">
+      <p class="note"><strong>They carry the HNC.</strong> Between them they are the best fit for 10 of the 15 Pass criteria. Four more come from Duties 15 and 12, whose content is taught inside the core duties. That makes 14 of 15.</p>
+      <p class="note"><strong>Duty 5 rather than Duty 2.</strong> The apprenticeship lecturer's materials run Duties 1, 2 and 3 in order, but Duty 5 is the only good fit for Unit 2 P3. Duty 2's coding content is folded into Design, using his Duty 2 materials.</p>
+      <p class="note"><strong>Nothing is lost by folding Duties 15 and 12.</strong> They were core in the earlier 8-duty plan, and all of their work still happens.</p>
+      <p class="note"><strong>KSB coverage.</strong> The six cover 54 of the standard's 64 KSBs. Counting the five potential inclusions takes it to 61.</p>
+    </div></section>
+    <section><h2>Potential inclusions in detail</h2>
+      <div class="tablewrap"><table><thead><tr><th>Duty</th><th>Where the work already happens, and what counting it would add</th></tr></thead><tbody>
+      ${Object.entries(POTENTIAL).sort((x,y)=>x[0]-y[0]).map(([n,t]) => `<tr><td><b>Duty ${n}</b><br>${esc(MATRIX.find(r=>r[0]==+n)[1])}</td><td>${esc(t)}</td></tr>`).join("")}
+      </tbody></table></div>
+    </section>
+    <section><details class="matrixbox"><summary>Full matrix: every duty against every Pass criterion</summary>
+      <p style="margin-bottom:10px">The working grid the duties were chosen from. A filled dot means the duty's work can produce the evidence; an open dot means it supports it. Core duties are in bold.</p>
+      <div class="tablewrap"><table class="matrix"><thead>${head}</thead><tbody>${body}</tbody></table></div>
+      <p class="small-note" style="margin-top:10px"><span style="color:var(--appr)">●</span> strong match &nbsp; <span style="color:var(--u2)">○</span> partial match</p>
+    </details></section>
+  </div>`;
+}
+
+function viewMaterials(){
+  const rows = STEPS.map(s => { const d = dutyOf(s); return `<tr><td><b>${s.block.name}</b><br>Duty ${d.num}, weeks ${d.weeks}</td><td>${esc(s.appr.plan)}</td><td>${s.appr.ready.length ? `<ul style="margin:0;padding-left:18px">${s.appr.ready.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>` : '<span style="color:var(--muted)">Still to come</span>'}</td></tr>`; }).join("");
+  return `<div class="wrap">
+    <section><span class="eyebrow">Materials</span><h1>The apprenticeship lecturer's materials</h1><p class="lede">He has shared his full pack. It was written for an 18-month online apprenticeship, so this page sets out what it contains, how it lines up with the four blocks, and the few things to agree before it is used on the Launchpad.</p></section>
+    <section><h2>What the pack contains</h2><div class="grid">
+      <div class="panel stack"><h3>Planning</h3><ul style="margin:0;padding-left:20px"><li>An academic planner for an 84-week online programme: a 2-hour class every other week, 1-to-1 tutorials in between, and about 4 weeks per duty, Duties 1 to 15 in order</li><li>A portfolio criteria tracker in three parts: the duties and their KSBs ("The WHAT"), "The HOW" and "The WITH WHOM"</li></ul></div>
+      <div class="panel stack"><h3>Teaching</h3><ul style="margin:0;padding-left:20px"><li>A complete Duty 1 pack: a 51-slide presentation and a 6,000-word reading on machine learning and AI, ending with the Duty 1 assignment</li><li>Introduction to AI and Automation, and a course infosheet</li><li>Links to free Cisco Networking Academy courses, including Introduction to Modern AI</li></ul></div>
+      <div class="panel stack"><h3>Examples</h3><ul style="margin:0;padding-left:20px"><li>Example duty reports for Duties 1 to 3, with evidence</li><li>An example learner submission for Duty 1</li><li>A case study: a password generator built with AI code generation</li><li>A report comparing the major generative AI assistants</li><li>Example Unit 2 and Unit 3 portfolio work from a Level 4 Data Analyst apprenticeship</li></ul></div>
+    </div></section>
+    <section class="note"><strong>Why one duty a month suits his materials.</strong> His planner gives each duty about 4 weeks: two 2-hour classes and two tutorials. On the Launchpad he has 3 hours every week, so 9 to 12 hours per duty. That is more contact than the online model, with room for the tutorial-style support his planner builds in.</section>
+    <section><h2>How it lines up with the four blocks</h2>
+      <div class="tablewrap"><table><thead><tr><th>Block and duty</th><th>In his planner</th><th>Already in the pack</th></tr></thead><tbody>${rows}</tbody></table></div>
+      <p class="small-note" style="margin-top:10px">His planner lists a presentation for every duty. Only the Duty 1 presentation was in the shared pack, so it is worth asking which of the others already exist.</p>
+    </section>
+    <section><h2>To agree before it is used on the Launchpad</h2><div class="checks"><div class="check"><span class="num">1</span><div><h3>Learners are not employed apprentices</h3><p>The assignments refer to the learner's own job role and workplace evidence. Launchpad learners will work on a process from their placement, or from the project bank, so the wording needs adjusting.</p></div></div><div class="check"><span class="num">2</span><div><h3>Report length</h3><p>The Duty 1 assignment asks for 1,500 to 2,000 words; the example duty reports run to 3,000 to 4,700. The shorter length suits beginners writing a report every three or four weeks.</p></div></div><div class="check"><span class="num">3</span><div><h3>Building in HNC criteria</h3><p>Each brief adds the Pass criteria for that duty to his duty tasks. His Duty 1 assignment is already close to Unit 2 P5, and his reading covers much of Unit 15 P1 and P2.</p></div></div><div class="check"><span class="num">4</span><div><h3>Build approach</h3><p>His case study is in Python. The plan assumes a low/no-code tool with a cloud AI service. Both fit Unit 15; see Decisions.</p></div></div><div class="check"><span class="num">5</span><div><h3>Submissions</h3><p>Learners submit through Barnsley College systems, so contact details in the assignment documents will need updating.</p></div></div><div class="check"><span class="num">6</span><div><h3>Portfolio tracker</h3><p>The standard lists no KSBs for Duty 15, so its row in the tracker can be cleared. The Unit 2 and Unit 3 examples come from a different apprenticeship and may not be needed for the Launchpad.</p></div></div></div></section>
+  </div>`;
+}
+
+function viewEvaluation(){
+  const levels = [
+    ["1","Reaction","reaction","Did learners find it relevant and useful?","Anonymous pulse check, a fuller form in weeks 8 and 24, and an independent observer on the same weeks.","Team controls this"],
+    ["2","Learning","learning","Did they gain knowledge, skills and attitudes?","A game-style quiz in week 1, the same core questions at the end, and the six duty reports in between.","Team controls this"],
+    ["3","Behaviour","behaviour","Do they use it on placement?","The same 8 behaviours rated by the employer, the learner and the team in weeks 1, 12 and 24, plus a short mentor log.","Needs employers"],
+    ["4","Results","results","What changed for employers and the pilot?","1 to 3 KPIs per placement project, measured at the start, week 12 and week 24, plus pilot-level indicators agreed with BIST.","Needs employers"]
+  ];
+  const COLS = [["Before","week 0","out"],["Discover","weeks 1-4","blk"],["Design","weeks 5-10","blk"],["Build","weeks 11-14","blk"],["Launch","weeks 15-22","blk"],["Feedback","weeks 23-24","fb"],["After","the course","out"]];
+  const E = (w,t) => ({w,t}), R = (w,t) => ({w,t,c:"rep"}), O = t => ({w:"↻",t,c:"loop"});
+  const BOARD = [
+    ["Reaction","reaction",[[],[O("Pulse check")],[E("W8","Form and observer"),O("Pulse check")],[O("Pulse check")],[O("Pulse check")],[E("W24","Form and observer")],[]]],
+    ["Learning","learning",[[E("W0","Question bank mapped to the Pass criteria")],[E("W1","Baseline quiz and attitude scale"),R("W4","Duty 1 report")],[R("W7","Duty 5 report"),R("W10","Duty 3 report")],[R("W14","Duty 7 report")],[R("W18","Duty 14 report"),R("W22","Duty 11 report")],[E("W23","End quiz and attitude scale")],[]]],
+    ["Behaviour","behaviour",[[E("W0","Employer agreement and support checklist")],[E("W1","Baseline ratings"),O("Mentor log")],[O("Mentor log")],[E("W12","Midpoint ratings and checklist review")],[O("Mentor log")],[E("W24","End ratings")],[]]],
+    ["Results","results",[[E("W0","Project and KPIs agreed")],[R("W4","KPI baseline in the Duty 1 report")],[],[E("W12","KPI check-in"),R("W14","Before and after results")],[],[E("W24","End values and employer statement")],[]]],
+    ["Extra","extra",[[E("W0","Consent and applicant survey")],[],[],[],[],[E("W24","Success-case interviews and applicant survey")],[E("+3m","Career survey"),E("+6m","Career survey")]]]
+  ];
+  const board = `<div class="tablewrap"><div class="board">
+    <span></span>${COLS.map(([a,b,c]) => `<span class="bh ${c}">${a}<span>${b}</span></span>`).join("")}
+    ${BOARD.map(([name,ic,cells]) => `<span class="lv">${ICON[ic]}${name}</span>${cells.map(c => `<div class="cell">${c.map(e => `<span class="ev ${e.c||""}"><span class="wk">${e.w}</span><span>${esc(e.t)}</span></span>`).join("")}</div>`).join("")}`).join("")}
+  </div></div>
+  <div class="boardkey"><span><i style="background:var(--line)"></i>Evaluation measure</span><span><i style="background:var(--u15)"></i>Comes from a duty report</span><span><i style="border:1.5px dashed var(--line)"></i>Repeats every other week</span></div>`;
+  const swaps = [
+    ["Pulse check","Every week","Every other week, which the framework already allows","Halves the load and still gives 12 readings."],
+    ["Final measure of learning","Formal exam in week 22","Low-stakes quiz in week 23 with the same core questions","Week 22 is the Duty 11 hand-in, and learners already sit six assessed reports."],
+    ["Mentor log","Every week, per learner","Every other week, during an existing placement check-in","The heaviest ongoing staff task, so tie it to a meeting that happens anyway."],
+    ["Behaviour items","8 to 12 behaviours","8, taken from the six duties' KSBs","Shorter for employers, and could double as witness evidence (check with the apprenticeship lecturer)."],
+    ["Applicant comparison group","Surveyed in weeks 0 and 24","Decide after recruitment","Needs enough unsuccessful applicants, and ethics approval."]
+  ];
+  const links = [
+    ["The placement supplies the project","Level 4 KPIs and the duty reports measure the same work"],
+    ["Duty 1 report includes a baseline of the current process (week 4)","The starting value for each KPI"],
+    ["Build report has before and after evidence (Unit 15 P7, optional M3)","The Level 4 midpoint"],
+    ["Six duty reports and HNC grades","Level 2 learning curve between the two quizzes"],
+    ["The six duties' skills and behaviours","The 8 Level 3 behaviour items"]
+  ];
+  const Q = {
+    ok:[["What are the curriculum's learning outcomes?","The 15 Pass criteria and the KSBs of the six duties (see Mapping)."]],
+    sug:[["Who is the independent observer?","The course leader, who does not teach the group."],["Who owns the data and analysis?","Lilly as evaluation lead, with one spreadsheet keyed by learner ID."],["How much survey load is acceptable?","See the lighter options above."]],
+    op:[["Who chairs the week 0 meeting?",""],["Will employers commit in writing?","Ask as part of the placement agreement."],["What counts as a positive outcome?","For example a digital job, an apprenticeship or further study."],["How are quiz results linked to learners?","Assigned quiz nicknames are simplest."],["When does the career survey go out?","Suggested 3 and 6 months after week 24."],["Is an applicant comparison group feasible?","Decide after recruitment."],["Is there a later cohort to compare with?",""]]
+  };
+  const col = (k,t,items) => `<div class="col ${k}"><h3>${t}<span class="n">${items.length}</span></h3>${items.map(([a,b]) => `<div class="it"><b>${esc(a)}</b>${b?`<span>${esc(b)}</span>`:""}</div>`).join("")}</div>`;
+  return `<div class="wrap">
+    <section><span class="eyebrow">Evaluation</span><h1>Measuring whether the course works</h1><p class="lede">Lilly's evaluation framework applies the Kirkpatrick model at all four levels, built in from week 1 rather than added at the end. This page lines it up with the four blocks and shows where the course already produces the evidence.</p></section>
+    <section><h2>What it has to show</h2><div class="aims">
+      <div class="aim"><span class="circ">${ICON.check}</span><div><h3>What worked</h3><p>Which parts of the course and placements led to learning, changed behaviour and results.</p></div></div>
+      <div class="aim"><span class="circ">${ICON.improve}</span><div><h3>What to improve</h3><p>Where learners, employers or the course fell short, and why.</p></div></div>
+      <div class="aim"><span class="circ">${ICON.scale}</span><div><h3>Readiness to scale</h3><p>What another college would need to run the same model.</p></div></div>
+    </div><p class="small-note" style="margin-top:10px">One cohort and no control group, so results are reported as the course's contribution, backed by several sources, not as proof.</p></section>
+    <section><h2>Four levels, each harder to measure</h2>
+      <div class="levels">${levels.map(([n,name,ic,q,d,w]) => `<div class="lvl"><div class="barcol"><b>${n}</b>${ICON[ic]}</div><div class="panel"><h3>${name}</h3><p class="q">${q}</p><p>${d}</p><span class="who">${w}</span></div></div>`).join("")}</div>
+      <div class="arrowline">Harder to measure, and more dependent on placement employers</div>
+    </section>
+    <section><h2>Across the 24 weeks</h2>${board}
+      <p class="small-note" style="margin-top:6px">Every level except Reaction needs a baseline in week 0 or week 1, so the set-up has to be finished before teaching starts. This version uses the lighter options below.</p></section>
+    <section><h2>Where the course already does the work</h2>
+      <div class="links"><div class="links-head"><span>In the course</span><span></span><span>Gives the evaluation</span></div>
+      ${links.map(([a,b]) => `<div class="link"><div class="a">${esc(a)}</div><div class="mid" aria-hidden="true">→</div><div class="b">${esc(b)}</div></div>`).join("")}</div>
+      <p class="small-note" style="margin-top:10px">The first link depends on every learner having a paid placement from week 1. The project bank stays as a fallback.</p>
+    </section>
+    <section><h2>Lighter options</h2>
+      <div class="swaps">${swaps.map(([t,a,b,w]) => `<div class="swap"><h3>${t}</h3><div class="pair"><div class="was"><span class="lab">Proposed</span>${esc(a)}</div><span class="arr" aria-hidden="true">→</span><div class="now"><span class="lab">Lighter</span>${esc(b)}</div></div><p class="why">${esc(w)}</p></div>`).join("")}</div>
+      <p class="small-note" style="margin-top:10px">Even as proposed, learners spend only two to three hours on forms and quizzes over 24 weeks. Most of the effort falls on staff and employers.</p>
+    </section>
+    <section><h2>Open questions from the framework</h2>
+      <div class="cols3">${col("ok","Answered by the plan",Q.ok)}${col("sug","Suggested",Q.sug)}${col("op","Still open",Q.op)}</div>
+    </section>
+    <p class="small-note">Based on Lilly's AI Launchpad Evaluation Framework and presentation, which has the full detail, sources and analysis plan.</p>
+  </div>`;
+}
+
+function viewReadiness(){
+  const r = readinessCounts();
+  const ST = {done:"Done", doing:"In progress", todo:"To do"};
+  const pct = Math.round(r.done / r.total * 100);
+  const groups = READINESS.map(g => `<section><h2>${esc(g.group)}</h2><div class="tasks">${g.items.map(([what,owner,when,st,note,pr]) => `
+      <div class="task ${st}">
+        <div class="task-main">
+          <p class="task-what">${esc(what)}</p>
+          ${note ? `<p class="task-note">${esc(note)}</p>` : ""}
+          <p class="task-meta"><span><b>Owner:</b> ${esc(owner)}</span><span><b>When:</b> ${esc(when)}</span></p>
+        </div>
+        <div class="task-tags"><span class="st ${st}">${ST[st]}</span>${pr ? '<span class="req">Pearson requirement</span>' : ""}</div>
+      </div>`).join("")}</div></section>`).join("");
+  return `<div class="wrap">
+    <section><span class="eyebrow">Readiness</span><h1>Ready for January</h1><p class="lede">Everything that needs to be in place before learners start, or before the week it is first needed. Owners are roles, and dates will be fixed once the start date is confirmed.</p></section>
+    <section class="panel stack" aria-label="Progress">
+      <div class="counts"><span><b>${r.total}</b>tasks</span><span><b>${r.done}</b>done</span><span><b>${r.doing}</b>in progress</span><span><b>${r.todo}</b>to do</span><span><b>${r.req}</b>Pearson requirements</span></div>
+      <div class="progress" role="img" aria-label="${pct}% of tasks done"><span style="width:${pct}%"></span></div>
+    </section>
+    ${groups}
+    <p class="small-note">Statuses as of ${UPDATED}.</p>
+  </div>`;
+}
+
+function viewDecisions(){
+  const card = ([t,d],k) => `<div class="dcard ${k}"><h3>${k==="agreed"?ICON.check:ICON.open}<span>${esc(t)}</span></h3><p>${esc(d)}</p></div>`;
+  const groups = [["appr","To agree with the apprenticeship lecturer"],["assess","Assessment and Pearson"],["team","Team and delivery"]];
+  const cnt = g => DECISIONS.open.filter(d=>d[2]===g).length;
+  return `<div class="wrap">
+    <section><span class="eyebrow">Decisions</span><h1>What we have agreed, and what is still open</h1><p class="lede">Discuss in the Teams channel. Once something is agreed, it moves to the agreed list here. Tasks are tracked on the Readiness page.</p></section>
+    <section class="dsum">
+      <button type="button" class="ag" data-go="d-agreed"><b>${DECISIONS.agreed.length}</b>agreed</button>
+      ${groups.map(([g,h]) => `<button type="button" class="op" data-go="d-${g}"><b>${cnt(g)}</b>open: ${({appr:"with the apprenticeship lecturer",assess:"assessment and Pearson",team:"team and delivery"})[g]}</button>`).join("")}
+    </section>
+    <section id="d-agreed"><div class="dhead"><h2>Agreed in planning</h2><span class="n">${DECISIONS.agreed.length}</span></div><div class="dgrid">${DECISIONS.agreed.map(d=>card(d,"agreed")).join("")}</div></section>
+    ${groups.map(([g,h]) => `<section id="d-${g}"><div class="dhead"><h2>Still open: ${h}</h2><span class="n">${cnt(g)}</span></div><div class="dgrid">${DECISIONS.open.filter(d=>d[2]===g).map(d=>card(d,"open")).join("")}</div></section>`).join("")}
+  </div>`;
+}
+
+/* ---------- ROUTER ---------- */
+const VIEWS = { home:viewHome, team:viewTeam, assessment:viewAssessment, mapping:viewMapping, materials:viewMaterials, evaluation:viewEvaluation, readiness:viewReadiness, decisions:viewDecisions };
+BLOCKS.forEach(b => VIEWS[b.id] = () => viewBlock(b));
+function renderNav(cur){
+  document.getElementById("nav").innerHTML = NAV.map(n => n[0]==="sep" ? '<span class="sep" aria-hidden="true"></span>' :
+    `<a href="#${n[0]}"${n[0]===cur?' aria-current="page"':''}>${n[2]?`<span class="num">${n[2]}</span>`:""}${n[1]}</a>`).join("");
+}
+function route(e){
+  const id = (location.hash || "").replace("#","");
+  const cur = VIEWS[id] ? id : "home";
+  renderNav(cur);
+  const main = document.getElementById("main");
+  main.innerHTML = VIEWS[cur]();
+  const label = (NAV.find(n => n[0] === cur) || [])[1];
+  document.title = cur === "home" ? BASE_TITLE : `${label} · ${BASE_TITLE}`;
+  window.scrollTo(0,0);
+  const nav = document.getElementById("nav"), a = nav.querySelector('a[aria-current="page"]');
+  if (a) {
+    const nr = nav.getBoundingClientRect(), ar = a.getBoundingClientRect();
+    if (ar.left < nr.left || ar.right > nr.right) nav.scrollLeft += ar.left - nr.left - 16;
+  }
+  if (e) main.focus({preventScroll:true});
+}
+document.getElementById("main").addEventListener("click", e => { const b = e.target.closest("[data-go]"); if (b) document.getElementById(b.dataset.go).scrollIntoView({behavior:"smooth", block:"start"}); });
+document.getElementById("skip").addEventListener("click", () => document.getElementById("main").focus());
+window.addEventListener("hashchange", route);
+route();
+</script>
+</body>
+</html>
