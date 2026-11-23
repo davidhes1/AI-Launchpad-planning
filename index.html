@@ -398,6 +398,13 @@ ul.introlist { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
 .kind.k-intro { background: var(--appr); color: var(--on-solid); }
 .kind.k-tutorial { border-style: dashed; }
 .who-s { font-size: 0.8rem; color: var(--muted); }
+.w3-wk .wc { color: var(--ink); font-weight: 700; }
+.w3-wk .bh { font-size: 0.74rem; font-weight: 700; color: var(--line); }
+.w3.brk { align-items: center; }
+.brk-c { grid-column: 2 / -1; border: 2px dashed var(--rule); border-radius: 10px; padding: 10px 14px; color: var(--muted); font-weight: 700; background: transparent; }
+.tl-off { justify-self: center; font-size: 0.68rem; font-weight: 800; color: var(--line); border: 1.5px dashed var(--line); border-radius: 999px; padding: 1px 6px; white-space: nowrap; background: var(--surface); }
+@media (max-width: 760px) { .brk-c { grid-column: auto; } }
+.tl-month { font-size: 0.72rem; font-weight: 700; color: var(--muted); border-left: 1px solid var(--rule); padding-left: 4px; white-space: nowrap; overflow: hidden; }
 .w3-title span { font-size: 0.95rem; color: var(--muted); font-weight: 700; margin-left: 6px; }
 .w3-title a { text-decoration: none; }
 .w3-title a:hover { text-decoration: underline; }
@@ -509,8 +516,8 @@ ul.introlist { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
 </header>
 <main id="main" tabindex="-1"></main>
 <footer><div class="wrap">
-  <p>Draft proposal for the delivery team. Version 1.7, updated 23 November 2026. Nothing here is agreed until it appears under Decisions as agreed.</p>
-  <p>Sources: Skills England ST1512 AI and Automation Practitioner (duties and KSBs as published in version 2.0; version 2.1 changed only the assessment plan); Pearson BTEC Higher Nationals in Digital Technologies specification, Issue 4; Barnsley College 24-week duty planner; the apprenticeship lecturer's planner and materials (shared 19 November 2026); DSIT's requirement that all 15 duties are covered (November 2026); Microsoft Learn (Azure AI Fundamentals).</p>
+  <p>Draft proposal for the delivery team. Version 1.9, updated 23 November 2026. Nothing here is agreed until it appears under Decisions as agreed.</p>
+  <p>Sources: Skills England ST1512 AI and Automation Practitioner (duties and KSBs as published in version 2.0; version 2.1 changed only the assessment plan); Pearson BTEC Higher Nationals in Digital Technologies specification, Issue 4; Barnsley College 24-week duty planner; Jonathan's planner and materials (shared 19 November 2026); DSIT's requirement that all 15 duties are covered (November 2026); Microsoft Learn (Azure AI Fundamentals).</p>
 </div></footer>
 
 <script>
@@ -551,16 +558,16 @@ const CRIT = {
 const WHO = {
   u15: {cls:"p-u15", name:"Unit 15 lecturer"},
   u2: {cls:"p-u2", name:"Unit 2 lecturer"},
-  appr: {cls:"p-appr", name:"Apprenticeship lecturer"}
+  appr: {cls:"p-appr", name:"Jonathan"}
 };
 
-/* six duty steps, roughly one a month (the apprenticeship lecturer's proposal), grouped into four blocks below.
+/* six duty steps, roughly one a month (Jonathan's proposal), grouped into four blocks below.
    Each step has one lead duty with its own report; the supporting duties evidenced in that report are in SUPPORT.
    weekly rows: [week, focus, Pass criteria, supporting duties worked on that week] */
 const STEPS = [
  { id:"month1", n:1, name:"Opportunity", weeks:"1-4",
    summary:"Learners find out what AI can do, then choose a real process to automate and make the case for it.",
-   checkpoint:{week:4, title:"An automation opportunity and its business case", detail:"The busiest report for HNC evidence. The apprenticeship lecturer's Duty 1 reading and assignment already cover most of it.",
+   checkpoint:{week:4, title:"An automation opportunity and its business case", detail:"The busiest report for HNC evidence. Jonathan's Duty 1 reading and assignment already cover most of it.",
      contents:[["What AI is: the main types, and how machine learning learns from data",[1,"U15 P1"]],["Where AI is used: real applications, current trends and risks",[15,"U15 P2"]],["An AI invention compared with an AI innovation that changed a business",["U2 P1"]],["The chosen process, with a baseline of how it works now",[1,13]],["Business case: costs, savings, risks, staff impact, sustainability and funding",[1,13,"U2 P5"]]]},
    duties:[
     { num:1, title:"Find an automation opportunity", weeks:"1-4", lead:"u2", support:"u15",
@@ -756,7 +763,7 @@ const BLOCKS = [
 BLOCKS.forEach(b => { b.parts = b.steps.map(id => STEPS.find(s => s.id === id)); b.parts.forEach(s => s.block = b); });
 
 const MATRIX_COLS = ["U2 P1","U2 P2","U2 P3","U2 P4","U2 P5","U2 P6","U15 P1","U15 P2","U15 P3","U15 P4","U15 P5","U15 P6","U15 P7","U15 P8","U15 P9"];
-/* the apprenticeship lecturer's session, first in each week: [week, duties, kind, focus, his material]
+/* Jonathan's session, first in each week: [week, duties, kind, focus, his material]
    kind: intro (introduces a new duty), next (introduces the next stage of a duty), tutorial (report support and evidence checks) */
 const INTROS = [
  [1,[1],"intro","AI and automation at work: what AI is and how organisations use it to improve","Presentation 1, Part 1 (Background to Machine Learning and AI)"],
@@ -809,7 +816,7 @@ const WEEKS = {
  20:{u:"u2", crit:["U2 P2"], hnc:"Getting staff on board with a change", proj:"Draft the rollout plan and write the stakeholder update"},
  21:{u:"u2", crit:["U2 P4"], hnc:"What makes a digital transformation succeed", proj:"Build the rollout roadmap"},
  22:{u:"u2", crit:["U2 P4"], hnc:"Measuring success after rollout", proj:"Write the user guide and record the training walkthrough; finish Report 6"},
- 23:{u:"u2", crit:[], hnc:"Feedback on marked reports", proj:"Resubmissions and catch-up; Azure exam window"},
+ 23:{u:null, crit:[], hnc:"Feedback on marked reports, from both HNC lecturers", proj:"Resubmissions and catch-up; Azure exam window"},
  24:{u:null, crit:[], hnc:"Course review", proj:"Resubmissions close; next steps"}
 };
 const introOf = w => INTROS.find(i => i[0] === w);
@@ -841,13 +848,14 @@ const MATRIX = [
 const DECISIONS = {
  agreed:[
   ["All 15 duties are covered","DSIT, a key funding partner, requires all 15 duties to be covered. Six lead duties each have their own report. The other nine are supporting duties, evidenced in short, scaffolded sections of those reports. This covers all 64 KSBs."],
-  ["Four blocks: Discover, Design, Build and Launch","Blocks of different lengths (4, 6, 4 and 8 weeks) with one project running through all four. Inside them, learners take one lead duty roughly a month, following the apprenticeship lecturer's proposal, and hand in a report at the end of each one."],
+  ["Four blocks: Discover, Design, Build and Launch","Blocks of different lengths (4, 6, 4 and 8 weeks) with one project running through all four. Inside them, learners take one lead duty roughly a month, following Jonathan's proposal, and hand in a report at the end of each one."],
   ["Merit and Distinction are optional extras","Learners focus on the duties and the Pass criteria; M and D are offered as clearly marked extra tasks."],
   ["Merit and Distinction appear in the mapping","They are shown as optional extra evidence for the duties they match. No duty depends on them, because a learner who only aims for a Pass must still cover all 15."],
+  ["Dates","Week 1 starts on Monday 18 January 2027 and the course ends on Friday 16 July 2027. Two weeks have no teaching: the Easter week (w/c 29 March) and the training week (w/c 5 July). Teaching carries on through February half-term."],
   ["24 teaching weeks","The full 24 weeks will be delivered, possibly including holiday periods."],
   ["Final hand-in at week 22","Report 6, the last one, is handed in at week 22. Weeks 23 and 24 are for feedback, resubmissions and catch-up."],
   ["One duty per apprenticeship session","Each of the 15 duties gets its own introduction week. Seven more sessions take a duty to its next stage, and two are tutorials. The full plan is on the Week by week page."],
-  ["How the teaching works","The apprenticeship lecturer introduces each duty in the first session of the week, using his own materials. Lilly and Reece build the course around those introductions, with the course leader's support: the lessons, activities, project tasks and briefs."]
+  ["How the teaching works","Jonathan introduces each duty in the first session of the week, using his own materials. Lilly and Reece build the course around those introductions, with the course leader's support: the lessons, activities, project tasks and briefs."]
  ],
  open:[
   ["What DSIT means by covered","Ask DSIT what evidence they need: a map showing where each duty is taught, or evidence from every learner against every duty. This plan supports both, but the second needs the duty tracker on the Readiness page. Also ask whether the coverage will count towards anything later, such as recognition of prior learning if learners move on to the full apprenticeship, as that would raise the bar on evidence.","team"],
@@ -855,12 +863,12 @@ const DECISIONS = {
   ["The order of the introductions","His planner and presentations run Duties 1 to 15 in order. On the Launchpad his introductions follow the project (one duty per session; every week is on the Week by week page). The content changes little, only when it is taught. Check the plan with him against his planner, and ask which of his presentations already exist.","appr"],
   ["Handover from introductions to lessons","He shares his slides for each duty at least a week before he teaches it, so Lilly and Reece can plan their lessons around it. Agree where they are shared, for example a folder in the Teams channel.","team"],
   ["One report for both the duties and the HNC","Each report evidences its lead duty, its supporting duties and its HNC Pass criteria, so learners write one document, not two. Check with the internal verifier that one piece of work can be assessed for both.","assess"],
-  ["Report length","The apprenticeship lecturer's Duty 1 assignment asks for 1,500 to 2,000 words. His example duty reports run to 3,000 to 4,700 words, which would be a lot for beginners roughly every month. Suggest 1,500 to 2,000 words as the target for each report. Supporting duties are evidenced with tables, screenshots and short sections rather than more writing, so the Build report in particular stays manageable.","appr"],
+  ["Report length","Jonathan's Duty 1 assignment asks for 1,500 to 2,000 words. His example duty reports run to 3,000 to 4,700 words, which would be a lot for beginners roughly every month. Suggest 1,500 to 2,000 words as the target for each report. Supporting duties are evidenced with tables, screenshots and short sections rather than more writing, so the Build report in particular stays manageable.","appr"],
   ["Who takes which HNC unit","Lilly and Reece each take one unit. The hours come out roughly even, but Unit 15 is the more technical of the two.","team"],
-  ["How the briefs are structured","One brief per block, written by Lilly and Reece with the course leader's support, using the apprenticeship lecturer's materials for the duty tasks. Discover and Build have one part each; Design and Launch have two parts with separate hand-in dates, which Pearson allows. That is four briefs to write and verify for six reports.","assess"],
+  ["How the briefs are structured","One brief per block, written by Lilly and Reece with the course leader's support, using Jonathan's materials for the duty tasks. Discover and Build have one part each; Design and Launch have two parts with separate hand-in dates, which Pearson allows. That is four briefs to write and verify for six reports.","assess"],
   ["Learning outcomes split across reports","Two Unit 2 learning outcomes are assessed in two different reports: LO1 (P1 in Report 1, P2 in Report 6) and LO3 (P5 in Report 1, P4 in Report 6). Check this with the internal verifier. Every Unit 15 learning outcome sits within a single report.","assess"],
   ["Unit 2 P6 (intellectual property)","No duty covers IP well. Plan 2 or 3 extra Unit 2 sessions in week 18.","assess"],
-  ["How the build is done","The plan assumes a low/no-code tool with a cloud AI service. The apprenticeship lecturer's example project uses Python with AI code generation. Both fit the Unit 15 criteria: agree one, or offer Python as a stretch route.","appr"],
+  ["How the build is done","The plan assumes a low/no-code tool with a cloud AI service. Jonathan's example project uses Python with AI code generation. Both fit the Unit 15 criteria: agree one, or offer Python as a stretch route.","appr"],
   ["Azure AI Fundamentals as an optional extra","The exam is now AI-901, which includes building in Microsoft Foundry and some Python. Agree whether to offer it, how to fund exam vouchers, and whether the build uses Foundry (see Build).","team"],
   ["The evaluation framework","Lilly's Kirkpatrick framework covers all four levels. Agree who leads it, who observes, and whether to take the lighter options on the Evaluation page.","team"],
   ["Placement projects","If every learner has a paid placement, the process they automate should come from it, so the Level 4 KPIs and the reports measure the same work. The project bank becomes a fallback.","team"],
@@ -873,7 +881,7 @@ const READINESS = [
  { group:"Course plan", items:[
   ["Draft the course plan","Course leader","Done","done","This portal.",false],
   ["Ask DSIT what evidence they need for the 15 duties","Course leader","As soon as possible","todo","A map of where each duty is taught, or evidence from every learner against every duty. See the Decisions page.",false],
-  ["Agree the introductions with the apprenticeship lecturer: the order, the shape of each one and the handover","Course leader","As soon as possible","todo","Every week's introduction is on the Week by week page.",false],
+  ["Agree the introductions with Jonathan: the order, the shape of each one and the handover","Course leader","As soon as possible","todo","Every week's introduction is on the Week by week page.",false],
   ["Share the plan with the team and agree it","Course leader","As soon as possible","todo","Record what is agreed on the Decisions page.",false]
  ]},
  { group:"Pearson and the qualification", items:[
@@ -892,11 +900,11 @@ const READINESS = [
   ["Standardise assessment and internal verification across the team","Course leader","Before week 4","todo","Pearson expects time for this in the assessment plan.",true]
  ]},
  { group:"Apprenticeship materials", items:[
-  ["Adapt the Duty 1 assignment for Launchpad learners","Apprenticeship lecturer","Before week 1","todo","Point it at a process from the project bank rather than the learner's own job role (see Materials).",false],
-  ["Prepare the introduction for each duty and share the slides","Apprenticeship lecturer","At least a week before each one is taught","todo","His planner already lists a presentation for every duty; on the Launchpad they follow the project order (see the Team page).",false],
-  ["Build the lessons, activities and project tasks for each block","Unit 2 and Unit 15 lecturers, with the course leader","Before each block starts","todo","Built around the apprenticeship lecturer's introductions for that block.",false],
+  ["Adapt the Duty 1 assignment for Launchpad learners","Jonathan","Before week 1","todo","Point it at a process from the project bank rather than the learner's own job role (see Materials).",false],
+  ["Prepare the introduction for each duty and share the slides","Jonathan","At least a week before each one is taught","todo","His planner already lists a presentation for every duty; on the Launchpad they follow the project order (see the Team page).",false],
+  ["Build the lessons, activities and project tasks for each block","Unit 2 and Unit 15 lecturers, with the course leader","Before each block starts","todo","Built around Jonathan's introductions for that block.",false],
   ["Set up a shared folder for the introductions and lesson plans","Course leader","Before week 1","todo","For example in the Teams channel, so everyone can see what has been covered.",false],
-  ["Adapt the portfolio tracker into a duty and KSB tracker for the six reports","Apprenticeship lecturer, with the course leader","Before the week 4 hand-in","todo","One row per duty and KSB, showing which report section evidences it. Staff fill it in, so learners do no extra paperwork. Needed if DSIT wants evidence from every learner.",false]
+  ["Adapt the portfolio tracker into a duty and KSB tracker for the six reports","Jonathan, with the course leader","Before the week 4 hand-in","todo","One row per duty and KSB, showing which report section evidences it. Staff fill it in, so learners do no extra paperwork. Needed if DSIT wants evidence from every learner.",false]
  ]},
  { group:"People and timetable", items:[
   ["Confirm who teaches Unit 2 and who teaches Unit 15","Course leader","Before briefs are written","todo","",false],
@@ -950,6 +958,22 @@ const strongPass = n => [...MATRIX.find(r => r[0] === n)[2]].some(ch => ch === "
 const strongAny = n => { const r = MATRIX.find(x => x[0] === n); return [...(r[2] + r[3])].some(ch => ch === "S"); };
 const mdMatches = (c, kind) => MATRIX.filter(r => r[3][MD_COLS.indexOf(c)] === kind).map(r => r[0]);
 const repName = s => `Report ${s.n}: ${s.name}`;
+/* week 1 starts on Monday 18 January 2027; weeks run straight through */
+const START = Date.UTC(2027, 0, 18);
+const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const MONTH = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+/* weeks with no teaching: [Monday, label]. Week numbers count teaching weeks only */
+const BREAKS = [[Date.UTC(2027, 2, 29), "Easter week"], [Date.UTC(2027, 6, 5), "Training week"]];
+/* bank holidays that fall inside teaching weeks */
+const BANK_HOLS = [[Date.UTC(2027, 2, 26), "Good Friday"], [Date.UTC(2027, 4, 3), "Early May bank holiday"], [Date.UTC(2027, 4, 31), "Spring bank holiday"]];
+const DAY = 864e5, WEEK = 7 * DAY;
+const TEACH = (() => { const out = []; let t = START; while (out.length < 24) { if (!BREAKS.some(b => b[0] === t)) out.push(t); t += WEEK; } return out; })();
+const wkDay = (w, add = 0) => new Date(TEACH[w - 1] + add * DAY);
+const fmtDay = t => { const d = new Date(t); return `${["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][d.getUTCDay()]} ${d.getUTCDate()} ${MONTH[d.getUTCMonth()]}`; };
+const breakAfter = w => BREAKS.filter(b => w < 24 && b[0] > TEACH[w - 1] && b[0] < TEACH[w]);
+const holsIn = w => BANK_HOLS.filter(h => h[0] >= TEACH[w - 1] && h[0] < TEACH[w - 1] + 5 * DAY);
+const wc = w => { const d = wkDay(w); return `${d.getUTCDate()} ${MON[d.getUTCMonth()]}`; };
+const spanDates = (a, z) => { const b = wkDay(a), e = wkDay(z, 4); return `${b.getUTCDate()} ${MONTH[b.getUTCMonth()]} to ${e.getUTCDate()} ${MONTH[e.getUTCMonth()]} ${e.getUTCFullYear()}`; };
 const weekSpan = w => { const [a,z] = String(w).split("-").map(Number); return [a, z || a]; };
 /* a tag for a report section: a duty number (solid for the report's lead duty) or an HNC criterion code */
 const tagOf = (t, s) => typeof t === "number" ? `<span class="chip dt${s && dutyOf(s).num === t ? " lead" : ""}"><b>Duty ${t}</b></span>` : chip(t, false, false);
@@ -966,11 +990,13 @@ function timeline(){
     const lead = `<div class="tl-row" style="${cols}"><span class="tl-lab"><b>Duty ${d.num}</b> ${esc(d.title)} <span class="tl-tag">lead</span></span>${under()}<span class="tl-bar lead" style="grid-column:${a+1}/${z+2}"></span><span class="tl-due" style="grid-column:${w+1}" title="Report ${s.n} handed in, week ${w}"></span></div>`;
     const sup = supportOf(s).map(n => { const [p,q] = weekSpan(SUPPORT[n].parts[s.id].weeks), hs = homesOf(n); const part = hs.length > 1 ? ` <span class="tl-tag">part ${hs.indexOf(s)+1} of ${hs.length}</span>` : "";
       return `<div class="tl-row" style="${cols}"><span class="tl-lab"><b>Duty ${n}</b> ${esc(SUPPORT[n].title)}${part}</span>${under()}<span class="tl-bar sup" style="grid-column:${p+1}/${q+2}"></span></div>`; }).join("");
-    return `<div class="tl-row tl-head" style="${cols}"><span class="tl-gl">${esc(repName(s))} · hand in week ${w}</span></div>${lead}${sup}`;
+    return `<div class="tl-row tl-head" style="${cols}"><span class="tl-gl">${esc(repName(s))} · hand in week ${w}, w/c ${wc(w)}</span></div>${lead}${sup}`;
   }).join("");
   return `<div class="tablewrap"><div class="tl">
     <div class="tl-row" style="${cols}"><span class="tl-lab tl-muted">Block</span>${bands}</div>
+    <div class="tl-row" style="${cols}"><span class="tl-lab tl-muted">Month</span>${(() => { const g = []; for (let w = 1; w <= 24; w++) { const m = wkDay(w).getUTCMonth(); if (g.length && g[g.length-1].m === m) g[g.length-1].z = w; else g.push({m, a:w, z:w}); } return g.map(x => `<span class="tl-month" style="grid-column:${x.a+1}/${x.z+2}">${MONTH[x.m]}</span>`).join(""); })()}</div>
     <div class="tl-row" style="${cols}"><span class="tl-lab tl-muted">Week</span>${wks}</div>
+    <div class="tl-row" style="${cols}"><span class="tl-lab tl-muted">Weeks off</span>${BREAKS.map(b => { const w = TEACH.findIndex(t => t > b[0]); const col = w === -1 ? 25 : w + 1; return `<span class="tl-off" style="grid-column:${col}/${col + 2}" title="${esc(b[1])}, w/c ${new Date(b[0]).getUTCDate()} ${MONTH[new Date(b[0]).getUTCMonth()]}: no teaching">${b[1] === "Easter week" ? "Easter" : "Training"}</span>`; }).join("")}</div>
     <div class="tl-row" style="${cols}"><span class="tl-lab tl-muted">Apprenticeship session</span>${INTROS.map(i => `<span class="tl-ap k-${i[2]}" style="grid-column:${i[0]+1}" title="Week ${i[0]}: ${esc(introText(i))}">${i[1].length ? i[1][0] : "T"}</span>`).join("")}</div>
     ${groups}
   </div></div>
@@ -981,7 +1007,7 @@ function timeline(){
 function reportCard(s, extras = true){
   const d = dutyOf(s), sp = supportOf(s);
   return `<article class="rcard">
-    <div class="rhead"><span class="rnum">${s.n}</span><div><span class="eyebrow">${s.block.name} · hand in week ${s.checkpoint.week}</span><h3>${esc(repName(s))}</h3><p>${esc(s.checkpoint.title)}</p></div></div>
+    <div class="rhead"><span class="rnum">${s.n}</span><div><span class="eyebrow">${s.block.name} · hand in week ${s.checkpoint.week}, w/c ${wc(s.checkpoint.week)}</span><h3>${esc(repName(s))}</h3><p>${esc(s.checkpoint.title)}</p></div></div>
     <ul class="rlist">${s.checkpoint.contents.map(([t,tags]) => `<li><span>${esc(t)}</span><span class="chips">${tags.map(x => tagOf(x, s)).join("")}</span></li>`).join("")}</ul>
     <p class="rmeta"><b>Duties:</b> ${d.num} (lead)${sp.length ? `, ${sp.join(", ")}` : ""} &nbsp; <b>Pass criteria:</b> ${passOf(s).join(", ")}</p>
     ${extras && s.extras.length ? `<p class="rmeta"><b>Optional extras:</b> ${s.extras.join(", ")}</p>` : ""}
@@ -997,9 +1023,12 @@ function weekRow(w){
   const intro = `<div class="c3 c-appr" data-l="1. Apprenticeship introduction"><div class="chips">${it[1].map(n => tagOf(n, s)).join("")}<span class="kind k-${it[2]}">${KIND_LABEL[it[2]]}</span></div><p>${esc(capFirst(it[3]))}</p></div>`;
   const hnc = `<div class="c3 c-hnc ${wk.u || ""}" data-l="2. HNC lessons">${wk.crit.length ? `<div class="chips">${wk.crit.map(c => chip(c,false,false)).join("")}</div>` : ""}<p>${esc(wk.hnc)}</p>${wk.u ? `<p class="who-s">${WHO[wk.u].name}</p>` : ""}</div>`;
   const proj = `<div class="c3 c-proj" data-l="3. Project work"><p>${esc(wk.proj)}</p>${sd.length ? `<div class="chips">${sd.map(n => tagOf(n, s)).join("")}</div>` : ""}${hand ? `<span class="handin">Report ${s.n} handed in</span>` : ""}</div>`;
-  return `<div class="w3${hand ? " hand" : ""}"><div class="w3-wk"><b>Week ${w}</b><span>${w <= 22 ? esc(repName(s)) : "Feedback weeks"}</span></div>${intro}${hnc}${proj}</div>`;
+  return `<div class="w3${hand ? " hand" : ""}"><div class="w3-wk"><b>Week ${w}</b><span class="wc">w/c ${wc(w)}</span><span>${w <= 22 ? esc(repName(s)) : "Feedback weeks"}</span>${holsIn(w).map(h => `<span class="bh">Bank holiday: ${esc(fmtDay(h[0]))}</span>`).join("")}</div>${intro}${hnc}${proj}</div>`;
 }
-const W3_HEAD = `<div class="w3 w3-head" aria-hidden="true"><div></div><div class="h-appr">1. Apprenticeship introduction<span>Apprenticeship lecturer, 3 hours</span></div><div>2. HNC lessons<span>Unit 15 or Unit 2 lecturer, about 5 hours</span></div><div>3. Project work<span>Learners, with the lead lecturer, about 10 hours</span></div></div>`;
+const breakRow = b => `<div class="w3 brk"><div class="w3-wk"><b>No teaching</b><span class="wc">w/c ${new Date(b[0]).getUTCDate()} ${MON[new Date(b[0]).getUTCMonth()]}</span></div><div class="brk-c">${esc(b[1])}: no teaching this week. Teaching week numbers carry on afterwards.</div></div>`;
+/* rows for a run of weeks, with any week off shown between them */
+const weekRows = list => list.map((w, i) => weekRow(w) + (i < list.length - 1 ? breakAfter(w).map(breakRow).join("") : "")).join("");
+const W3_HEAD = `<div class="w3 w3-head" aria-hidden="true"><div></div><div class="h-appr">1. Apprenticeship introduction<span>Jonathan, 3 hours</span></div><div>2. HNC lessons<span>Unit 15 or Unit 2 lecturer, about 5 hours</span></div><div>3. Project work<span>Learners, with the lead lecturer, about 10 hours</span></div></div>`;
 const TAG_KEY = `<div class="chips" style="margin-bottom:12px"><span class="chip dt lead"><b>Duty 1</b></span><span class="small-note" style="align-self:center">lead duty</span><span class="chip dt"><b>Duty 15</b></span><span class="small-note" style="align-self:center">supporting duty</span>${chip("U2 P1",false,false)}<span class="small-note" style="align-self:center">Unit 2 criterion</span>${chip("U15 P1",false,false)}<span class="small-note" style="align-self:center">Unit 15 criterion</span></div>`;
 
 function bar(label, proj, hnc){
@@ -1019,10 +1048,10 @@ function bar(label, proj, hnc){
   return `<div class="barblock"><div class="barrow"><span class="lbl">${label}</span><div class="bar" aria-hidden="true">${segs}</div></div><p class="barnote">${note}</p></div>`;
 }
 const HOURS_KEY = `<div class="hourskey">
-  <p><span class="sw sw-appr" aria-hidden="true"></span><b>Apprenticeship introduction, 3 hours:</b> the first session of the week. The apprenticeship lecturer introduces the duty learners are about to work on.</p>
+  <p><span class="sw sw-appr" aria-hidden="true"></span><b>Apprenticeship introduction, 3 hours:</b> the first session of the week. Jonathan introduces the duty learners are about to work on.</p>
   <p><span class="sw sw-hnc" aria-hidden="true"></span><b>HNC lessons, 5 hours:</b> lessons that build on the introduction, covering the theory the HNC criteria ask for through hands-on activities.</p>
   <p><span class="sw sw-proj" aria-hidden="true"></span><b>Project work, 10 hours:</b> learners apply it to their own project and report, with the lead lecturer guiding them. Workshop time, not lectures.</p>
-  <p class="small-note">Together that is the 18 hours learners are in each week. Colours show which lecturer leads: blue for Unit 15, orange for Unit 2, green for the apprenticeship lecturer.</p>
+  <p class="small-note">Together that is the 18 hours learners are in each week. Colours show which lecturer leads: blue for Unit 15, orange for Unit 2, green for Jonathan.</p>
 </div>`;
 const SVG = d => `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
 const ICON = {
@@ -1053,16 +1082,17 @@ const NAV = [
 
 function viewWeeks(){
   const groups = BLOCKS.map(b => { const [a,z] = weekSpan(b.weeks); const end = b.id === "launch" ? 22 : z;
-    return [`Block ${b.n}: ${b.name}`, `weeks ${a}-${end}`, Array.from({length: end - a + 1}, (_,i) => a + i), b.id]; }).concat([["Feedback", "weeks 23-24", [23,24], null]]);
+    return [`Block ${b.n}: ${b.name}`, `weeks ${a}-${end} · ${spanDates(a, end)}`, Array.from({length: end - a + 1}, (_,i) => a + i), b.id]; }).concat([["Feedback", `weeks 23-24 · ${spanDates(23, 24)}`, [23,24], null]]);
   return `<div class="wrap">
-    <section><span class="eyebrow">Week by week</span><h1>What happens each week</h1><p class="lede">Every week follows the same three steps. The apprenticeship lecturer introduces one duty. The HNC lecturer for that week builds on it in their lessons. Learners then apply it to their own project and report.</p></section>
+    <section><span class="eyebrow">Week by week</span><h1>What happens each week</h1><p class="lede">Every week follows the same three steps. Jonathan, the apprenticeship lecturer, introduces one duty. The HNC lecturer for that week builds on it in their lessons. Learners then apply it to their own project and report.</p></section>
     <section><div class="flow">
       <div class="node" style="border-top:5px solid var(--appr)"><b>1. Apprenticeship introduction</b><span>First session of the week, 3 hours. One duty each time, using his own materials.</span></div><span class="to" aria-hidden="true">→</span>
       <div class="node" style="border-top:5px solid var(--u15)"><b>2. HNC lessons</b><span>About 5 hours. Lilly or Reece build on the introduction with hands-on lessons for the HNC criteria.</span></div><span class="to" aria-hidden="true">→</span>
       <div class="node" style="border-top:5px solid var(--muted)"><b>3. Project work</b><span>About 10 hours. Learners do that week's part of their project and report.</span></div>
     </div>
-    <p class="small-note" style="margin-top:10px">The HNC lesson topics are a starting point: Lilly and Reece are building the lessons, with the course leader's support. A red border marks a week when a report is handed in.</p></section>
-    ${groups.map(([t, wks, list, id]) => `<section><h2 class="w3-title">${id ? `<a href="#${id}">${t}</a>` : t} <span>${wks}</span></h2>${W3_HEAD}<div class="w3-list">${list.map(weekRow).join("")}</div></section>`).join("")}
+    <p class="small-note" style="margin-top:10px">The HNC lesson topics are a starting point: Lilly and Reece are building the lessons, with the course leader's support. A red border marks a week when a report is handed in.</p>
+    <p class="note" style="margin-top:10px"><strong>Dates.</strong> Week 1 starts on Monday 18 January 2027 and week 24 ends on Friday ${(() => { const e = wkDay(24, 4); return `${e.getUTCDate()} ${MONTH[e.getUTCMonth()]} ${e.getUTCFullYear()}`; })()}. There are two weeks with no teaching: the Easter week (w/c 29 March) and the training week (w/c 5 July). Week numbers count teaching weeks only, so week 11 is w/c 5 April. Teaching carries on through February half-term. Bank holidays inside teaching weeks are marked on the week.</p></section>
+    ${groups.map(([t, wks, list, id]) => `<section><h2 class="w3-title">${id ? `<a href="#${id}">${t}</a>` : t} <span>${wks}</span></h2>${W3_HEAD}<div class="w3-list">${weekRows(list)}</div>${breakAfter(list[list.length - 1]).length ? `<div class="w3-list" style="margin-top:8px">${breakAfter(list[list.length - 1]).map(breakRow).join("")}</div>` : ""}</section>`).join("")}
   </div>`;
 }
 
@@ -1082,9 +1112,9 @@ function viewHome(){
     ["#weeks","Week by week","All 24 weeks: the apprenticeship introduction, the HNC lessons and the project work."],
     ["#discover","The four blocks","One page per block: each week, what goes in each report and who teaches it."],
     ["#assessment","Assessment","The six reports, what goes in each one, and the rules on grading and resubmission."],
-    ["#team","Team and hours","Who does what, how a week works, and what the apprenticeship lecturer introduces each week."],
+    ["#team","Team and hours","Who does what, how a week works, and what Jonathan introduces each week."],
     ["#mapping","Mapping","The detail behind the plan: where every duty, KSB and HNC criterion is covered."],
-    ["#materials","Materials","The apprenticeship lecturer's teaching pack and how it fits the blocks."],
+    ["#materials","Materials","Jonathan's teaching pack and how it fits the blocks."],
     ["#evaluation","Evaluation","How we will measure whether the course works."],
     ["#readiness","Readiness",`What has to be in place before January: ${r.done} of ${r.total} tasks done.`],
     ["#decisions","Decisions",`${DECISIONS.agreed.length} agreed, ${DECISIONS.open.length} still to decide.`]
@@ -1093,24 +1123,24 @@ function viewHome(){
     <section>
       <span class="eyebrow">Start here</span>
       <h1>The AI Career Launchpad plan</h1>
-      <p class="lede">A new 24-week Level 4 course at Barnsley College, starting in January. Learners come in three days a week and work on one real AI project from start to finish. This portal sets out the plan for the delivery team. It is a draft: anything agreed is recorded under Decisions.</p>
+      <p class="lede">A new 24-week Level 4 course at Barnsley College, running from Monday 18 January to Friday 16 July 2027, with two weeks off at Easter and for the training week. Learners come in three days a week and work on one real AI project from start to finish. This portal sets out the plan for the delivery team. It is a draft: anything agreed is recorded under Decisions.</p>
     </section>
-    <section class="latest"><span class="eyebrow">What's new · version 1.7, 23 November 2026</span><ul>
+    <section class="latest"><span class="eyebrow">What's new · version 1.9, 23 November 2026</span><ul>
       <li><b>All 15 apprenticeship duties are covered,</b> as DSIT, a key funding partner, requires.</li>
-      <li><b>Each week starts with the apprenticeship lecturer introducing one duty.</b> Every duty gets its own introduction week.</li>
+      <li><b>Each week starts with Jonathan, the apprenticeship lecturer, introducing one duty.</b> Every duty gets its own introduction week.</li>
       <li><b>Lilly and Reece build the course around those introductions,</b> with the course leader's support: the HNC lessons, activities, project tasks and briefs.</li>
-      <li><b>New Week by week page:</b> what happens in every one of the 24 weeks. <a href="#weeks">See every week</a></li>
+      <li><b>New Week by week page:</b> what happens in every one of the 24 weeks, with dates. Week 1 starts on Monday 18 January 2027; the Easter week (w/c 29 March) and the training week (w/c 5 July) have no teaching. <a href="#weeks">See every week</a></li>
     </ul></section>
     <section><h2>The plan in six points</h2><ol class="points">
       <li><p><b>One real project.</b> Each learner picks a real process to automate with AI, ideally from their work placement, then designs it, builds it and plans how to roll it out.</p></li>
       <li><p><b>Two qualifications from the same work.</b> The project covers all 15 duties of the AI and Automation Practitioner apprenticeship standard and two HNC units, Unit 2 and Unit 15.</p></li>
       <li><p><b>Four blocks.</b> The project runs through four stages: Discover, Design, Build and Launch.</p></li>
       <li><p><b>Six reports.</b> Learners hand one in at weeks ${STEPS.map(s => s.checkpoint.week).join(", ").replace(/, (\d+)$/, " and $1")}. Each report covers one lead duty, a few supporting duties and some HNC criteria, so learners write one document, not two.</p></li>
-      <li><p><b>How it is taught.</b> Each week starts with the apprenticeship lecturer introducing a duty. Lilly and Reece, the HNC lecturers, build the lessons, activities and project tasks around those introductions, with the course leader's support.</p></li>
+      <li><p><b>How it is taught.</b> Each week starts with Jonathan, the apprenticeship lecturer, introducing a duty. Lilly and Reece, the HNC lecturers, build the lessons, activities and project tasks around those introductions, with the course leader's support.</p></li>
       <li><p><b>Time to catch up.</b> Weeks 23 and 24 are kept for feedback, resubmissions and catch-up. Nothing new is set.</p></li>
     </ol></section>
     <section><h2>Every week follows three steps</h2><div class="flow">
-      <div class="node" style="border-top:5px solid var(--appr)"><b>1. Apprenticeship introduction</b><span>The apprenticeship lecturer introduces one duty. First session of the week, 3 hours.</span></div><span class="to" aria-hidden="true">→</span>
+      <div class="node" style="border-top:5px solid var(--appr)"><b>1. Apprenticeship introduction</b><span>Jonathan introduces one duty. First session of the week, 3 hours.</span></div><span class="to" aria-hidden="true">→</span>
       <div class="node" style="border-top:5px solid var(--u15)"><b>2. HNC lessons</b><span>Lilly or Reece build on it with hands-on lessons for the HNC criteria. About 5 hours.</span></div><span class="to" aria-hidden="true">→</span>
       <div class="node" style="border-top:5px solid var(--muted)"><b>3. Project work</b><span>Learners apply it to their own project and report. About 10 hours.</span></div>
     </div><p style="margin-top:10px"><a class="golink" href="#weeks">See all 24 weeks on the Week by week page →</a></p></section>
@@ -1121,7 +1151,7 @@ function viewHome(){
       <p style="margin-bottom:12px">Learners are in 3 days a week, 9am to 4.30pm: about 18 hours once breaks come out.</p>
       <div class="bar" style="height:44px" aria-hidden="true">${seg("appr","1. Introduction 3h",3)}${seg("hnc c-n","2. HNC lessons 5h",5)}${seg("proj c-n","3. Project work 10h",10)}</div>
       <div class="grid" style="margin-top:12px">
-        <div class="panel stack"><h3>1. Apprenticeship introduction, 3 hours</h3><p>The first session of the week. The apprenticeship lecturer introduces the duty learners are about to work on, using his own materials.</p></div>
+        <div class="panel stack"><h3>1. Apprenticeship introduction, 3 hours</h3><p>The first session of the week. Jonathan introduces the duty learners are about to work on, using his own materials.</p></div>
         <div class="panel stack"><h3>2. HNC lessons, about 5 hours</h3><p>Lilly or Reece build on the introduction with engaging, hands-on lessons on the theory the HNC criteria ask for. Over 24 weeks that is 120 hours: the 60 guided learning hours Pearson sets for each unit.</p></div>
         <div class="panel stack"><h3>3. Project work, about 10 hours</h3><p>Workshop time: learners apply it to their own project and report in class, with the lead lecturer guiding them and checking progress.</p></div>
       </div>
@@ -1154,7 +1184,7 @@ function viewBlock(b){
       <div><span class="eyebrow">Duties covered</span><p>Lead: ${listAnd(blockDuties(b).map(d => String(d.num)))}<br>Supporting: ${listAnd(blockSupport(b).map(String))}</p></div>
       <div><span class="eyebrow">Project work led by</span><p>${leaders.map(who).join(", then ")}</p></div>
     </div>`;
-  const weeks = W3_HEAD + `<div class="w3-list">${b.parts.flatMap(s => s.weekly.map(r => r[0])).map(weekRow).join("")}</div>`;
+  const weeks = W3_HEAD + `<div class="w3-list">${weekRows(b.parts.flatMap(s => s.weekly.map(r => r[0])))}</div>`;
   const leadCards = b.parts.map(s => { const d = dutyOf(s); return `
     <article class="duty leadcard">
       <span class="tag">Lead duty ${d.num} · weeks ${d.weeks} · Report ${s.n}</span>
@@ -1189,7 +1219,7 @@ function viewBlock(b){
   return `<div class="wrap">
     <section class="phase-hero">
       <span class="phase-step" aria-hidden="true">${BLOCKS.map(q=>`<i class="${q.n<=b.n?"on":""}"></i>`).join("")}</span>
-      <span class="eyebrow">Block ${b.n} of 4 · weeks ${b.weeks}</span>
+      <span class="eyebrow">Block ${b.n} of 4 · weeks ${b.weeks} · ${spanDates(...weekSpan(b.weeks))}</span>
       <h1>${b.name}</h1>
       ${glance}
     </section>
@@ -1224,19 +1254,19 @@ function viewTeam(){
   const rows = BLOCKS.map(b => `<div class="panel stack"><h3>Block ${b.n}: ${b.name} <span class="eyebrow">weeks ${b.weeks}</span></h3>${b.parts.flatMap(s=>s.bars).map(x=>bar(...x)).join("")}</div>`).join("");
   const KIND = {intro:["Introduces","core"], next:["Next stage","support"], tutorial:["Tutorial","folded"]};
   const introRows = INTROS.map(i => { const [w,ds,k,t,m] = i, s = STEPS.find(st => st.weekly.some(x => x[0] === w));
-    return `<tr><td><b>Week ${w}</b><br><span class="small-note">${w <= 22 ? esc(repName(s)) : "Feedback weeks"}</span></td><td><span class="pill ${KIND[k][1]}">${KIND[k][0]}</span></td><td><div class="chips">${ds.map(n => tagOf(n, s)).join("")}</div></td><td>${esc(k === "tutorial" ? t.charAt(0).toUpperCase() + t.slice(1) : t)}</td><td>${esc(m)}</td></tr>`; }).join("");
+    return `<tr><td><b>Week ${w}</b><br><span class="small-note">w/c ${wc(w)}<br>${w <= 22 ? esc(repName(s)) : "Feedback weeks"}</span></td><td><span class="pill ${KIND[k][1]}">${KIND[k][0]}</span></td><td><div class="chips">${ds.map(n => tagOf(n, s)).join("")}</div></td><td>${esc(k === "tutorial" ? t.charAt(0).toUpperCase() + t.slice(1) : t)}</td><td>${esc(m)}</td></tr>`; }).join("");
   return `<div class="wrap">
-    <section><span class="eyebrow">Team and hours</span><h1>Who does what</h1><p class="lede">The apprenticeship lecturer introduces each duty in the first session of the week. Lilly and Reece, the two HNC lecturers, build the course around those introductions with the course leader's support: the lessons, activities, project tasks and briefs.</p></section>
+    <section><span class="eyebrow">Team and hours</span><h1>Who does what</h1><p class="lede">Jonathan, the apprenticeship lecturer, introduces each duty in the first session of the week. Lilly and Reece, the two HNC lecturers, build the course around those introductions with the course leader's support: the lessons, activities, project tasks and briefs.</p></section>
     <section><h2>How a week works</h2>
       <div class="flow">
-        <div class="node"><b>1. Apprenticeship introduction</b><span>First session of the week, 3 hours. The apprenticeship lecturer introduces the duty.</span></div><span class="to" aria-hidden="true">→</span>
+        <div class="node"><b>1. Apprenticeship introduction</b><span>First session of the week, 3 hours. Jonathan introduces the duty.</span></div><span class="to" aria-hidden="true">→</span>
         <div class="node"><b>2. HNC lessons</b><span>About 5 hours. Lilly or Reece build on the introduction with hands-on lessons on the HNC theory.</span></div><span class="to" aria-hidden="true">→</span>
         <div class="node end"><b>3. Project work</b><span>About 10 hours. Learners apply it to their own project and write that part of their report.</span></div>
       </div>
-      <p class="note" style="margin-top:12px"><strong>For example, week 5.</strong> The apprenticeship lecturer introduces Duty 4: what a discovery session is and how practitioners run one at work. The Unit 2 lecturer then teaches types of digital transformation for Unit 2 P3, and learners plan their own discovery session in project time.</p>
+      <p class="note" style="margin-top:12px"><strong>For example, week 5.</strong> Jonathan introduces Duty 4: what a discovery session is and how practitioners run one at work. The Unit 2 lecturer then teaches types of digital transformation for Unit 2 P3, and learners plan their own discovery session in project time.</p>
     </section>
     <section><h2>The roles</h2><div class="grid">
-      <div class="panel stack" style="border-top:6px solid var(--appr)"><h3 class="p-appr">Apprenticeship lecturer</h3><ul style="margin:0;padding-left:20px"><li>Introduces each duty in the first session of the week, 3 hours, using his own presentations</li><li>One duty per session. ${introCount("intro")} weeks each introduce a new duty, ${introCount("next")} take a duty to its next stage, and ${introCount("tutorial")} are tutorials. Hand-in weeks also include report support</li><li>Shares his slides at least a week ahead, so Lilly and Reece can plan around them</li><li>Records KSB evidence in his portfolio tracker. No HNC teaching or assessment; about 72 hours</li></ul></div>
+      <div class="panel stack" style="border-top:6px solid var(--appr)"><h3 class="p-appr">Jonathan, apprenticeship lecturer</h3><ul style="margin:0;padding-left:20px"><li>Introduces each duty in the first session of the week, 3 hours, using his own presentations</li><li>One duty per session. ${introCount("intro")} weeks each introduce a new duty, ${introCount("next")} take a duty to its next stage, and ${introCount("tutorial")} are tutorials. Hand-in weeks also include report support</li><li>Shares his slides at least a week ahead, so Lilly and Reece can plan around them</li><li>Records KSB evidence in his portfolio tracker. No HNC teaching or assessment; about 72 hours</li></ul></div>
       <div class="panel stack" style="border-top:6px solid var(--u15)"><h3 class="p-u15">Unit 15 lecturer</h3><ul style="margin:0;padding-left:20px"><li>Builds the Unit 15 side of the course with the course leader: lessons, activities, project tasks and brief sections that build on each introduction</li><li>Leads the project work in weeks 1-2 and 8-17</li><li>Teaches and assesses all 9 Unit 15 Pass criteria (60 hours of HNC teaching)</li><li>About 190 hours over 24 weeks</li></ul></div>
       <div class="panel stack" style="border-top:6px solid var(--u2)"><h3 class="p-u2">Unit 2 lecturer</h3><ul style="margin:0;padding-left:20px"><li>Builds the Unit 2 side of the course with the course leader, in the same way</li><li>Leads the project work in weeks 3-7 and 18-22</li><li>Teaches and assesses all 6 Unit 2 Pass criteria, including the IP sessions (60 hours of HNC teaching)</li><li>About 170 hours over 24 weeks</li></ul></div>
       <div class="panel stack" style="border-top:6px solid var(--line)"><h3>Course leader</h3><ul style="margin:0;padding-left:20px"><li>Supports Lilly and Reece as they build the course, with input on lessons and briefs</li><li>Keeps the plan, this portal and the Decisions list up to date</li><li>Owns most of the Readiness tasks, such as Pearson approval, placements and the timetable</li></ul></div>
@@ -1278,7 +1308,7 @@ function viewAssessment(){
           <div class="part hdr"><b>Declaration</b><span>The learner signs to say the work is their own.</span></div>
         </div>
         <div class="stack">
-          <p class="note"><strong>One brief per block,</strong> written by Lilly and Reece with the course leader's support. The duty tasks draw on the apprenticeship lecturer's introductions and materials.</p>
+          <p class="note"><strong>One brief per block,</strong> written by Lilly and Reece with the course leader's support. The duty tasks draw on Jonathan's introductions and materials.</p>
           <p class="note"><strong>Design and Launch briefs have two parts,</strong> one per report, each with its own hand-in date.</p>
           <p class="note"><strong>Supporting duties sit in the core section,</strong> never in the optional one, so a learner aiming only for a Pass still covers all 15.</p>
           <p class="note"><strong>Before issue,</strong> each brief is internally verified and the check is recorded.</p>
@@ -1378,7 +1408,7 @@ function viewMapping(){
 function viewMaterials(){
   const rows = STEPS.map(s => { const d = dutyOf(s), sp = supportOf(s); return `<tr><td><b>${esc(repName(s))}</b><br>${s.block.name}, weeks ${s.weeks}<br>Lead duty ${d.num}${sp.length ? `, with ${dutiesWord(sp)}` : ""}</td><td>${esc(s.appr.plan)}${sp.length ? `<br><span class="small-note">Plus Presentation${sp.length > 1 ? "s" : ""} ${listAnd(sp.map(String))} for the supporting duties</span>` : ""}</td><td>${s.appr.ready.length ? `<ul style="margin:0;padding-left:18px">${s.appr.ready.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>` : '<span style="color:var(--muted)">Still to come</span>'}</td></tr>`; }).join("");
   return `<div class="wrap">
-    <section><span class="eyebrow">Materials</span><h1>The apprenticeship lecturer's materials</h1><p class="lede">The apprenticeship lecturer has shared his full teaching pack. It was written for an 18-month online apprenticeship, so this page shows what is in it, how it fits the six reports and what needs adjusting for the Launchpad.</p></section>
+    <section><span class="eyebrow">Materials</span><h1>Jonathan's materials</h1><p class="lede">Jonathan, the apprenticeship lecturer, has shared his full teaching pack. It was written for an 18-month online apprenticeship, so this page shows what is in it, how it fits the six reports and what needs adjusting for the Launchpad.</p></section>
     <section><h2>What the pack contains</h2><div class="grid">
       <div class="panel stack"><h3>Planning</h3><ul style="margin:0;padding-left:20px"><li>An academic planner for an 84-week online programme: a 2-hour class every other week, 1-to-1 tutorials in between, and about 4 weeks per duty, Duties 1 to 15 in order</li><li>A portfolio criteria tracker in three parts: the duties and their KSBs ("The WHAT"), "The HOW" and "The WITH WHOM"</li></ul></div>
       <div class="panel stack"><h3>Teaching</h3><ul style="margin:0;padding-left:20px"><li>A complete Duty 1 pack: a 51-slide presentation and a 6,000-word reading on machine learning and AI, ending with the Duty 1 assignment</li><li>Introduction to AI and Automation, and a course infosheet</li><li>Links to free Cisco Networking Academy courses, including Introduction to Modern AI</li></ul></div>
@@ -1387,9 +1417,9 @@ function viewMaterials(){
     <section class="note"><strong>How his materials are used.</strong> Each presentation becomes the introduction to its duty, one duty per session, taught in the first session of the week in project order (see the Week by week page). Lilly and Reece build their lessons on these, so they need his slides at least a week ahead. His online planner gives each duty about 4 hours of class, around 60 hours in all. On the Launchpad about 60 of his 72 hours go on the duties and the rest on report support and evidence checks, so the content fits with little cutting.</section>
     <section><h2>How it lines up with the four blocks</h2>
       <div class="tablewrap"><table><thead><tr><th>Report</th><th>In his planner</th><th>Already in the pack</th></tr></thead><tbody>${rows}</tbody></table></div>
-      <p class="small-note" style="margin-top:10px">His planner lists a presentation for every duty. Only the Duty 1 presentation was in the shared pack, so it is worth asking which of the others already exist. The teaching order, chunk by chunk: 15, 1 and 13; 4 and 5; 3 and 2; 6, 7, 8, 12 and 13; 14 and 12; 11, 9 and 10.</p>
+      <p class="small-note" style="margin-top:10px">His planner lists a presentation for every duty. Only the Duty 1 presentation was in the shared pack, so it is worth asking which of the others already exist. One duty per session, in project order: 1, 15, 1, 13, 4, 5, 5, 3, 2, 7, 6, 8, 12, 13, 14, 14, 12, then a tutorial, 11, 9, 11, 10, a tutorial and 15. The Week by week page has the full list.</p>
     </section>
-    <section><h2>To agree before it is used on the Launchpad</h2><div class="checks"><div class="check"><span class="num">1</span><div><h3>Learners are not employed apprentices</h3><p>The assignments refer to the learner's own job role and workplace evidence. Launchpad learners will work on a process from their placement, or from the project bank, so the wording needs adjusting.</p></div></div><div class="check"><span class="num">2</span><div><h3>Report length</h3><p>The Duty 1 assignment asks for 1,500 to 2,000 words; the example duty reports run to 3,000 to 4,700. The shorter length suits beginners writing a report every three or four weeks.</p></div></div><div class="check"><span class="num">3</span><div><h3>Building the briefs</h3><p>Lilly and Reece build each brief from his duty tasks, adding the Pass criteria and the short supporting duty tasks. His Duty 1 assignment is already close to Unit 2 P5, and his reading covers much of Unit 15 P1 and P2.</p></div></div><div class="check"><span class="num">4</span><div><h3>Build approach</h3><p>His case study is in Python. The plan assumes a low/no-code tool with a cloud AI service. Both fit Unit 15; see Decisions.</p></div></div><div class="check"><span class="num">5</span><div><h3>Submissions</h3><p>Learners submit through Barnsley College systems, so contact details in the assignment documents will need updating.</p></div></div><div class="check"><span class="num">6</span><div><h3>Portfolio tracker</h3><p>Organise it by the six reports, so staff can record each duty and KSB against the report section that evidences it. The standard lists no KSBs for Duty 15, so its row can be cleared. The Unit 2 and Unit 3 examples come from a different apprenticeship and may not be needed for the Launchpad.</p></div></div><div class="check"><span class="num">7</span><div><h3>Teaching order</h3><p>His presentations run Duties 1 to 15. On the Launchpad they follow the project, so the AI trends of Duty 15 come first and training (Duty 10) comes at the end, once there is a finished automation to train people on.</p></div></div></div></section>
+    <section><h2>To agree before it is used on the Launchpad</h2><div class="checks"><div class="check"><span class="num">1</span><div><h3>Learners are not employed apprentices</h3><p>The assignments refer to the learner's own job role and workplace evidence. Launchpad learners will work on a process from their placement, or from the project bank, so the wording needs adjusting.</p></div></div><div class="check"><span class="num">2</span><div><h3>Report length</h3><p>The Duty 1 assignment asks for 1,500 to 2,000 words; the example duty reports run to 3,000 to 4,700. The shorter length suits beginners writing a report every three or four weeks.</p></div></div><div class="check"><span class="num">3</span><div><h3>Building the briefs</h3><p>Lilly and Reece build each brief from his duty tasks, adding the Pass criteria and the short supporting duty tasks. His Duty 1 assignment is already close to Unit 2 P5, and his reading covers much of Unit 15 P1 and P2.</p></div></div><div class="check"><span class="num">4</span><div><h3>Build approach</h3><p>His case study is in Python. The plan assumes a low/no-code tool with a cloud AI service. Both fit Unit 15; see Decisions.</p></div></div><div class="check"><span class="num">5</span><div><h3>Submissions</h3><p>Learners submit through Barnsley College systems, so contact details in the assignment documents will need updating.</p></div></div><div class="check"><span class="num">6</span><div><h3>Portfolio tracker</h3><p>Organise it by the six reports, so staff can record each duty and KSB against the report section that evidences it. The standard lists no KSBs for Duty 15, so its row can be cleared. The Unit 2 and Unit 3 examples come from a different apprenticeship and may not be needed for the Launchpad.</p></div></div><div class="check"><span class="num">7</span><div><h3>Teaching order</h3><p>His presentations run Duties 1 to 15. On the Launchpad they follow the project, so Duty 1 opens the course, Duty 15's AI trends come in week 2, and training (Duty 10) comes at the end, once there is a finished automation to train people on.</p></div></div></div></section>
   </div>`;
 }
 
@@ -1418,7 +1448,7 @@ function viewEvaluation(){
     ["Pulse check","Every week","Every other week, which the framework already allows","Halves the load and still gives 12 readings."],
     ["Final measure of learning","Formal exam in week 22","Low-stakes quiz in week 23 with the same core questions","Week 22 is the Duty 11 hand-in, and learners already sit six assessed reports."],
     ["Mentor log","Every week, per learner","Every other week, during an existing placement check-in","The heaviest ongoing staff task, so tie it to a meeting that happens anyway."],
-    ["Behaviour items","8 to 12 behaviours","8, taken from the duties' KSBs","Shorter for employers, and could double as witness evidence (check with the apprenticeship lecturer)."],
+    ["Behaviour items","8 to 12 behaviours","8, taken from the duties' KSBs","Shorter for employers, and could double as witness evidence (check with Jonathan)."],
     ["Applicant comparison group","Surveyed in weeks 0 and 24","Decide after recruitment","Needs enough unsuccessful applicants, and ethics approval."]
   ];
   const links = [
@@ -1477,7 +1507,7 @@ function viewReadiness(){
         <div class="task-tags"><span class="st ${st}">${ST[st]}</span>${pr ? '<span class="req">Pearson requirement</span>' : ""}</div>
       </div>`).join("")}</div></section>`).join("");
   return `<div class="wrap">
-    <section><span class="eyebrow">Readiness</span><h1>Ready for January</h1><p class="lede">Everything that needs to be in place before learners start, or before the week it is first needed. Owners are roles, and dates will be fixed once the start date is confirmed.</p></section>
+    <section><span class="eyebrow">Readiness</span><h1>Ready for January</h1><p class="lede">Everything that needs to be in place before learners start, or before the week it is first needed. Owners are roles. Week 1 starts on Monday 18 January 2027.</p></section>
     <section class="panel stack" aria-label="Progress">
       <div class="counts"><span><b>${r.total}</b>tasks</span><span><b>${r.done}</b>done</span><span><b>${r.doing}</b>in progress</span><span><b>${r.todo}</b>to do</span><span><b>${r.req}</b>Pearson requirements</span></div>
       <div class="progress" role="img" aria-label="${pct}% of tasks done"><span style="width:${pct}%"></span></div>
@@ -1489,13 +1519,13 @@ function viewReadiness(){
 
 function viewDecisions(){
   const card = ([t,d],k) => `<div class="dcard ${k}"><h3>${k==="agreed"?ICON.check:ICON.open}<span>${esc(t)}</span></h3><p>${esc(d)}</p></div>`;
-  const groups = [["appr","To agree with the apprenticeship lecturer"],["assess","Assessment and Pearson"],["team","Team and delivery"]];
+  const groups = [["appr","To agree with Jonathan"],["assess","Assessment and Pearson"],["team","Team and delivery"]];
   const cnt = g => DECISIONS.open.filter(d=>d[2]===g).length;
   return `<div class="wrap">
     <section><span class="eyebrow">Decisions</span><h1>What we have agreed, and what is still open</h1><p class="lede">The plan is a draft until the team agrees it. Discuss open items in the Teams channel; once something is agreed, it moves to the agreed list. Tasks are tracked on the Readiness page.</p></section>
     <section class="dsum">
       <button type="button" class="ag" data-go="d-agreed"><b>${DECISIONS.agreed.length}</b>agreed</button>
-      ${groups.map(([g,h]) => `<button type="button" class="op" data-go="d-${g}"><b>${cnt(g)}</b>open: ${({appr:"with the apprenticeship lecturer",assess:"assessment and Pearson",team:"team and delivery"})[g]}</button>`).join("")}
+      ${groups.map(([g,h]) => `<button type="button" class="op" data-go="d-${g}"><b>${cnt(g)}</b>open: ${({appr:"with Jonathan",assess:"assessment and Pearson",team:"team and delivery"})[g]}</button>`).join("")}
     </section>
     <section id="d-agreed"><div class="dhead"><h2>Agreed in planning</h2><span class="n">${DECISIONS.agreed.length}</span></div><div class="dgrid">${DECISIONS.agreed.map(d=>card(d,"agreed")).join("")}</div></section>
     ${groups.map(([g,h]) => `<section id="d-${g}"><div class="dhead"><h2>Still open: ${h}</h2><span class="n">${cnt(g)}</span></div><div class="dgrid">${DECISIONS.open.filter(d=>d[2]===g).map(d=>card(d,"open")).join("")}</div></section>`).join("")}
