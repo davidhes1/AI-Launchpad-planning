@@ -479,6 +479,15 @@ ul.introlist { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
 .st.done { color: var(--appr); }
 .st.doing { color: var(--u2); }
 .st.todo { color: var(--muted); }
+.phase-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin-bottom: 12px; }
+.phase-head h2 { margin: 0; }
+.phase-head span { font-weight: 700; color: var(--line); }
+.stepn { display: inline-grid; place-items: center; min-width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--line); font-family: var(--display); font-weight: 800; font-size: 0.8rem; margin-right: 10px; vertical-align: 1px; }
+.task.done .stepn { border-color: var(--appr); color: var(--appr); }
+.filt { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.filt button { font: inherit; font-weight: 700; font-size: 0.9rem; cursor: pointer; padding: 6px 12px; border-radius: 999px; border: 2px solid var(--rule); background: var(--surface); color: var(--ink); }
+.filt button[aria-pressed="true"] { border-color: var(--line); background: var(--line); color: var(--on-solid); }
+main[data-filter="cl"] .task:not(.cl) { display: none; }
 .req { font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: var(--u15-soft); color: var(--u15); white-space: nowrap; }
 
 @media (max-width: 560px) {
@@ -516,14 +525,14 @@ ul.introlist { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
 </header>
 <main id="main" tabindex="-1"></main>
 <footer><div class="wrap">
-  <p>Draft proposal for the delivery team. Version 1.9, updated 23 November 2026. Nothing here is agreed until it appears under Decisions as agreed.</p>
+  <p>Draft proposal for the delivery team. Version 2.0, updated 24 November 2026. Nothing here is agreed until it appears under Decisions as agreed.</p>
   <p>Sources: Skills England ST1512 AI and Automation Practitioner (duties and KSBs as published in version 2.0; version 2.1 changed only the assessment plan); Pearson BTEC Higher Nationals in Digital Technologies specification, Issue 4; Barnsley College 24-week duty planner; Jonathan's planner and materials (shared 19 November 2026); DSIT's requirement that all 15 duties are covered (November 2026); Microsoft Learn (Azure AI Fundamentals).</p>
 </div></footer>
 
 <script>
 /* ---------- DATA ---------- */
 const BASE_TITLE = "AI Career Launchpad Staff Portal";
-const UPDATED = "23 November 2026";
+const UPDATED = "24 November 2026";
 
 const CRIT = {
   "U2 P1": {u:"u2", s:"Innovation vs invention", t:"Explain digital innovation and determine its importance to organisations in comparison with digital inventions."},
@@ -858,7 +867,7 @@ const DECISIONS = {
   ["How the teaching works","Jonathan introduces each duty in the first session of the week, using his own materials. Lilly and Reece build the course around those introductions, with the course leader's support: the lessons, activities, project tasks and briefs."]
  ],
  open:[
-  ["What DSIT means by covered","Ask DSIT what evidence they need: a map showing where each duty is taught, or evidence from every learner against every duty. This plan supports both, but the second needs the duty tracker on the Readiness page. Also ask whether the coverage will count towards anything later, such as recognition of prior learning if learners move on to the full apprenticeship, as that would raise the bar on evidence.","team"],
+  ["What DSIT means by covered","Ask DSIT what evidence they need: a map showing where each duty is taught, or evidence from every learner against every duty. This plan supports both, but the second needs the duty tracker in the Launch plan. Also ask whether the coverage will count towards anything later, such as recognition of prior learning if learners move on to the full apprenticeship, as that would raise the bar on evidence.","team"],
   ["How the coverage is described","Suggested wording: all 15 duties introduced and applied at foundation level. That avoids any suggestion of full occupational competence, which is what the 18-month apprenticeship and its end-point assessment are for.","team"],
   ["The order of the introductions","His planner and presentations run Duties 1 to 15 in order. On the Launchpad his introductions follow the project (one duty per session; every week is on the Week by week page). The content changes little, only when it is taught. Check the plan with him against his planner, and ask which of his presentations already exist.","appr"],
   ["Handover from introductions to lessons","He shares his slides for each duty at least a week before he teaches it, so Lilly and Reece can plan their lessons around it. Agree where they are shared, for example a folder in the Teams channel.","team"],
@@ -877,55 +886,59 @@ const DECISIONS = {
 };
 
 /* [task, owner, when, status (done | doing | todo), note, Pearson requirement] */
+/* the launch plan: steps in the order they need doing. [step, owner, deadline, status (done | doing | todo), why, Pearson requirement] */
 const READINESS = [
- { group:"Course plan", items:[
-  ["Draft the course plan","Course leader","Done","done","This portal.",false],
-  ["Ask DSIT what evidence they need for the 15 duties","Course leader","As soon as possible","todo","A map of where each duty is taught, or evidence from every learner against every duty. See the Decisions page.",false],
-  ["Agree the introductions with Jonathan: the order, the shape of each one and the handover","Course leader","As soon as possible","todo","Every week's introduction is on the Week by week page.",false],
-  ["Share the plan with the team and agree it","Course leader","As soon as possible","todo","Record what is agreed on the Decisions page.",false]
+ { group:"Already done", when:"", items:[
+  ["Draft the course plan","Course leader","Done","done","This portal: all 15 duties, the six reports, one duty introduced each week, and dates from Monday 18 January 2027.",false]
  ]},
- { group:"Pearson and the qualification", items:[
-  ["Confirm Barnsley College's Pearson approval covers the Higher Nationals in Digital Technologies","Course leader, with the exams office","Before enrolment","todo","Approval for HN Computing may not cover it.",true],
-  ["Agree how learners are registered with Pearson, and what they receive for two units","Course leader, with the exams office","Before enrolment","todo","Learners can only be assessed on a qualification they are registered on.",true],
-  ["Register learners with Pearson","Exams office","Before the week 4 hand-in","todo","",true],
-  ["Write the programme specification, and the staff and student handbooks","Course leader","Before enrolment","todo","This portal can serve as the staff handbook.",true],
-  ["Book an assessment board for after week 24","Course leader","Before week 1","todo","A formal Pearson requirement for every Higher National programme.",true]
+ { group:"Now", when:"By Friday 4 December 2026", items:[
+  ["Share the plan with the team and book a meeting to agree it","Course leader","This week","todo","Lilly, Reece and Jonathan, plus the programme manager and head of department for sign-off. Record what is agreed on the Decisions page.",false],
+  ["Agree the plan with Jonathan","Course leader","By 4 December","todo","One duty per session in project order, the four things every introduction covers, slides shared a week ahead. Ask which of his presentations exist, and for his portfolio tracker to check the KSB mapping.",false],
+  ["Ask DSIT what evidence they need for the 15 duties","Course leader","By 4 December","todo","A map of where each duty is taught, or evidence from every learner against every duty. The answer decides whether the duty tracker is needed.",false],
+  ["Confirm Barnsley College's Pearson approval covers the Higher Nationals in Digital Technologies","Course leader, with the exams office","By 4 December","todo","The step with the longest lead time. Approval for HN Computing may not cover it; if it does not, apply straight away.",true],
+  ["Decide who teaches Unit 2 and who teaches Unit 15","Course leader","By 4 December","todo","Lilly and Reece can then start on their unit's brief and lessons.",false],
+  ["Agree entry requirements and an initial skills check","Course leader","Before interviews","todo","Pearson sets no formal entry requirements, but the college must make sure learners have a reasonable chance of success.",true]
  ]},
- { group:"Assessment", items:[
-  ["Write the assessment plan spreadsheet","Course leader","Before week 1","todo","Completion dates, the internal verifier and verification date for each assignment, sampling and resubmission scheduling.",true],
-  ["Write the Discover brief","Unit 2 and Unit 15 lecturers, with the course leader","Before week 1","todo","Start from his Duty 1 assignment and add the four Pass criteria. Each brief needs a hand-out date, a completion date and clear evidence requirements.",false],
-  ["Write the Design, Build and Launch briefs","Unit 2 and Unit 15 lecturers, with the course leader","By weeks 3, 9 and 13","todo","Two weeks before each block starts, leaving time for verification. Check whether Pearson's Authorised Assignment Briefs cover either unit, as they can be adapted.",false],
-  ["Internally verify each brief before it is issued","Internal verifier","Before each hand-out date","todo","Pearson expects a record of each brief being checked.",true],
-  ["Agree the rules on AI use in assessed work","Course leader, with both HNC lecturers","Before week 1","todo","Learners also sign a declaration that each assessment is their own work, as Pearson requires.",false],
-  ["Standardise assessment and internal verification across the team","Course leader","Before week 4","todo","Pearson expects time for this in the assessment plan.",true]
+ { group:"Before the Christmas break", when:"December 2026", items:[
+  ["Finish interviews and offer the 20 places","Course leader","Before the break","todo","Use the agreed entry requirements and skills check.",false],
+  ["Agree how learners are registered with Pearson, and what they receive for two units","Course leader, with the exams office","Before the break","todo","Learners can only be assessed on a qualification they are registered on.",true],
+  ["Choose the low/no-code tool and cloud AI service, and put the request in to IT","Unit 15 lecturer, with the course leader","Before the break","todo","IT needs time to set up accounts and licences.",false],
+  ["Send the timetable request: three days a week, with Jonathan's session first","Course leader, with timetabling","Before the break","todo","Monday 3 May and Monday 31 May are bank holidays. If Monday is a teaching day, his introductions in weeks 15 and 19 need another slot.",false],
+  ["Start the placements: arrangements, projects and KPIs with each employer","Course leader, with the placements team","Start before the break","todo","Each learner's process should come from their placement. Employers commit to the ratings and get the support checklist.",false],
+  ["Start the project bank of real processes to automate","Course leader","Start before the break","todo","A fallback for any learner whose placement cannot supply a suitable process. Needed by week 3.",false],
+  ["Adapt the Duty 1 assignment for Launchpad learners","Jonathan","Before the break","todo","Point it at a placement or project bank process rather than the learner's own job role.",false],
+  ["Draft the Discover brief (Report 1)","Lilly and Reece, with the course leader","Before the break","todo","Start from Jonathan's Duty 1 assignment and add the four Pass criteria. Needs a hand-out date, a completion date and clear evidence requirements.",false],
+  ["Agree the rules on AI use in assessed work","Course leader, with Lilly and Reece","Before the break","todo","Learners also sign a declaration that each assessment is their own work, as Pearson requires.",false]
  ]},
- { group:"Apprenticeship materials", items:[
-  ["Adapt the Duty 1 assignment for Launchpad learners","Jonathan","Before week 1","todo","Point it at a process from the project bank rather than the learner's own job role (see Materials).",false],
-  ["Prepare the introduction for each duty and share the slides","Jonathan","At least a week before each one is taught","todo","His planner already lists a presentation for every duty; on the Launchpad they follow the project order (see the Team page).",false],
-  ["Build the lessons, activities and project tasks for each block","Unit 2 and Unit 15 lecturers, with the course leader","Before each block starts","todo","Built around Jonathan's introductions for that block.",false],
-  ["Set up a shared folder for the introductions and lesson plans","Course leader","Before week 1","todo","For example in the Teams channel, so everyone can see what has been covered.",false],
-  ["Adapt the portfolio tracker into a duty and KSB tracker for the six reports","Jonathan, with the course leader","Before the week 4 hand-in","todo","One row per duty and KSB, showing which report section evidences it. Staff fill it in, so learners do no extra paperwork. Needed if DSIT wants evidence from every learner.",false]
- ]},
- { group:"People and timetable", items:[
-  ["Confirm who teaches Unit 2 and who teaches Unit 15","Course leader","Before briefs are written","todo","",false],
-  ["Timetable the three days, including the apprenticeship slot","Course leader, with timetabling","Before enrolment","todo","",false],
-  ["Train staff on the build tools","Unit 15 lecturer","Before week 8","todo","Including Microsoft Foundry if the Azure option goes ahead.",false]
- ]},
- { group:"Technology and data", items:[
-  ["Choose the low/no-code tool and cloud AI service for the build","Unit 15 lecturer","Before Christmas","todo","College IT needs this before it can set up accounts.",false],
-  ["Set up learner accounts and licences","College IT","Requested before Christmas; working by week 8","todo","",false],
-  ["Decide on the Azure AI Fundamentals offer","Course leader, with management","Before week 8","todo","Covers exam vouchers and Azure accounts.",false],
-  ["Set data rules for learner projects","Unit 15 lecturer","Before week 3","todo","No real personal data in learners' automations; prepare sample data sets.",false]
- ]},
- { group:"Learners", items:[
-  ["Agree entry requirements and an initial skills check","Course leader","Before recruitment closes","todo","Pearson sets no formal entry requirements, but the college must make sure learners have a reasonable chance of success.",true],
-  ["Plan the week 1 induction","Course leader","Before week 1","todo","Accounts, the course map, the project and the AI use rules.",false],
-  ["Build a project bank of real processes to automate","Course leader","Before week 3","todo","A fallback for any learner whose placement cannot supply a suitable process.",false],
-  ["Confirm the work placement arrangements","Course leader, with the placements team","Before week 1","todo","Placement evidence strengthens the supporting duties, such as the discovery session, stakeholder updates and training. Classroom versions are planned for learners without a placement.",false],
-  ["Hold the week 0 expectations meeting with BIST and employers","Course leader","Before week 1","todo","Agree what success looks like for the pilot, the targets for each indicator and what counts as a positive outcome.",false],
-  ["Agree each placement project and its KPIs with the employer, and get their commitment to the ratings","Course leader, with the placements team","Before week 1","todo","Part of the placement agreement. Employers also get the support checklist.",false],
+ { group:"Early January", when:"By Friday 15 January 2027", items:[
+  ["Set up the shared Teams folder for introductions and lesson plans","Course leader","By 4 January","todo","Where Jonathan's slides and Lilly and Reece's lesson plans live.",false],
+  ["Share the slides for the first two introductions (Duty 1 and Duty 15)","Jonathan","By Monday 11 January","todo","A week ahead, so Lilly and Reece can plan around them.",false],
+  ["Build the Discover lessons and project tasks (weeks 1 to 4)","Lilly and Reece, with the course leader","By 15 January","todo","Built around Jonathan's introductions. The Week by week page has the topic for each week.",false],
+  ["Internally verify the Discover brief","Internal verifier","By 15 January","todo","Pearson expects a record of each brief being checked before it is issued.",true],
+  ["Write the assessment plan spreadsheet","Course leader","By 15 January","todo","Hand-in dates, the internal verifier and verification date for each brief, sampling and resubmission scheduling.",true],
+  ["Book the assessment board for after Friday 16 July","Course leader","By 15 January","todo","A formal Pearson requirement for every Higher National programme.",true],
+  ["Finish the programme specification and the staff and student handbooks","Course leader","Before enrolment","todo","This portal can serve as the staff handbook.",true],
+  ["Set up the evaluation: quiz bank, forms and shared spreadsheet","Evaluation lead","By 15 January","todo","Map the quiz questions to the Pass criteria and the behaviour items to the duty KSBs. Assign quiz nicknames linked to learner IDs.",false],
   ["Collect follow-up consent at enrolment","Course leader","At enrolment","todo","Needed for the career survey after the course.",false],
-  ["Build the quiz question bank, the forms and the shared spreadsheet","Evaluation lead","Before week 1","todo","Map the quiz questions to the Pass criteria and the behaviour items to the duty KSBs. Assign quiz nicknames linked to learner IDs.",false]
+  ["Hold the week 0 expectations meeting with BIST and employers","Course leader","By 15 January","todo","Agree what success looks like for the pilot, the targets for each indicator and what counts as a positive outcome.",false],
+  ["Plan the week 1 induction","Course leader","By 15 January","todo","Accounts, the course map, the project and the AI use rules.",false]
+ ]},
+ { group:"First four weeks", when:"Weeks 1 to 4: 18 January to 12 February 2027", items:[
+  ["Set the data rules for learner projects and prepare sample data","Unit 15 lecturer","Before week 3 (w/c 1 February)","todo","No real personal data in learners' automations.",false],
+  ["Have the project bank ready","Course leader","Before week 3 (w/c 1 February)","todo","Learners choose their process in week 3.",false],
+  ["Write and verify the Design brief (Reports 2 and 3)","Lilly and Reece, with the course leader","By week 3 (w/c 1 February)","todo","Two weeks before Design starts, leaving time for verification. Check whether Pearson's Authorised Assignment Briefs cover either unit.",true],
+  ["Register learners with Pearson","Exams office","Before Report 1 is handed in (w/c 8 February)","todo","",true],
+  ["Standardise assessment and internal verification across the team","Course leader","Before week 4 (w/c 8 February)","todo","Pearson expects time for this in the assessment plan.",true],
+  ["Set up the duty and KSB tracker for the six reports","Jonathan, with the course leader","Before week 4 (w/c 8 February)","todo","Adapted from his portfolio tracker. Staff fill it in, so learners do no extra paperwork. Needed if DSIT wants evidence from every learner.",false]
+ ]},
+ { group:"During the course", when:"Weeks 5 to 24", items:[
+  ["Have learner accounts and licences working","College IT","By week 8 (w/c 8 March)","todo","Learners research tools in week 8 and build from week 11.",false],
+  ["Train staff on the build tools","Unit 15 lecturer","By week 8 (w/c 8 March)","todo","Including Microsoft Foundry if the Azure option goes ahead.",false],
+  ["Decide on the Azure AI Fundamentals offer","Course leader, with management","By week 8 (w/c 8 March)","todo","Covers exam vouchers and Azure accounts.",false],
+  ["Write and verify the Build brief (Report 4)","Lilly and Reece, with the course leader","By week 9 (w/c 15 March)","todo","Two weeks before Build starts.",true],
+  ["Write and verify the Launch brief (Reports 5 and 6)","Lilly and Reece, with the course leader","By week 13 (w/c 19 April)","todo","Two weeks before Launch starts.",true],
+  ["Share each introduction's slides a week ahead","Jonathan","Every week","todo","The Week by week page lists every introduction.",false],
+  ["Build each block's lessons and project tasks before it starts","Lilly and Reece, with the course leader","Before each block","todo","Design from week 5, Build from week 11, Launch from week 15.",false]
  ]}
 ];
 
@@ -1077,7 +1090,7 @@ const NAV = [
  ["sep"],
  ...BLOCKS.map(b => [b.id, b.name, b.n]),
  ["sep"],
- ["team","Team and hours"],["assessment","Assessment"],["mapping","Mapping"],["materials","Materials"],["evaluation","Evaluation"],["readiness","Readiness"],["decisions","Decisions"]
+ ["team","Team and hours"],["assessment","Assessment"],["mapping","Mapping"],["materials","Materials"],["evaluation","Evaluation"],["readiness","Launch plan"],["decisions","Decisions"]
 ];
 
 function viewWeeks(){
@@ -1116,7 +1129,7 @@ function viewHome(){
     ["#mapping","Mapping","The detail behind the plan: where every duty, KSB and HNC criterion is covered."],
     ["#materials","Materials","Jonathan's teaching pack and how it fits the blocks."],
     ["#evaluation","Evaluation","How we will measure whether the course works."],
-    ["#readiness","Readiness",`What has to be in place before January: ${r.done} of ${r.total} tasks done.`],
+    ["#readiness","Launch plan",`The steps to get the course started, in order, with who does each one: ${r.done} of ${r.total} done.`],
     ["#decisions","Decisions",`${DECISIONS.agreed.length} agreed, ${DECISIONS.open.length} still to decide.`]
   ];
   return `<div class="wrap">
@@ -1125,10 +1138,11 @@ function viewHome(){
       <h1>The AI Career Launchpad plan</h1>
       <p class="lede">A new 24-week Level 4 course at Barnsley College, running from Monday 18 January to Friday 16 July 2027, with two weeks off at Easter and for the training week. Learners come in three days a week and work on one real AI project from start to finish. This portal sets out the plan for the delivery team. It is a draft: anything agreed is recorded under Decisions.</p>
     </section>
-    <section class="latest"><span class="eyebrow">What's new · version 1.9, 23 November 2026</span><ul>
+    <section class="latest"><span class="eyebrow">What's new · version 2.0, 24 November 2026</span><ul>
       <li><b>All 15 apprenticeship duties are covered,</b> as DSIT, a key funding partner, requires.</li>
       <li><b>Each week starts with Jonathan, the apprenticeship lecturer, introducing one duty.</b> Every duty gets its own introduction week.</li>
       <li><b>Lilly and Reece build the course around those introductions,</b> with the course leader's support: the HNC lessons, activities, project tasks and briefs.</li>
+      <li><b>New Launch plan page:</b> the steps to get the course started, in date order, with who does each one. <a href="#readiness">See the launch plan</a></li>
       <li><b>New Week by week page:</b> what happens in every one of the 24 weeks, with dates. Week 1 starts on Monday 18 January 2027; the Easter week (w/c 29 March) and the training week (w/c 5 July) have no teaching. <a href="#weeks">See every week</a></li>
     </ul></section>
     <section><h2>The plan in six points</h2><ol class="points">
@@ -1269,7 +1283,7 @@ function viewTeam(){
       <div class="panel stack" style="border-top:6px solid var(--appr)"><h3 class="p-appr">Jonathan, apprenticeship lecturer</h3><ul style="margin:0;padding-left:20px"><li>Introduces each duty in the first session of the week, 3 hours, using his own presentations</li><li>One duty per session. ${introCount("intro")} weeks each introduce a new duty, ${introCount("next")} take a duty to its next stage, and ${introCount("tutorial")} are tutorials. Hand-in weeks also include report support</li><li>Shares his slides at least a week ahead, so Lilly and Reece can plan around them</li><li>Records KSB evidence in his portfolio tracker. No HNC teaching or assessment; about 72 hours</li></ul></div>
       <div class="panel stack" style="border-top:6px solid var(--u15)"><h3 class="p-u15">Unit 15 lecturer</h3><ul style="margin:0;padding-left:20px"><li>Builds the Unit 15 side of the course with the course leader: lessons, activities, project tasks and brief sections that build on each introduction</li><li>Leads the project work in weeks 1-2 and 8-17</li><li>Teaches and assesses all 9 Unit 15 Pass criteria (60 hours of HNC teaching)</li><li>About 190 hours over 24 weeks</li></ul></div>
       <div class="panel stack" style="border-top:6px solid var(--u2)"><h3 class="p-u2">Unit 2 lecturer</h3><ul style="margin:0;padding-left:20px"><li>Builds the Unit 2 side of the course with the course leader, in the same way</li><li>Leads the project work in weeks 3-7 and 18-22</li><li>Teaches and assesses all 6 Unit 2 Pass criteria, including the IP sessions (60 hours of HNC teaching)</li><li>About 170 hours over 24 weeks</li></ul></div>
-      <div class="panel stack" style="border-top:6px solid var(--line)"><h3>Course leader</h3><ul style="margin:0;padding-left:20px"><li>Supports Lilly and Reece as they build the course, with input on lessons and briefs</li><li>Keeps the plan, this portal and the Decisions list up to date</li><li>Owns most of the Readiness tasks, such as Pearson approval, placements and the timetable</li></ul></div>
+      <div class="panel stack" style="border-top:6px solid var(--line)"><h3>Course leader</h3><ul style="margin:0;padding-left:20px"><li>Supports Lilly and Reece as they build the course, with input on lessons and briefs</li><li>Keeps the plan, this portal and the Decisions list up to date</li><li>Owns most of the Launch plan steps, such as Pearson approval, placements and the timetable</li></ul></div>
     </div>
     <p class="small-note" style="margin-top:10px">Lilly and Reece take one HNC unit each; which unit is still to decide. In weeks 23 and 24 both HNC lecturers support feedback, resubmissions and catch-up.</p></section>
     <section><h2>What every introduction covers</h2><ol class="points">
@@ -1497,20 +1511,24 @@ function viewReadiness(){
   const r = readinessCounts();
   const ST = {done:"Done", doing:"In progress", todo:"To do"};
   const pct = Math.round(r.done / r.total * 100);
-  const groups = READINESS.map(g => `<section><h2>${esc(g.group)}</h2><div class="tasks">${g.items.map(([what,owner,when,st,note,pr]) => `
-      <div class="task ${st}">
+  const mine = o => /course leader/i.test(o);
+  const filt = document.getElementById("main").dataset.filter || "all";
+  let n = 0;
+  const groups = READINESS.map(g => `<section class="phase"><div class="phase-head"><h2>${esc(g.group)}</h2>${g.when ? `<span>${esc(g.when)}</span>` : ""}</div><div class="tasks">${g.items.map(([what,owner,when,st,note,pr]) => { n++; return `
+      <div class="task ${st}${mine(owner) ? " cl" : ""}">
         <div class="task-main">
-          <p class="task-what">${esc(what)}</p>
+          <p class="task-what"><span class="stepn">${st === "done" ? "✓" : n - 1}</span>${esc(what)}</p>
           ${note ? `<p class="task-note">${esc(note)}</p>` : ""}
-          <p class="task-meta"><span><b>Owner:</b> ${esc(owner)}</span><span><b>When:</b> ${esc(when)}</span></p>
+          <p class="task-meta"><span><b>Who:</b> ${esc(owner)}</span><span><b>By when:</b> ${esc(when)}</span></p>
         </div>
         <div class="task-tags"><span class="st ${st}">${ST[st]}</span>${pr ? '<span class="req">Pearson requirement</span>' : ""}</div>
-      </div>`).join("")}</div></section>`).join("");
+      </div>`; }).join("")}</div></section>`).join("");
   return `<div class="wrap">
-    <section><span class="eyebrow">Readiness</span><h1>Ready for January</h1><p class="lede">Everything that needs to be in place before learners start, or before the week it is first needed. Owners are roles. Week 1 starts on Monday 18 January 2027.</p></section>
+    <section><span class="eyebrow">Launch plan</span><h1>Getting it off the ground</h1><p class="lede">What has to happen, in order, to start on Monday 18 January 2027. Steps are grouped by when they need doing, with who does each one. Pearson requirements are marked.</p></section>
     <section class="panel stack" aria-label="Progress">
-      <div class="counts"><span><b>${r.total}</b>tasks</span><span><b>${r.done}</b>done</span><span><b>${r.doing}</b>in progress</span><span><b>${r.todo}</b>to do</span><span><b>${r.req}</b>Pearson requirements</span></div>
-      <div class="progress" role="img" aria-label="${pct}% of tasks done"><span style="width:${pct}%"></span></div>
+      <div class="counts"><span><b>${r.total}</b>steps</span><span><b>${r.done}</b>done</span><span><b>${r.doing}</b>in progress</span><span><b>${r.todo}</b>to do</span><span><b>${r.req}</b>Pearson requirements</span></div>
+      <div class="progress" role="img" aria-label="${pct}% of steps done"><span style="width:${pct}%"></span></div>
+      <div class="filt" role="group" aria-label="Show"><button type="button" data-filter="all" aria-pressed="${filt === "all"}">All steps</button><button type="button" data-filter="cl" aria-pressed="${filt === "cl"}">Course leader's steps only</button></div>
     </section>
     ${groups}
     <p class="small-note">Statuses as of ${UPDATED}.</p>
@@ -1522,7 +1540,7 @@ function viewDecisions(){
   const groups = [["appr","To agree with Jonathan"],["assess","Assessment and Pearson"],["team","Team and delivery"]];
   const cnt = g => DECISIONS.open.filter(d=>d[2]===g).length;
   return `<div class="wrap">
-    <section><span class="eyebrow">Decisions</span><h1>What we have agreed, and what is still open</h1><p class="lede">The plan is a draft until the team agrees it. Discuss open items in the Teams channel; once something is agreed, it moves to the agreed list. Tasks are tracked on the Readiness page.</p></section>
+    <section><span class="eyebrow">Decisions</span><h1>What we have agreed, and what is still open</h1><p class="lede">The plan is a draft until the team agrees it. Discuss open items in the Teams channel; once something is agreed, it moves to the agreed list. The steps to get started are on the Launch plan page.</p></section>
     <section class="dsum">
       <button type="button" class="ag" data-go="d-agreed"><b>${DECISIONS.agreed.length}</b>agreed</button>
       ${groups.map(([g,h]) => `<button type="button" class="op" data-go="d-${g}"><b>${cnt(g)}</b>open: ${({appr:"with Jonathan",assess:"assessment and Pearson",team:"team and delivery"})[g]}</button>`).join("")}
@@ -1555,7 +1573,7 @@ function route(e){
   }
   if (e) main.focus({preventScroll:true});
 }
-document.getElementById("main").addEventListener("click", e => { const b = e.target.closest("[data-go]"); if (b) document.getElementById(b.dataset.go).scrollIntoView({behavior:"smooth", block:"start"}); });
+document.getElementById("main").addEventListener("click", e => { const f = e.target.closest("[data-filter]"); if (f) { const m = document.getElementById("main"); m.dataset.filter = f.dataset.filter; m.querySelectorAll("[data-filter]").forEach(x => x.setAttribute("aria-pressed", String(x === f))); return; } const b = e.target.closest("[data-go]"); if (b) document.getElementById(b.dataset.go).scrollIntoView({behavior:"smooth", block:"start"}); });
 document.getElementById("skip").addEventListener("click", () => document.getElementById("main").focus());
 window.addEventListener("hashchange", route);
 route();
