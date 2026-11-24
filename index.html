@@ -666,6 +666,9 @@ table.wkt .handin, table.wkt .exam { white-space: nowrap; display: inline-block;
 .stat span { color: var(--muted); font-size: 0.92rem; }
 table.covg th, table.covg td { text-align: center; padding: 7px 8px; vertical-align: middle; }
 table.covg th:first-child, table.covg td:first-child { text-align: left; }
+.ev-c { display: inline-block; font-size: 0.78rem; font-weight: 700; border-radius: 999px; padding: 2px 9px; white-space: nowrap; }
+.ev-c.full { background: var(--appr); color: var(--on-solid); }
+.ev-c.part { border: 1.5px solid var(--appr); color: var(--appr); }
 table.covg th span { display: block; font-family: var(--body); font-weight: 400; font-size: 0.8rem; color: var(--muted); }
 .cg { display: inline-block; min-width: 66px; font-size: 0.78rem; font-weight: 700; border-radius: 6px; padding: 3px 8px; }
 .cg.lead { background: var(--line); color: var(--on-solid); border: 2px solid var(--line); }
@@ -716,7 +719,7 @@ details.dq p { padding: 0 14px 12px 40px; font-size: 0.93rem; color: var(--muted
 </header>
 <main id="main" tabindex="-1"></main>
 <footer><div class="wrap">
-  <p>Draft proposal for the delivery team. Version 2.2, updated 24 November 2026. Nothing here is agreed until it appears under Decisions as agreed.</p>
+  <p>Draft proposal for the delivery team. Version 2.3, updated 24 November 2026. Nothing here is agreed until it appears under Decisions as agreed.</p>
   <p>Sources: Skills England ST1512 AI and Automation Practitioner (duties and KSBs as published in version 2.0; version 2.1 changed only the assessment plan); Pearson BTEC Higher Nationals in Digital Technologies specification, Issue 4; Barnsley College 24-week duty planner; Jonathan's planner and materials (shared 19 November 2026); DSIT's requirement that all 15 duties are covered (November 2026); Microsoft Learn (Azure AI Fundamentals).</p>
 </div></footer>
 
@@ -756,8 +759,8 @@ const CRIT = {
   "U15 D3": {u:"u15", s:"Challenges vs opportunities", t:"Analyse the technical and ethical challenges while appreciating the opportunities of Intelligent Systems."}
 };
 const WHO = {
-  u15: {cls:"p-u15", name:"Unit 15 lecturer"},
-  u2: {cls:"p-u2", name:"Unit 2 lecturer"},
+  u15: {cls:"p-u15", name:"Lilly (Unit 15)"},
+  u2: {cls:"p-u2", name:"Reece (Unit 2)"},
   appr: {cls:"p-appr", name:"Jonathan"}
 };
 
@@ -983,7 +986,7 @@ const INTROS = [
  [15,[14],"intro","Data protection, bias, transparency and human oversight","Presentation 14, Part 1"],
  [16,[14],"next","Risk assessment, governance, audit and explainability","Presentation 14, Part 2"],
  [17,[12],"next","Monitoring over time: failures, changing data and updates","Presentation 12, Part 2"],
- [18,[],"tutorial","support with Report 5 and an evidence check (the Unit 2 lecturer runs the IP sessions this week)","His portfolio tracker"],
+ [18,[],"tutorial","support with Report 5 and an evidence check (Reece runs the IP sessions this week)","His portfolio tracker"],
  [19,[11],"intro","Change management: engagement, upskilling and communication","Presentation 11, Part 1"],
  [20,[9],"intro","Keeping stakeholders informed","Presentation 9"],
  [21,[11],"next","An adoption plan and support after rollout","Presentation 11, Part 2"],
@@ -1048,6 +1051,8 @@ const MATRIX = [
 const DECISIONS = {
  agreed:[
   ["All 15 duties are covered","DSIT, a key funding partner, requires all 15 duties to be covered. Six lead duties each have their own report. The other nine are supporting duties, evidenced in short, scaffolded sections of those reports. This covers all 64 KSBs."],
+  ["Evidence for the 15 duties","DSIT has left the evidence to us. The duties are evidenced through the HNC criteria assessed in the six reports. The Pass criteria cover 10 duties fully (1, 2, 3, 5, 7, 11, 12, 13, 14 and 15) and the other five only partly (4, 6, 8, 9 and 10). For those five, the short duty section in the same report completes the evidence. Those sections are in the core of every brief, so every learner does them."],
+  ["Who teaches which HNC unit","Reece teaches and assesses Unit 2, and leads project work in weeks 3-7 and 18-22. Lilly teaches and assesses Unit 15, and leads project work in weeks 1-2 and 8-17."],
   ["Four blocks: Discover, Design, Build and Launch","Blocks of different lengths (4, 6, 4 and 8 weeks) with one project running through all four. Inside them, learners take one lead duty roughly a month, following Jonathan's proposal, and hand in a report at the end of each one."],
   ["Merit and Distinction are optional extras","Learners focus on the duties and the Pass criteria; M and D are offered as clearly marked extra tasks."],
   ["Merit and Distinction appear in the mapping","They are shown as optional extra evidence for the duties they match. No duty depends on them, because a learner who only aims for a Pass must still cover all 15."],
@@ -1059,13 +1064,11 @@ const DECISIONS = {
   ["How the teaching works","Jonathan introduces each duty in the first session of the week, using his own materials. Lilly and Reece build the course around those introductions, with the course leader's support: the lessons, activities, project tasks and briefs."]
  ],
  open:[
-  ["What DSIT means by covered","Ask DSIT what evidence they need: a map showing where each duty is taught, or evidence from every learner against every duty. This plan supports both, but the second needs the duty tracker in the Launch plan. Also ask whether the coverage will count towards anything later, such as recognition of prior learning if learners move on to the full apprenticeship, as that would raise the bar on evidence.","team"],
   ["How the coverage is described","Suggested wording: all 15 duties introduced and applied at foundation level. That avoids any suggestion of full occupational competence, which is what the 18-month apprenticeship and its end-point assessment are for.","team"],
   ["The order of the introductions","His planner and presentations run Duties 1 to 15 in order. On the Launchpad his introductions follow the project (one duty per session; every week is on the Week by week page). The content changes little, only when it is taught. Check the plan with him against his planner, and ask which of his presentations already exist.","appr"],
   ["Handover from introductions to lessons","He shares his slides for each duty at least a week before he teaches it, so Lilly and Reece can plan their lessons around it. Agree where they are shared, for example a folder in the Teams channel.","team"],
   ["One report for both the duties and the HNC","Each report evidences its lead duty, its supporting duties and its HNC Pass criteria, so learners write one document, not two. Check with the internal verifier that one piece of work can be assessed for both.","assess"],
   ["Report length","Jonathan's Duty 1 assignment asks for 1,500 to 2,000 words. His example duty reports run to 3,000 to 4,700 words, which would be a lot for beginners roughly every month. Suggest 1,500 to 2,000 words as the target for each report. Supporting duties are evidenced with tables, screenshots and short sections rather than more writing, so the Build report in particular stays manageable.","appr"],
-  ["Who takes which HNC unit","Lilly and Reece each take one unit. The hours come out roughly even, but Unit 15 is the more technical of the two.","team"],
   ["How the briefs are structured","One brief per block, written by Lilly and Reece with the course leader's support, using Jonathan's materials for the duty tasks. Discover and Build have one part each; Design and Launch have two parts with separate hand-in dates, which Pearson allows. That is four briefs to write and verify for six reports.","assess"],
   ["Learning outcomes split across reports","Two Unit 2 learning outcomes are assessed in two different reports: LO1 (P1 in Report 1, P2 in Report 6) and LO3 (P5 in Report 1, P4 in Report 6). Check this with the internal verifier. Every Unit 15 learning outcome sits within a single report.","assess"],
   ["Unit 2 P6 (intellectual property)","No duty covers IP well. Plan 2 or 3 extra Unit 2 sessions in week 18.","assess"],
@@ -1086,15 +1089,16 @@ const READINESS = [
  { group:"Now", when:"By Friday 4 December 2026", items:[
   ["Share the plan with the team and book a meeting to agree it","Course leader","This week","todo","Lilly, Reece and Jonathan, plus the programme manager and head of department for sign-off. Record what is agreed on the Decisions page.",false],
   ["Agree the plan with Jonathan","Course leader","By 4 December","todo","One duty per session in project order, the four things every introduction covers, slides shared a week ahead. Ask which of his presentations exist, and for his portfolio tracker to check the KSB mapping.",false],
-  ["Ask DSIT what evidence they need for the 15 duties","Course leader","By 4 December","todo","A map of where each duty is taught, or evidence from every learner against every duty. The answer decides whether the duty tracker is needed.",false],
+  ["Ask DSIT what evidence they need for the 15 duties","Course leader","Done","done","DSIT left it to us: the duties are evidenced through the HNC criteria, with short duty sections completing Duties 4, 6, 8, 9 and 10.",false],
+  ["Send DSIT a short note of the evidence approach","Course leader","By 4 December","todo","The Mapping page has what it needs: where each duty is evidenced, and the five duties completed by their duty sections.",false],
   ["Confirm Barnsley College's Pearson approval covers the Higher Nationals in Digital Technologies","Course leader, with the exams office","By 4 December","todo","The step with the longest lead time. Approval for HN Computing may not cover it; if it does not, apply straight away.",true],
-  ["Decide who teaches Unit 2 and who teaches Unit 15","Course leader","By 4 December","todo","Lilly and Reece can then start on their unit's brief and lessons.",false],
+  ["Decide who teaches Unit 2 and who teaches Unit 15","Course leader","Done","done","Reece: Unit 2. Lilly: Unit 15.",false],
   ["Agree entry requirements and an initial skills check","Course leader","Before interviews","todo","Pearson sets no formal entry requirements, but the college must make sure learners have a reasonable chance of success.",true]
  ]},
  { group:"Before the Christmas break", when:"December 2026", items:[
   ["Finish interviews and offer the 20 places","Course leader","Before the break","todo","Use the agreed entry requirements and skills check.",false],
   ["Agree how learners are registered with Pearson, and what they receive for two units","Course leader, with the exams office","Before the break","todo","Learners can only be assessed on a qualification they are registered on.",true],
-  ["Choose the low/no-code tool and cloud AI service, and put the request in to IT","Unit 15 lecturer, with the course leader","Before the break","todo","IT needs time to set up accounts and licences. If the build uses Microsoft Foundry, it doubles as practice for the Azure exam.",false],
+  ["Choose the low/no-code tool and cloud AI service, and put the request in to IT","Lilly, with the course leader","Before the break","todo","IT needs time to set up accounts and licences. If the build uses Microsoft Foundry, it doubles as practice for the Azure exam.",false],
   ["Send the timetable request: three days a week, with Jonathan's session first","Course leader, with timetabling","Before the break","todo","Monday 3 May and Monday 31 May are bank holidays. If Monday is a teaching day, his introductions in weeks 15 and 19 need another slot.",false],
   ["Start the placements: arrangements, projects and KPIs with each employer","Course leader, with the placements team","Start before the break","todo","Each learner's process should come from their placement. Employers commit to the ratings and get the support checklist.",false],
   ["Start the project bank of real processes to automate","Course leader","Start before the break","todo","A fallback for any learner whose placement cannot supply a suitable process. Needed by week 3.",false],
@@ -1116,21 +1120,21 @@ const READINESS = [
   ["Plan the week 1 induction","Course leader","By 15 January","todo","Accounts (including a Microsoft Learn profile for the Azure exam), the course map, the project and the AI use rules.",false]
  ]},
  { group:"First four weeks", when:"Weeks 1 to 4: 18 January to 12 February 2027", items:[
-  ["Set the data rules for learner projects and prepare sample data","Unit 15 lecturer","Before week 3 (w/c 1 February)","todo","No real personal data in learners' automations.",false],
+  ["Set the data rules for learner projects and prepare sample data","Lilly","Before week 3 (w/c 1 February)","todo","No real personal data in learners' automations.",false],
   ["Have the project bank ready","Course leader","Before week 3 (w/c 1 February)","todo","Learners choose their process in week 3.",false],
   ["Write and verify the Design brief (Reports 2 and 3)","Lilly and Reece, with the course leader","By week 3 (w/c 1 February)","todo","Two weeks before Design starts, leaving time for verification. Check whether Pearson's Authorised Assignment Briefs cover either unit.",true],
   ["Register learners with Pearson","Exams office","Before Report 1 is handed in (w/c 8 February)","todo","",true],
   ["Standardise assessment and internal verification across the team","Course leader","Before week 4 (w/c 8 February)","todo","Pearson expects time for this in the assessment plan.",true],
-  ["Set up the duty and KSB tracker for the six reports","Jonathan, with the course leader","Before week 4 (w/c 8 February)","todo","Adapted from his portfolio tracker. Staff fill it in, so learners do no extra paperwork. Needed if DSIT wants evidence from every learner.",false]
+  ["Set up the duty evidence record for the six reports","Jonathan, with the course leader","Before week 4 (w/c 8 February)","todo","Most duties are recorded through the HNC assessment decisions, so this maps each duty to its criteria and report sections. Only the sections for Duties 4, 6, 8, 9 and 10 need checking separately. Adapted from Jonathan's portfolio tracker; staff fill it in, so learners do no extra paperwork.",false]
  ]},
  { group:"During the course", when:"Weeks 5 to 24", items:[
   ["Have learner accounts and licences working","College IT","By week 8 (w/c 8 March)","todo","Learners research tools in week 8 and build from week 11.",false],
-  ["Train staff on the build tools","Unit 15 lecturer","By week 8 (w/c 8 March)","todo","Including Microsoft Foundry if the Azure option goes ahead.",false],
+  ["Train staff on the build tools","Lilly","By week 8 (w/c 8 March)","todo","Including Microsoft Foundry if the Azure option goes ahead.",false],
   ["Confirm how the free Azure exams work: who issues them, how they are booked, and whether learners sit them online or on site","Course leader, with the exams office","By week 8 (w/c 8 March)","todo","Free through the deal with Microsoft. Also check that AI-901 is out of beta and its practice assessment is available.",false],
   ["Write and verify the Build brief (Report 4)","Lilly and Reece, with the course leader","By week 9 (w/c 15 March)","todo","Two weeks before Build starts.",true],
   ["Write and verify the Launch brief (Reports 5 and 6)","Lilly and Reece, with the course leader","By week 13 (w/c 19 April)","todo","Two weeks before Launch starts.",true],
   ["Book the Azure exam sittings for learners who opt in","Course leader, with the exams office","By week 20 (w/c 7 June)","todo","Main sitting in week 23 (w/c 5 July), backup in week 24 (w/c 12 July).",false],
-  ["Run Azure exam revision sessions, including a practice exam","Unit 15 lecturer","Weeks 21 and 22 (w/c 14 and 21 June)","todo","For learners sitting the exam. The Unit 15 lecturer is not leading project work in these weeks.",false],
+  ["Run Azure exam revision sessions, including a practice exam","Lilly","Weeks 21 and 22 (w/c 14 and 21 June)","todo","For learners sitting the exam. Lilly is not leading project work in these weeks.",false],
   ["Share each introduction's slides a week ahead","Jonathan","Every week","todo","The Week by week page lists every introduction.",false],
   ["Build each block's lessons and project tasks before it starts","Lilly and Reece, with the course leader","Before each block","todo","Design from week 5, Build from week 11, Launch from week 15.",false]
  ]}
@@ -1235,7 +1239,7 @@ function weekRow(w){
 const breakRow = b => `<div class="w3 brk"><div class="w3-wk"><b>No teaching</b><span class="wc">w/c ${new Date(b[0]).getUTCDate()} ${MON[new Date(b[0]).getUTCMonth()]}</span></div><div class="brk-c">${esc(b[1])}: no teaching this week. Teaching week numbers carry on afterwards.</div></div>`;
 /* rows for a run of weeks, with any week off shown between them */
 const weekRows = list => list.map((w, i) => weekRow(w) + (i < list.length - 1 ? breakAfter(w).map(breakRow).join("") : "")).join("");
-const W3_HEAD = `<div class="w3 w3-head" aria-hidden="true"><div></div><div class="h-appr">1. Apprenticeship introduction<span>Jonathan, 3 hours</span></div><div>2. HNC lessons<span>Unit 15 or Unit 2 lecturer, about 5 hours</span></div><div>3. Project work<span>Learners, with the lead lecturer, about 10 hours</span></div></div>`;
+const W3_HEAD = `<div class="w3 w3-head" aria-hidden="true"><div></div><div class="h-appr">1. Apprenticeship introduction<span>Jonathan, 3 hours</span></div><div>2. HNC lessons<span>Lilly (Unit 15) or Reece (Unit 2), about 5 hours</span></div><div>3. Project work<span>Learners, with the lead lecturer, about 10 hours</span></div></div>`;
 const TAG_KEY = `<div class="chips" style="margin-bottom:12px"><span class="chip dt lead"><b>Duty 1</b></span><span class="small-note" style="align-self:center">lead duty</span><span class="chip dt"><b>Duty 15</b></span><span class="small-note" style="align-self:center">supporting duty</span>${chip("U2 P1",false,false)}<span class="small-note" style="align-self:center">Unit 2 criterion</span>${chip("U15 P1",false,false)}<span class="small-note" style="align-self:center">Unit 15 criterion</span></div>`;
 
 function bar(label, proj, hnc){
@@ -1294,7 +1298,7 @@ const LEAD_BY_WEEK = (() => { const m = {}; STEPS.forEach(s => s.bars.forEach(([
 /* every week in three steps, sized by hours */
 const weekBar = () => `<div class="wk3">
   <div class="wk3-s appr"><span class="wk3-h">3h</span><b>Jonathan</b><span>introduces one duty</span></div>
-  <div class="wk3-s hnc"><span class="wk3-h">5h</span><b>Lilly or Reece</b><span>teach HNC lessons built on it</span></div>
+  <div class="wk3-s hnc"><span class="wk3-h">5h</span><b>Lilly or Reece</b><span>Unit 15 or Unit 2 lessons built on it</span></div>
   <div class="wk3-s proj"><span class="wk3-h">10h</span><b>Learners</b><span>apply it to their own project and report</span></div>
 </div>`;
 
@@ -1376,7 +1380,9 @@ function viewHome(){
       <span class="eyebrow">Start here</span>
       <h1>The AI Career Launchpad plan</h1>
       <p class="lede">A 24-week Level 4 course at Barnsley College, 18 January to 16 July 2027. Learners do one real AI project, and it counts towards two qualifications.</p>
-      <div class="folds" style="margin-top:14px">${fold("What's new in version 2.2", "Updated 24 November 2026", `<ul class="newlist">
+      <div class="folds" style="margin-top:14px">${fold("What's new in version 2.3", "Updated 24 November 2026", `<ul class="newlist">
+        <li><b>Reece teaches Unit 2 and Lilly teaches Unit 15.</b></li>
+        <li><b>The duties are evidenced through the HNC criteria.</b> DSIT left the evidence to us; see Mapping.</li>
         <li><b>Simpler pages.</b> Each page opens with a diagram; the detail is in closed sections like this one.</li>
         <li><b>Optional Azure AI Fundamentals exam</b> in week 23, with week 24 as a backup. Free through a deal with Microsoft.</li>
         <li><b>All 15 duties are covered,</b> as DSIT requires.</li>
@@ -1486,7 +1492,7 @@ function viewBlock(b){
         <div class="grid">
           <div class="panel stack"><h3>The exam</h3><p>AI-900 retired on 30 June 2026. The certification now comes from AI-901: AI concepts (40 to 45%) and building AI solutions in Microsoft Foundry (55 to 60%), with some Python.</p></div>
           <div class="panel stack"><h3>How it fits</h3><p>Discover covers the concepts half. If the build uses Microsoft Foundry, the same work counts towards Duty 7, Unit 15 P5 to P7 and exam practice.</p></div>
-          <div class="panel stack"><h3>The plan</h3><p>Free to sit through a deal with Microsoft. Learners who opt in sit it in week 23 (w/c 5 July), with week 24 as a backup. The Unit 15 lecturer runs revision with a practice exam in weeks 21 and 22.</p></div>
+          <div class="panel stack"><h3>The plan</h3><p>Free to sit through a deal with Microsoft. Learners who opt in sit it in week 23 (w/c 5 July), with week 24 as a backup. Lilly runs revision with a practice exam in weeks 21 and 22.</p></div>
         </div>
         <p class="small-note">To check: how the free exams are booked, online or on site, Azure accounts for the build, and whether Pearson's mapping still refers to AI-900. Microsoft still lists AI-901 as beta, with no practice assessment yet.</p>`) : "",
       finish ? fold("Weeks 23 and 24", "Feedback, resubmissions and the optional Azure exam", `<p>After the final hand-in at week 22, these two weeks are for marking, internal verification and the one resubmission Pearson allows. A resubmission is capped at Pass. Learners who opt in sit the Azure exam in week 23, with week 24 as a backup.</p>`) : "",
@@ -1501,7 +1507,7 @@ function viewTeam(){
   const KIND = {intro:["Introduces","core"], next:["Next stage","support"], tutorial:["Tutorial","folded"]};
   const introRows = INTROS.map(i => { const [w,ds,k,t,m] = i, s = stepOfWeek(w);
     return `<tr><td><b>Week ${w}</b><br><span class="small-note">w/c ${wc(w)}</span></td><td><span class="pill ${KIND[k][1]}">${KIND[k][0]}</span></td><td><div class="chips">${ds.map(n => tagOf(n, s)).join("")}</div></td><td>${esc(capFirst(t))}</td><td>${esc(m)}</td></tr>`; }).join("");
-  const people = [["appr","Jonathan","Apprenticeship lecturer",72,"Introduces one duty each week"],["u15","Unit 15 lecturer","Lilly or Reece",190,"Builds and teaches Unit 15"],["u2","Unit 2 lecturer","Lilly or Reece",170,"Builds and teaches Unit 2"]];
+  const people = [["appr","Jonathan","Apprenticeship lecturer",72,"Introduces one duty each week"],["u15","Lilly","Unit 15 lecturer",190,"Builds and teaches Unit 15"],["u2","Reece","Unit 2 lecturer",170,"Builds and teaches Unit 2"]];
   const hours = `<div class="hrs">${people.map(([k,n,r,h,d]) => `<div class="hrs-row"><div class="hrs-who"><b class="${WHO[k].cls}">${n}</b><span>${r}</span></div><div class="hrs-bar"><span class="hb ${k}" style="width:${Math.round(h / 190 * 100)}%">about ${h}h</span></div><span class="hrs-d">${d}</span></div>`).join("")}
     <div class="hrs-row"><div class="hrs-who"><b>Course leader</b><span>Supports the build</span></div><div class="hrs-bar"><span class="hb cl">Not timetabled</span></div><span class="hrs-d">Keeps the plan and runs the launch plan</span></div></div>`;
   const slots = slotList();
@@ -1514,7 +1520,7 @@ function viewTeam(){
     st += `<span class="tm-wk" ${at(1,c)}>${w}</span><span class="tm-ap${it[2] === "intro" ? "" : " nx"}" ${at(2,c)} title="Week ${w}: ${esc(introText(it))}">${it[1].length ? it[1][0] : "T"}</span><span class="tm-ld ${L2}" ${at(3,c)} title="Week ${w}: ${L2 === "both" ? "both HNC lecturers" : WHO[L2].name}"></span>`;
   });
   const strip = `<div class="tablewrap bs-wrap"><div class="tm" style="grid-template-columns:${cols}">${st}</div></div>
-    <div class="cl-key"><span><i class="k-ap"></i>Duty number Jonathan introduces (outline: next stage, T: tutorial)</span><span><i class="k-u15 solid"></i>Unit 15 lecturer</span><span><i class="k-u2 solid"></i>Unit 2 lecturer</span><span><i class="k-both"></i>Both, feedback weeks</span></div>`;
+    <div class="cl-key"><span><i class="k-ap"></i>Duty number Jonathan introduces (outline: next stage, T: tutorial)</span><span><i class="k-u15 solid"></i>Lilly (Unit 15)</span><span><i class="k-u2 solid"></i>Reece (Unit 2)</span><span><i class="k-both"></i>Both, feedback weeks</span></div>`;
   return `<div class="wrap">
     <section><span class="eyebrow">Team and hours</span><h1>Who does what</h1><p class="lede">Jonathan introduces each duty. Lilly and Reece build and teach the HNC side around it, with the course leader's support.</p></section>
     <section><h2>Every week</h2>${weekBar()}</section>
@@ -1523,16 +1529,16 @@ function viewTeam(){
     ${moreDetail([
       fold("Each role in full", "What Jonathan, the two HNC lecturers and the course leader each do", `<div class="grid">
         <div class="panel stack" style="border-top:6px solid var(--appr)"><h3 class="p-appr">Jonathan, apprenticeship lecturer</h3><ul style="margin:0;padding-left:20px"><li>Introduces one duty in the first session of each week, 3 hours, using his own presentations</li><li>${introCount("intro")} weeks introduce a new duty, ${introCount("next")} take a duty to its next stage and ${introCount("tutorial")} are tutorials</li><li>Shares his slides at least a week ahead</li><li>Records KSB evidence in his portfolio tracker. No HNC teaching or assessment</li></ul></div>
-        <div class="panel stack" style="border-top:6px solid var(--u15)"><h3 class="p-u15">Unit 15 lecturer</h3><ul style="margin:0;padding-left:20px"><li>Builds the Unit 15 lessons, activities, project tasks and brief sections with the course leader</li><li>Leads project work in weeks 1-2 and 8-17</li><li>Teaches and assesses the 9 Unit 15 Pass criteria (60 hours of HNC teaching)</li></ul></div>
-        <div class="panel stack" style="border-top:6px solid var(--u2)"><h3 class="p-u2">Unit 2 lecturer</h3><ul style="margin:0;padding-left:20px"><li>Builds the Unit 2 side in the same way</li><li>Leads project work in weeks 3-7 and 18-22</li><li>Teaches and assesses the 6 Unit 2 Pass criteria, including the IP sessions (60 hours of HNC teaching)</li></ul></div>
+        <div class="panel stack" style="border-top:6px solid var(--u15)"><h3 class="p-u15">Lilly, Unit 15 lecturer</h3><ul style="margin:0;padding-left:20px"><li>Builds the Unit 15 lessons, activities, project tasks and brief sections with the course leader</li><li>Leads project work in weeks 1-2 and 8-17</li><li>Teaches and assesses the 9 Unit 15 Pass criteria (60 hours of HNC teaching)</li></ul></div>
+        <div class="panel stack" style="border-top:6px solid var(--u2)"><h3 class="p-u2">Reece, Unit 2 lecturer</h3><ul style="margin:0;padding-left:20px"><li>Builds the Unit 2 side in the same way</li><li>Leads project work in weeks 3-7 and 18-22</li><li>Teaches and assesses the 6 Unit 2 Pass criteria, including the IP sessions (60 hours of HNC teaching)</li></ul></div>
         <div class="panel stack" style="border-top:6px solid var(--line)"><h3>Course leader</h3><ul style="margin:0;padding-left:20px"><li>Supports Lilly and Reece as they build the course</li><li>Keeps the plan, this portal and the Decisions list up to date</li><li>Owns most of the Launch plan steps</li></ul></div>
-      </div><p class="small-note">Lilly and Reece take one HNC unit each; which unit is still to decide. In weeks 23 and 24 both support feedback, resubmissions and catch-up.</p>`),
+      </div><p class="small-note">Reece takes Unit 2 and Lilly takes Unit 15. In weeks 23 and 24 both support feedback, resubmissions and catch-up.</p>`),
       fold("What every introduction covers", "The same four things each week, so Lilly and Reece know what to build on", `<ol class="points">
         <li><p><b>What the duty is</b> and why it matters at work.</p></li>
         <li><p><b>The key terms</b> learners will meet in the lessons that follow.</p></li>
         <li><p><b>A real example</b> or case study from his materials.</p></li>
         <li><p><b>What learners will produce for it:</b> the section of the report it goes into.</p></li></ol>
-        <p class="note"><strong>For example, week 5.</strong> Jonathan introduces Duty 4: what a discovery session is and how practitioners run one. The Unit 2 lecturer then teaches types of digital transformation for Unit 2 P3, and learners plan their own discovery session in project time.</p>`),
+        <p class="note"><strong>For example, week 5.</strong> Jonathan introduces Duty 4: what a discovery session is and how practitioners run one. Reece then teaches types of digital transformation for Unit 2 P3, and learners plan their own discovery session in project time.</p>`),
       fold("Jonathan's sessions, week by week", "Each session and the presentation it uses", `<div class="tablewrap"><table><thead><tr><th>Week</th><th>Session</th><th>Duties</th><th>Focus</th><th>From his pack</th></tr></thead><tbody>${introRows}</tbody></table></div>
         <p class="small-note">The introductions follow the project order, not 1 to 15. Only the Duty 1 presentation was in the shared pack, so check which others exist.</p>`),
       fold("Hours by block", "The weekly split for each block", `${HOURS_KEY}<div class="stack">${rows}</div><p class="small-note">Draft hours: the exact split depends on breaks and the final timetable.</p>`)
@@ -1605,10 +1611,11 @@ function viewMapping(){
   const head = `<tr><th></th><th></th><th class="grp" colspan="${MATRIX_COLS.length}">Pass: every learner</th><th class="grp mdl" colspan="${MD_COLS.length}">Merit and Distinction: optional</th></tr>
     <tr><th>Duty</th><th>Topic</th>${MATRIX_COLS.map(c=>`<th class="${CRIT[c].u}h" title="${esc(CRIT[c].t)}">${c.replace(" ","<br>")}</th>`).join("")}${MD_COLS.map((c,i)=>`<th class="${CRIT[c].u}h mdh${i===0?" mdl":""}" title="${esc(CRIT[c].t)}">${c.replace(" ","<br>")}</th>`).join("")}</tr>`;
   const body = MATRIX.map(([n,t,pass,md]) => `<tr class="${leadStep(n)?"kept":"sup"}"><td>Duty ${n}</td><td>${esc(t)}</td>${[...pass].map(ch => dot(ch)).join("")}${[...md].map((ch,i) => dot(ch, i===0 ? "mdl" : "")).join("")}</tr>`).join("");
-  const grid = `<div class="tablewrap"><table class="covg"><thead><tr><th>Duty</th>${STEPS.map(s => `<th>Report ${s.n}<span>${esc(s.name)}</span></th>`).join("")}</tr></thead><tbody>${MATRIX.map(([n,t]) => `<tr><td><b>Duty ${n}</b> <span class="small-note">${esc(t)}</span></td>${STEPS.map(s => dutyOf(s).num === n ? `<td><span class="cg lead">Lead</span></td>` : SUPPORT[n] && SUPPORT[n].parts[s.id] ? `<td><span class="cg sup">Section</span></td>` : `<td></td>`).join("")}</tr>`).join("")}</tbody></table></div>
-    <div class="cl-key"><span><i class="k-lead"></i>Lead duty: the report is built around it</span><span><i class="k-sec"></i>Supporting duty: a short section of the report</span></div>`;
+  const grid = `<div class="tablewrap"><table class="covg"><thead><tr><th>Duty</th>${STEPS.map(s => `<th>Report ${s.n}<span>${esc(s.name)}</span></th>`).join("")}<th>Evidence</th></tr></thead><tbody>${MATRIX.map(([n,t]) => `<tr><td><b>Duty ${n}</b> <span class="small-note">${esc(t)}</span></td>${STEPS.map(s => dutyOf(s).num === n ? `<td><span class="cg lead">Lead</span></td>` : SUPPORT[n] && SUPPORT[n].parts[s.id] ? `<td><span class="cg sup">Section</span></td>` : `<td></td>`).join("")}<td>${strongPass(n) ? `<span class="ev-c full">HNC criteria</span>` : `<span class="ev-c part">Criteria + duty section</span>`}</td></tr>`).join("")}</tbody></table></div>
+    <div class="cl-key"><span><i class="k-lead"></i>Lead duty: the report is built around it</span><span><i class="k-sec"></i>Supporting duty: a short section of the report</span></div>
+    <p class="note" style="margin-top:12px"><strong>Evidence.</strong> The duties are evidenced through the HNC criteria assessed in the reports. The Pass criteria cover ${MATRIX.filter(r => strongPass(r[0])).length} duties fully. For Duties ${listAnd(MATRIX.filter(r => !strongPass(r[0])).map(r => String(r[0])))} they match only partly, so the duty's short section in the same report completes the evidence.</p>`;
   return `<div class="wrap">
-    <section><span class="eyebrow">Mapping</span><h1>Where everything is covered</h1><p class="lede">For anyone checking coverage, such as DSIT or the internal verifier.</p></section>
+    <section><span class="eyebrow">Mapping</span><h1>Where everything is covered</h1><p class="lede">For anyone checking coverage, such as DSIT or the internal verifier. The duties are evidenced through the HNC criteria in the six reports.</p></section>
     <section class="stats">
       <div class="stat"><b>15 of 15</b><span>apprenticeship duties</span></div>
       <div class="stat"><b>${ALL_KSB.size} of ${KSB_TOTAL}</b><span>knowledge, skills and behaviours</span></div>
@@ -1621,7 +1628,7 @@ function viewMapping(){
         <p class="note"><strong>The lead duties carry the HNC.</strong> They are the best fit for 10 of the 15 Pass criteria. Four more come from Duties 15 and 12, supporting duties in the same reports. That makes 14 of 15; Unit 2 P6 (intellectual property) needs extra sessions.</p>
         <p class="note"><strong>Most supporting duties relabel work learners already do.</strong> Four new tasks are needed, about one session each: the discovery session (Duty 4), the technical hand-off note (Duty 2), the sustainability note (Duty 13) and the recorded training walkthrough (Duty 10).</p>
         <p class="note"><strong>The people-facing duties come from the apprenticeship side.</strong> Duties 4, 9 and 10 only partly match the HNC, so their evidence comes from the duty tasks.</p>
-        <p class="note"><strong>Foundation level.</strong> Covered means introduced and applied, with evidence in each learner's reports. It is not full occupational competence, which is what the 18-month apprenticeship is for. What DSIT needs as evidence is still to check (see Decisions).</p></div>`),
+        <p class="note"><strong>Foundation level.</strong> Covered means introduced and applied, with evidence in each learner's reports. It is not full occupational competence, which is what the 18-month apprenticeship is for. DSIT left the evidence to us, so it comes through the HNC criteria and these duty sections (see Decisions).</p></div>`),
       fold("KSBs added by the supporting duties", `The lead duties cover ${LEAD_KSB.size}; these ${added.length} come from supporting duties`, `<p>${added.join(", ")}</p><div class="tablewrap"><table><thead><tr><th>Duty</th><th>Adds</th><th>Where it is evidenced</th></tr></thead><tbody>${addRows}</tbody></table></div>`),
       fold("Where each Unit 2 Pass criterion is met", "The report, the week it is taught and the duty it draws on", covTable("u2")),
       fold("Where each Unit 15 Pass criterion is met", "The report, the week it is taught and the duty it draws on", covTable("u15")),
