@@ -860,7 +860,7 @@ const DECISIONS = {
   ["Four blocks: Discover, Design, Build and Launch","Blocks of different lengths (4, 6, 4 and 8 weeks) with one project running through all four. Inside them, learners take one lead duty roughly a month, following Jonathan's proposal, and hand in a report at the end of each one."],
   ["Merit and Distinction are optional extras","Learners focus on the duties and the Pass criteria; M and D are offered as clearly marked extra tasks."],
   ["Merit and Distinction appear in the mapping","They are shown as optional extra evidence for the duties they match. No duty depends on them, because a learner who only aims for a Pass must still cover all 15."],
-  ["Dates","Week 1 starts on Monday 18 January 2027 and the course ends on Friday 16 July 2027. Two weeks have no teaching: the Easter week (w/c 29 March) and the training week (w/c 5 July). Teaching carries on through February half-term."],
+  ["Dates","Week 1 starts on Monday 18 January 2027 and the course ends on Friday 16 July 2027. Two weeks have no teaching: the Easter week (w/c 29 March) and the training week (w/c 28 June). Teaching carries on through February half-term."],
   ["24 teaching weeks","The full 24 weeks will be delivered, possibly including holiday periods."],
   ["Final hand-in at week 22","Report 6, the last one, is handed in at week 22. Weeks 23 and 24 are for feedback, resubmissions and catch-up."],
   ["One duty per apprenticeship session","Each of the 15 duties gets its own introduction week. Seven more sessions take a duty to its next stage, and two are tutorials. The full plan is on the Week by week page."],
@@ -976,7 +976,7 @@ const START = Date.UTC(2027, 0, 18);
 const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const MONTH = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 /* weeks with no teaching: [Monday, label]. Week numbers count teaching weeks only */
-const BREAKS = [[Date.UTC(2027, 2, 29), "Easter week"], [Date.UTC(2027, 6, 5), "Training week"]];
+const BREAKS = [[Date.UTC(2027, 2, 29), "Easter week"], [Date.UTC(2027, 5, 28), "Training week"]];
 /* bank holidays that fall inside teaching weeks */
 const BANK_HOLS = [[Date.UTC(2027, 2, 26), "Good Friday"], [Date.UTC(2027, 4, 3), "Early May bank holiday"], [Date.UTC(2027, 4, 31), "Spring bank holiday"]];
 const DAY = 864e5, WEEK = 7 * DAY;
@@ -1104,7 +1104,7 @@ function viewWeeks(){
       <div class="node" style="border-top:5px solid var(--muted)"><b>3. Project work</b><span>About 10 hours. Learners do that week's part of their project and report.</span></div>
     </div>
     <p class="small-note" style="margin-top:10px">The HNC lesson topics are a starting point: Lilly and Reece are building the lessons, with the course leader's support. A red border marks a week when a report is handed in.</p>
-    <p class="note" style="margin-top:10px"><strong>Dates.</strong> Week 1 starts on Monday 18 January 2027 and week 24 ends on Friday ${(() => { const e = wkDay(24, 4); return `${e.getUTCDate()} ${MONTH[e.getUTCMonth()]} ${e.getUTCFullYear()}`; })()}. There are two weeks with no teaching: the Easter week (w/c 29 March) and the training week (w/c 5 July). Week numbers count teaching weeks only, so week 11 is w/c 5 April. Teaching carries on through February half-term. Bank holidays inside teaching weeks are marked on the week.</p></section>
+    <p class="note" style="margin-top:10px"><strong>Dates.</strong> Week 1 starts on Monday 18 January 2027 and week 24 ends on Friday ${(() => { const e = wkDay(24, 4); return `${e.getUTCDate()} ${MONTH[e.getUTCMonth()]} ${e.getUTCFullYear()}`; })()}. There are two weeks with no teaching: the Easter week (w/c 29 March) and the training week (w/c 28 June). Week numbers count teaching weeks only, so week 11 is w/c 5 April. Teaching carries on through February half-term. Bank holidays inside teaching weeks are marked on the week.</p></section>
     ${groups.map(([t, wks, list, id]) => `<section><h2 class="w3-title">${id ? `<a href="#${id}">${t}</a>` : t} <span>${wks}</span></h2>${W3_HEAD}<div class="w3-list">${weekRows(list)}</div>${breakAfter(list[list.length - 1]).length ? `<div class="w3-list" style="margin-top:8px">${breakAfter(list[list.length - 1]).map(breakRow).join("")}</div>` : ""}</section>`).join("")}
   </div>`;
 }
@@ -1143,7 +1143,7 @@ function viewHome(){
       <li><b>Each week starts with Jonathan, the apprenticeship lecturer, introducing one duty.</b> Every duty gets its own introduction week.</li>
       <li><b>Lilly and Reece build the course around those introductions,</b> with the course leader's support: the HNC lessons, activities, project tasks and briefs.</li>
       <li><b>New Launch plan page:</b> the steps to get the course started, in date order, with who does each one. <a href="#readiness">See the launch plan</a></li>
-      <li><b>New Week by week page:</b> what happens in every one of the 24 weeks, with dates. Week 1 starts on Monday 18 January 2027; the Easter week (w/c 29 March) and the training week (w/c 5 July) have no teaching. <a href="#weeks">See every week</a></li>
+      <li><b>New Week by week page:</b> what happens in every one of the 24 weeks, with dates. Week 1 starts on Monday 18 January 2027; the Easter week (w/c 29 March) and the training week (w/c 28 June) have no teaching. <a href="#weeks">See every week</a></li>
     </ul></section>
     <section><h2>The plan in six points</h2><ol class="points">
       <li><p><b>One real project.</b> Each learner picks a real process to automate with AI, ideally from their work placement, then designs it, builds it and plans how to roll it out.</p></li>
