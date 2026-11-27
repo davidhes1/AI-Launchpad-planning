@@ -788,6 +788,31 @@ details.dq p { padding: 0 14px 12px 40px; font-size: 0.93rem; color: var(--muted
 .split .s15 { background: var(--u15); } .split .s2 { background: var(--u2); }
 .bstat { font-size: 0.78rem; font-weight: 700; border-radius: 999px; padding: 2px 9px; white-space: nowrap; display: inline-block; }
 .bstat.draft { background: var(--appr); color: var(--on-solid); } .bstat.todo { border: 1.5px solid var(--muted); color: var(--muted); }
+/* v2.9: SudoCyber labs mapping */
+.sc { display: grid; gap: 18px; border: 2px dashed var(--u15); border-radius: 14px; padding: 18px; background: var(--surface); }
+.sc-top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.sc-badge { font-size: 0.8rem; font-weight: 800; color: var(--u15); background: var(--u15-soft); border: 2px solid var(--u15); border-radius: 999px; padding: 3px 12px; white-space: nowrap; }
+.sc-strip { display: grid; grid-template-columns: repeat(24, minmax(22px, 1fr)); gap: 3px; min-width: 640px; }
+.sc-strip span { height: 30px; border-radius: 5px; background: var(--bg); border: 1px solid var(--rule); display: grid; place-items: center; font-size: 0.72rem; font-weight: 700; color: var(--muted); }
+.sc-strip span.lab { background: var(--u15); border-color: var(--u15); color: var(--on-solid); }
+.sc-strip span.opt { background: var(--u15-soft); border: 2px dashed var(--u15); color: var(--u15); }
+.sc-strip span.rep { box-shadow: inset 0 -4px 0 var(--line); }
+.sc-map { display: grid; gap: 10px; }
+.sc-head, .sc-row { display: grid; grid-template-columns: 110px minmax(0,1.3fr) 30px minmax(0,1fr) 30px minmax(0,0.9fr); gap: 8px; align-items: stretch; }
+.sc-head { font-family: var(--display); font-weight: 800; font-size: 0.82rem; color: var(--muted); }
+.sc-wk { display: grid; align-content: center; justify-items: center; text-align: center; background: var(--u15); color: var(--on-solid); border-radius: 10px; padding: 8px 4px; }
+.sc-wk b { font-family: var(--display); font-size: 1.05rem; }
+.sc-wk span { font-size: 0.78rem; }
+.sc-lab, .sc-out, .sc-cnt { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 10px 12px; display: grid; gap: 4px; align-content: start; font-size: 0.92rem; }
+.sc-lab { border-left: 5px solid var(--u15); }
+.sc-lab b, .sc-out b { font-family: var(--display); font-size: 1rem; }
+.sc-lab small, .sc-out small { color: var(--muted); font-size: 0.84rem; }
+.sc-out { border-left: 5px solid var(--line); }
+.sc-arr { align-self: center; text-align: center; color: var(--line); font-weight: 800; font-size: 1.3rem; }
+.sc-two { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.sc-go { border-top: 5px solid var(--appr); }
+.sc-no { border-top: 5px solid var(--u2); }
+@media (max-width: 760px) { .sc-head { display: none; } .sc-row { grid-template-columns: 1fr; } .sc-arr { transform: rotate(90deg); } }
 </style>
 </head>
 <body>
@@ -800,14 +825,14 @@ details.dq p { padding: 0 14px 12px 40px; font-size: 0.93rem; color: var(--muted
 </header>
 <main id="main" tabindex="-1"></main>
 <footer><div class="wrap">
-  <p>Draft proposal for the delivery team. Version 2.8, updated 26 November 2026. Nothing here is agreed until it appears under Decisions as agreed.</p>
+  <p>Draft proposal for the delivery team. Version 2.9, updated 27 November 2026. Nothing here is agreed until it appears under Decisions as agreed.</p>
   <p>Sources: Skills England ST1512 AI and Automation Practitioner (duties and KSBs as published in version 2.0; version 2.1 changed only the assessment plan); Pearson BTEC Higher Nationals in Digital Technologies specification, Issue 4; Barnsley College 24-week duty planner; Jonathan's planner and materials (shared 19 November 2026); DSIT's requirement that all 15 duties are covered (November 2026); Microsoft Learn (Azure AI Fundamentals).</p>
 </div></footer>
 
 <script>
 /* ---------- DATA ---------- */
 const BASE_TITLE = "AI Career Launchpad Staff Portal";
-const UPDATED = "26 November 2026";
+const UPDATED = "27 November 2026";
 
 const CRIT = {
   "U2 P1": {u:"u2", s:"Innovation vs invention", t:"Explain digital innovation and determine its importance to organisations in comparison with digital inventions."},
@@ -1166,6 +1191,7 @@ const DECISIONS = {
   ["Placement projects","If every learner has a paid placement, the process they automate should come from it, so the Level 4 KPIs and the reports measure the same work. The project bank becomes a fallback.","team"],
   ["Pre-course work","Suggested: Cisco's Introduction to Modern AI (free, about 6 hours, with a badge) and a 30-minute \"spot a process\" note, sent with the offer letter. Optional: Microsoft Learn's Introduction to AI concepts or an AI Skills Hub course. Not assessed. It means Lilly's week 1 baseline quiz would measure learners after the pre-course work: either run the quiz at enrolment, or accept the higher starting point. See the Discover page.","team"],
   ["Engagement activities","Agree the activities on each block page and who leads them: the day-one build, the week 4 pitch panel, the Friday demos, break your own bot and launch day. Each runs in time already timetabled. The launch day date (Thursday 15 or Friday 16 July) can wait until the spring: invitations go out by week 18.","team"],
+  ["SudoCyber labs in the Safe and fair block (Lilly to decide)","Barnsley College has SudoRange licences. SudoCyber's published labs are general cyber security, but they say they map the range to a course and build bespoke exercises. The suggested fit is three short solo labs in Lilly's workshops in weeks 15 to 17: attacking an AI assistant with prompt injection; finding the weaknesses in an automation, such as exposed API keys, too much access or data leakage; and reading an AI system's logs to spot failures or misuse. Each one feeds a section learners already write: the risk and impact assessment (U15 P8, Duty 14) and the upkeep plan (U15 P9, Duty 12), with U15 M4 as an optional extension. They could also supply or strengthen break your own bot in weeks 15 and 16. The marked write-up is the evidence, not the platform score. It is only worth doing if SudoCyber can offer AI-specific labs at beginner level; general cyber labs on their own add little, and would at most become optional extension work. No new hours are needed. Lilly decides by week 10 (w/c 22 March), once SudoCyber has replied, so the labs can be written into the Launch brief. The mapping diagram is on the Launch block page.","team"],
   ["Work placement evidence","Agree how placement evidence for the supporting duties (the discovery session, stakeholder updates, training) is collected. The classroom versions on the block pages are the fallback for learners without a placement.","team"]
  ]
 };
@@ -1213,6 +1239,7 @@ const READINESS = [
   ["Set up the evaluation: quiz bank, forms and shared spreadsheet","Evaluation lead","By 15 January","todo","Map the quiz questions to the Pass criteria and the behaviour items to the duty KSBs. Assign quiz nicknames linked to learner IDs.",false],
   ["Collect follow-up consent at enrolment","David","At enrolment","todo","Needed for the career survey after the course.",false],
   ["Hold the week 0 expectations meeting with BIST and employers","David","By 15 January","todo","Agree what success looks like for the pilot, the targets for each indicator and what counts as a positive outcome.",false],
+  ["Ask SudoCyber what AI security labs they can offer","David","By 15 January","todo","Can they build three or four beginner labs on securing AI and automation (prompt injection, data leakage, exposed API keys, reading an AI system's logs)? Also ask whether our licence covers bespoke content and Launchpad learners, what progress reports tutors can export, the lead time, and whether one lab could be piloted in February. Pass the answers to Lilly for her decision.",false],
   ["Plan the week 1 induction","David","By 15 January","todo","Accounts (including a Microsoft Learn profile for the Azure exam), the course map, the project and the AI use rules.",false]
  ]},
  { group:"First four weeks", when:"Weeks 1 to 4: 18 January to 12 February 2027", items:[
@@ -1227,6 +1254,7 @@ const READINESS = [
   ["Have learner accounts and licences working","College IT","By week 8 (w/c 8 March)","todo","Learners research tools in week 8 and build from week 11.",false],
   ["Train staff on the build tools","Lilly","By week 8 (w/c 8 March)","todo","Including Microsoft Foundry if the Azure option goes ahead.",false],
   ["Confirm how the free Azure exams work: who issues them, how they are booked, and whether learners sit them online or on site","David, with the exams office","By week 8 (w/c 8 March)","todo","Free through the deal with Microsoft. Also ask whether the deal includes Azure access for practice, and check that AI-901 is out of beta. Microsoft's free practice assessment is now on AI Skills Navigator.",false],
+  ["Decide whether SudoCyber labs go into Report 5","Lilly","By week 10 (w/c 22 March)","todo","Based on SudoCyber's reply. If they go in, write them into the Launch brief (verified by week 13) and check the approach with the internal verifier.",false],
   ["Write and verify the Build brief (Report 4)","Lilly and Reece, with David","By week 9 (w/c 15 March)","todo","Two weeks before Build starts.",true],
   ["Write and verify the Launch brief (Reports 5 and 6)","Lilly and Reece, with David","By week 13 (w/c 19 April)","todo","Two weeks before Launch starts.",true],
   ["Book the Azure exam sittings for learners who opt in","David, with the exams office","By week 20 (w/c 7 June)","todo","Main sitting in week 23 (w/c 5 July), backup in week 24 (w/c 12 July).",false],
@@ -1652,7 +1680,10 @@ function viewHome(){
       <h1>The AI Career Launchpad plan</h1>
       <p class="lede">A 24-week Level 4 course at Barnsley College, 18 January to 16 July 2027. Learners do one real AI project, and it counts towards two qualifications.</p>
       ${nowChip()}
-      <div class="folds" style="margin-top:14px">${fold("What's new in version 2.8", "Updated 26 November 2026", `<ul class="newlist">
+      <a class="nowchip pre" href="#launch" style="margin-left:8px;border-color:var(--u15)">New: SudoCyber labs proposal for Lilly, on the Launch page</a>
+      <div class="folds" style="margin-top:14px">${fold("What's new in version 2.9", "Updated 27 November 2026", `<ul class="newlist">
+        <li><b>SudoCyber labs:</b> a new open decision for Lilly. Barnsley College has SudoRange licences, and three short AI security labs could feed the risk assessment and upkeep plan in Report 5. Lilly decides by week 10, once SudoCyber has said what they can offer. The mapping diagram is on the <a href="#launch">Launch page</a>.</li>
+        <li><b>Launch plan:</b> two new steps. David asks SudoCyber what they can offer by 15 January; Lilly decides by week 10 (w/c 22 March).</li></ul>`)}${fold("Version 2.8", "26 November 2026", `<ul class="newlist">
         <li><b>Shorter hand-ins:</b> each report is now an evidence pack of templates, tables, diagrams and screenshots, with short written answers instead of 1,500 to 2,000 words. See Decisions.</li>
         <li><b>Discover brief improved:</b> checked against the specification's Essential Content for Unit 2 and Unit 15, with a return on investment, funding routes, milestones and Netflix as the Task 3 case study.</li>
         <li><b>Decisions:</b> report length and how the build is done are no longer listed as decisions for Jonathan. Lilly and Reece decide the hand-ins, and Lilly recommends the build tool.</li></ul>`)}${fold("Version 2.7", "26 November 2026", `<ul class="newlist">
@@ -1724,6 +1755,44 @@ function viewWeeks(){
   </div>`;
 }
 
+/* v2.9: SudoCyber labs, a proposal for Lilly to decide on. [week, lab, what learners do on SudoRange, report section it feeds, what they write, counts towards] */
+const SUDO_LABS = [
+ [15,"Attack an AI assistant","Try prompt injection and jailbreak attacks on a practice chatbot on SudoRange, and log which ones worked.","Risk and impact assessment: security risks","The attacks that worked, why, and whether their own automation could fall for them. Then try the same on their own bot (break your own bot).",[14,"U15 P8"]],
+ [16,"Find the weaknesses in an automation","Inspect a practice workflow for exposed API keys, too much access and personal data leaking out.","Risk and impact assessment: controls","Each weakness found, the risk it creates, and the fix they would apply to their own automation.",[14,"U15 P8","U15 M4"]],
+ [17,"Read the logs","Search an AI system's logs to spot failures, misuse and unusual activity.","Upkeep plan: monitoring","What they would monitor in their own automation, how often, and what would trigger action.",[12,"U15 P9"]]
+];
+function sudoSection(){
+  const strip = Array.from({length:24}, (_, i) => { const w = i + 1, lab = SUDO_LABS.some(l => l[0] === w), opt = w === 12, rep = STEPS.some(s => s.checkpoint.week === w);
+    return `<span class="${lab ? "lab" : opt ? "opt" : ""}${rep ? " rep" : ""}" title="Week ${w}, w/c ${wc(w)}${lab ? ": SudoCyber lab" : opt ? ": optional security check of the build" : ""}">${w}</span>`; }).join("");
+  const rows = SUDO_LABS.map(([w, t, d, out, wr, c]) => `<div class="sc-row">
+      <div class="sc-wk"><b>Week ${w}</b><span>w/c ${wc(w)}</span></div>
+      <div class="sc-lab"><b>${esc(t)}</b><span>${esc(d)}</span><small>SudoRange lab, about an hour of Lilly's workshop time</small></div>
+      <span class="sc-arr" aria-hidden="true">→</span>
+      <div class="sc-out"><b>${esc(out)}</b><span>${esc(wr)}</span><small>Report 5, handed in week 18</small></div>
+      <span class="sc-arr" aria-hidden="true">→</span>
+      <div class="sc-cnt"><div class="chips">${c.map(x => typeof x === "number" ? tagOf(x) : chip(x, x === "U15 M4", false)).join("")}</div>${c.includes("U15 M4") ? `<small class="small-note">M4 dashed: optional extension</small>` : ""}</div>
+    </div>`).join("");
+  return `<section class="sc" aria-labelledby="sc-h">
+    <div class="sc-top"><span class="sc-badge">Proposal: Lilly to decide by week 10 (w/c ${wc(10)})</span><span class="small-note">Not yet agreed. It only goes ahead if SudoCyber can offer beginner labs on securing AI.</span></div>
+    <div><h2 id="sc-h">SudoCyber labs: how they could fit</h2><p class="small-note">Barnsley College has SudoRange licences. Three short solo labs would run inside Lilly's existing workshops, so no new hours. Each lab feeds a section learners already write; the marked write-up is the evidence, not the platform score.</p></div>
+    <div class="tablewrap" style="padding:12px"><div class="sc-strip" role="img" aria-label="Labs in weeks 15, 16 and 17; optional security check in week 12">${strip}</div>
+      <div class="cl-key"><span><i class="k-u15 solid"></i>SudoCyber lab</span><span><i class="k-u15"></i>Optional: security check of the build</span><span><i class="k-lead" style="width:22px;height:4px"></i>Report hand-in week</span></div></div>
+    <div class="sc-map"><div class="sc-head" aria-hidden="true"><span>When</span><span>The lab</span><span></span><span>What learners write</span><span></span><span>Counts towards</span></div>${rows}</div>
+    <div><h3 style="margin-bottom:10px">Route to a decision</h3><div class="flow">
+      <div class="node"><b>By 15 January</b><span>David asks SudoCyber what AI security labs they can offer, and what the licence covers</span></div><span class="to" aria-hidden="true">→</span>
+      <div class="node"><b>February</b><span>Lilly tries one pilot lab</span></div><span class="to" aria-hidden="true">→</span>
+      <div class="node end"><b>Week 10, w/c ${wc(10)}</b><span>Lilly decides: in, extension only, or out</span></div><span class="to" aria-hidden="true">→</span>
+      <div class="node"><b>Week 13, w/c ${wc(13)}</b><span>Written into the Launch brief and verified</span></div><span class="to" aria-hidden="true">→</span>
+      <div class="node"><b>Weeks 15 to 17</b><span>Labs run in Lilly's workshops</span></div>
+    </div></div>
+    <div class="sc-two">
+      <div class="panel stack sc-go"><h3>Worth it if</h3><ul style="margin:0;padding-left:20px"><li>SudoCyber can build or supply labs on AI and automation security</li><li>They are beginner level and step by step</li><li>Lilly can see each learner's progress</li><li>The licence covers Launchpad learners through May and June 2027</li></ul></div>
+      <div class="panel stack sc-no"><h3>Not worth it if</h3><ul style="margin:0;padding-left:20px"><li>Only general cyber labs are available: at most they become optional extension work</li><li>Setting it up takes Lilly's time away from the build and the risk assessment</li></ul></div>
+      <div class="panel stack"><h3>Smaller extras</h3><ul style="margin:0;padding-left:20px"><li>Self-guided streams as early finisher work all year</li><li>Week 12: an optional security check of their own build</li><li>A SudoCyber workshop could fill the industry day</li></ul><p class="small-note">Not a fit for Reports 1 to 4 and 6, or for Unit 2.</p></div>
+    </div>
+  </section>`;
+}
+
 function viewBlock(b){
   const idx = BLOCKS.indexOf(b), prev = BLOCKS[idx-1], next = BLOCKS[idx+1];
   const two = b.parts.length > 1;
@@ -1774,6 +1843,7 @@ function viewBlock(b){
     <section><h2>Week by week</h2>${blockStrip(list)}</section>
     ${b.id === "discover" ? `<section><h2>Before week 1: pre-course work</h2><p class="small-note" style="margin-bottom:10px">Sent with the offer letter. About 7 hours over the Christmas break, not assessed.</p><div class="eng-grid">${PRECOURSE.map(([k, t, d, h, c]) => `<article class="eng l-${c}"><span class="eyebrow">${k} · ${h}</span><h3>${esc(t)}</h3><p>${esc(d)}</p></article>`).join("")}</div><p class="small-note" style="margin-top:8px">Lilly's week 1 baseline quiz would now measure learners after this work; see Decisions.</p></section>` : ""}
     <section><h2>Making it engaging</h2><p class="small-note" style="margin-bottom:10px">Each activity runs in time already timetabled and counts towards a report, a duty or the evaluation. <a href="#team">The five principles and the weekly routines</a> are on Team and hours.</p><div class="eng-grid">${ENGAGE.filter(e => e[0] === b.id).map(engCard).join("")}</div></section>
+    ${b.id === "launch" ? sudoSection() : ""}
     <section><h2>What goes in ${two ? "the two reports" : "the report"}</h2><p class="small-note" style="margin-bottom:10px">Each line is a section of the report. The tags show what it counts towards.</p><div class="rgrid">${b.parts.map(s => reportCard(s, false, true)).join("")}</div></section>
     ${moreDetail([
       fold("Every week in detail", "Jonathan's introduction, the HNC lessons and the project work, week by week", `${W3_HEAD}<div class="w3-list">${weekRows(list)}</div>`),
